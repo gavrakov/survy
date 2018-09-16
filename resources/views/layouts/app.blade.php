@@ -10,35 +10,34 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Survy') }}</title>
 
     <!-- Styles -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <!--link href="{{ asset('css/custom.css') }}" rel="stylesheet"-->
+    <link href="{{ asset('css_bs4/bootstrap.css') }}" rel="stylesheet">
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+
+
     <link href="{{ asset('css/survy.css') }}" rel="stylesheet">
 
-    <!--link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet"-->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <!-- Custom Fonts -->
-    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css_bs4/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Metis menu -->
-    <link href="{{ asset('css/metisMenu.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css_bs4/metisMenu.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    
-    <!--script src="{{ asset('js/jquery.bootstrap-growl.min.js') }}"></script-->
 
     <!-- Animate -->
-    <link href="{{ asset('css/Animate.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css_bs4/Animate.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Select2 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
     <!-- Bootstrap atepicker -->
-    <link href="{{ asset('css/bootstrap-datepicker.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css_bs4/bootstrap-datepicker.css') }}" rel="stylesheet" type="text/css">
 
 
     
@@ -95,31 +94,37 @@
 
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script> <!-- asset ucitava sve iz public foldera -->
+    <!--script src="{{ asset('js/app.js') }}"></script--> <!-- asset ucitava sve iz public foldera -->
+
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="{{ asset('js/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('js_bs4/metisMenu.min.js') }}"></script>
 
     <!-- Global functions -->
-    <script src="{{ asset('js/functions.js') }}"></script>
+    <script src="{{ asset('js_bs4/functions.js') }}"></script>
 
     <!-- Survy js -->
-    <script src="{{ asset('js/survy.js') }}"></script>
+    <script src="{{ asset('js_bs4/bootstrap.min.js') }}"></script>
+
+    <!-- Survy bundle -->
+    <script src="{{ asset('js_bs4/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Popup notifications -->
-    <script src="{{ asset('js/notify/bootstrap-notify.js') }}"></script>
+    <script src="{{ asset('js_bs4/notify/bootstrap-notify.js') }}"></script>
     <!--script src="{{ asset('js/notify/Gruntfile.js') }}"></script-->
 
     <!-- Upload files plugin -->
-    <script src="{{ asset('js/file/jquery.ui.widget.js') }}"></script>
-    <script src="{{ asset('js/file/jquery.iframe-transport.js') }}"></script>
-    <script src="{{ asset('js/file/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('js_bs4/file/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('js_bs4/file/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('js_bs4/file/jquery.fileupload.js') }}"></script>
 
        <!-- Bootstrap datepicker -->
-    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js_bs4/bootstrap-datepicker.js') }}"></script>
 
     <!-- Select2 js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+   
 
 
 

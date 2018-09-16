@@ -1,0 +1,135 @@
+<?php $total_price = 0; ?>
+
+<?php if(!empty($insgroceries)): ?>
+    <?php $__currentLoopData = $insgroceries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ins_grocery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        
+    <tr>
+        <td width="20%">
+            <img class="icon_object" src="<?php 
+
+            // Vraca collection of object
+            $icon = $ins_grocery->grocery()->first()->category()->first()->icon;
+
+            // Ovo srediti
+            $path = 'storage/icons/groceries/' . $icon;
+
+            echo asset($path);
+
+            ?>"" >
+        </td>
+
+        <?php
+
+            if(session()->has('location')) {
+
+                // Kolicina namirnice 
+                $quantity = floatval($ins_grocery->grocery()->first()->quantity);
+
+                // Kolicina namirnice u receptu
+                $recipe_quantity = floatval($ins_grocery->quantity);
+
+                // Cena po kolicini
+                $price = floatval($ins_grocery->grocery()->first()->GroceriesPrices()->first()['price']);
+
+                // Cena u receptu
+                $recipe_price = 0.00;
+
+                if ($quantity > 0 && $recipe_quantity > 0 && $price > 0) {
+
+                    // Cena u receptu
+                    $recipe_price = floatval($recipe_quantity/$quantity*$price);
+
+                    // Ukupna cena
+                    $total_price = $total_price + $recipe_price;
+                } 
+            }
+            
+
+
+
+        ?>
+
+        <td width="20%" style="vertical-align: center"><?php echo e($ins_grocery->grocery()->first()->name); ?></td>
+        <td width="20%" style="vertical-align: center"><?php echo e($ins_grocery->grocery()->first()->category()->first()->name); ?></td>
+        <td width="10%" style="vertical-align: center"><?php echo e($ins_grocery->quantity); ?></td>
+        <td width="10%" style="vertical-align: center"><?php echo e($ins_grocery->grocery()->first()->unite()->first()->unite); ?></td>
+
+        <?php if(session()->has('location')): ?>  
+                    <!--td width="10%" style="vertical-align: center"><?php echo e($ins_grocery->grocery()->first()->GroceriesPrices()->first()['price']); ?></td-->
+                    <td width="10%" style="vertical-align: center"><?php echo e(number_format((float)$recipe_price, 2, '.', '')); ?></td>
+        <?php endif; ?>
+        
+        <td width="20%" style="vertical-align: center"><button type="button" id="del_<?php echo e($ins_grocery->grocery_id); ?>" onClick="delGrocery('<?php echo e(route('recipes.delgrocery',['recipe_id' => $ins_grocery->recipe_id,'grocery_id' => $ins_grocery->grocery_id])); ?>'); " class="btn btn-default btn-circle"><i class="fa fa-times"></i></td>
+    </tr>
+        
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php endif; ?>
+
+<tr>
+    <td colspan="5" align="right">&nbsp;Total price:</td>
+    <td><p><b><?php echo e(number_format((float)$total_price, 2, '.', '')); ?></b></p></td>
+    <td>&nbsp;</td>
+</tr>
+
+
+
+
+
+<!-- Remove groceries from the recipe -->
+<script type="text/javascript">
+
+    /* PROVERITI BRISANJE, RUTU KOJU SAM KREIRAO, POTREBNO JE DA REFRESHUJE TABELU NAKON BRISANJA */
+     function delGrocery(url) {
+        
+        alert('usao');
+
+        // Brise prethodne greske
+        $('#errors' + '> span').remove();
+
+        $.ajax({
+        headers: {'X-CSRF-TOKEN' : '<?php echo e(csrf_token()); ?>'},
+        type: 'post',
+        url: url,
+        dataType: 'json',
+        
+
+            success: function(response) {
+
+                // Brise namirnicu iz korpe u koliko je dodata u recept
+                //$('#'+response.relation['grocery_id'] + '_row').remove();
+
+    
+
+
+                // Load all groceries.
+                loadTableData('<?php echo e(route("recipes.insgroceriesload",["id" => $ins_grocery->recipe_id])); ?>','recipes_groceries');
+
+                console.log(response);
+            },
+
+            error: function(response) {
+
+                // Prikaz notifikacije
+                //showNotification('danger', 'The recipe could not be added');
+
+                // Prikaz gresaka
+                /*var data = response.responseJSON;
+
+                $.each(data.errors, function(index,val){
+
+                    console.log(val);
+                    // Dodajem crveni okvir
+                    $('#errors').addClass('has-error');
+                    // Brisem span ako postoji
+                    $('#errors' + '> span').remove();
+                    // Dodajem span kako bih prikazao gresku
+                    $('#errors').append('<span class="help-block">'+val+'</span>');
+                });*/
+
+                console.log(response);
+            }
+
+        });
+    }
+
+</script>   

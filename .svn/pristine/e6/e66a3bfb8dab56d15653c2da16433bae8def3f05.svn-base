@@ -1,0 +1,74 @@
+<!-- Modal create recipe -->
+<div id="create" class="modal fade">
+  <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create recipe</h3>
+            </div>
+            <div class="modal-body">
+                    <form id="create_f" role="form" enctype="multipart/form-data" method="POST" action="<?php echo e(route('recipes.store')); ?>">
+             
+
+                        <!-- Name -->
+                        <div id="f_name" class="form-group <?php echo e($errors->has('name') ? ' has-error' : ''); ?>">
+                            <label for="name">Name</label>
+                            <input id="name" type="text" class="form-control" name="name" value="<?php echo e(old('name')); ?>" required autofocus >
+                            <?php if($errors->has('name')): ?>
+                                <span class="help-block">
+                                    <?php echo e($errors->first('name')); ?>
+
+                                </span>
+                            <?php endif; ?>
+                        </div>
+
+                        <!-- Categories -->
+                        <div id="f_categories" class="form-group">
+                                <label>Categories</label>
+                                <!--select id="categories" name="categories[]" class="form-group" multiple="multiple">
+                                    <?php if(isset($categories)): ?>
+                                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                            <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endif; ?>
+                                </select-->
+                                <select style="width:100%;" id="categories" name="categories[]" class="form-group <?php echo e($errors->has('name') ? ' has-error' : ''); ?>" multiple="multiple">
+                                    <?php if(isset($categories)): ?>
+                                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                            <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php endif; ?>
+                                </select>
+                        </div>
+
+                        <!-- Number of persons -->
+                        <div id="f_persons" class="form-group <?php echo e($errors->has('persons') ? ' has-error' : ''); ?>">
+                            <label for="persons">Number of persons</label>
+                            <input id="persons" type="text" class="form-control" name="persons" value="<?php echo e(old('persons')); ?>" required autofocus >
+                            <?php if($errors->has('persons')): ?>
+                                <span class="help-block">
+                                    <?php echo e($errors->first('persons')); ?>
+
+                                </span>
+                            <?php endif; ?>
+                        </div>
+
+                              
+                    </form>
+            </div>
+            <div class="modal-footer">
+                 <button id="btn_insert" onClick="save('create');" type="button" name="btn_insert" class="btn btn-md btn-success">Save</button>
+            </div>
+        </div>
+  </div>  
+</div>
+
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+    $('#categories').select2({
+        //placeholder: 'Select categories'
+    });
+});
+
+</script>

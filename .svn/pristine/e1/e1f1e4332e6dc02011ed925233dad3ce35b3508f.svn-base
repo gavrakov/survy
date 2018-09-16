@@ -1,0 +1,33 @@
+    <?php if(isset($groceries)): ?>
+    	<?php $__currentLoopData = $groceries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $grocery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+    		<tr>
+                <td>
+                    <img src="<?php 
+
+                    // Vraca collection of object
+                    $icon = $grocery->category()->first()->icon;
+
+                    // Ovo srediti
+                    $path = 'storage/icons/groceries/' . $icon;
+                    
+                    echo asset($path);
+                    
+                    ?>"" >
+                  
+                </td>   
+                <td><?php echo e($grocery->name); ?></td>
+                <td><?php echo e($grocery->category()->first()->name); ?></td>
+                <td><?php echo e($grocery->unite()->first()->unite); ?></td>
+                <td><?php echo e($grocery->quantity); ?></td>
+
+                <?php if(session()->has('location')): ?>  
+                    <td><?php echo e($grocery->GroceriesPrices()->first()['price']); ?></td>
+                <?php endif; ?>
+
+                <td><span id="edt_<?php echo e($grocery->id); ?>" onClick="showEditModal('<?php echo e(route('groceries.edit',['id' => $grocery->id])); ?>','edit');" class="btn btn-default btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</span></td>
+                <td><span id="del_<?php echo e($grocery->id); ?>" onClick="delGrocery('<?php echo e($grocery->id); ?>');"  class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-remove"></i>&nbsp;Delete</span></td>
+            </tr>
+    	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <tr><td colspan="100%" align="center"><?php echo e($groceries->links()); ?></td></tr>         
+    <?php endif; ?>

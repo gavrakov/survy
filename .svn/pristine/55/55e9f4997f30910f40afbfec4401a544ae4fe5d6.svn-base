@@ -1,0 +1,29 @@
+<?php if(!empty($insertedgroceries)): ?>
+    <?php $__currentLoopData = $insertedgroceries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $ins_grocery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        
+    <tr>
+        <td width="20%">
+            <img class="icon_object" src="<?php 
+
+            // Vraca collection of object
+            $icon = $ins_grocery->grocery()->first()->category()->first()->icon;
+
+            // Ovo srediti
+            $path = 'storage/icons/groceries/' . $icon;
+
+            echo asset($path);
+
+            ?>"" >
+        </td>
+
+        <td width="20%" style="vertical-align: center"><?php echo e($ins_grocery->grocery()->first()->name); ?></td>
+        <td width="20%" style="vertical-align: center"><?php echo e($ins_grocery->grocery()->first()->category()->first()->name); ?></td>
+        <td width="10%" style="vertical-align: center"><?php echo e($ins_grocery->grocery()->first()->unite); ?></td>
+        <td width="10%" style="vertical-align: center"><?php echo e($ins_grocery->grocery()->first()->unite()->first()->unite); ?></td>
+        <td width="20%" style="vertical-align: center">&nbsp;</td>
+    </tr>
+        
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+<?php endif; ?>
+
+   

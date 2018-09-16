@@ -1,0 +1,116 @@
+<?php $recipe = $data['recipe']; ?>
+ <?php $groceries = $data['groceries']; ?>
+
+ <?php if(!empty($groceries)): ?>
+    <?php $__currentLoopData = $groceries; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $grocery): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+    <tr id="<?php echo e($grocery->id); ?>_row">
+    
+        <td width="10%">
+            <img class="icon_object" src="<?php 
+
+            // Vraca collection of object
+            $icon = $grocery->category()->first()->icon;
+
+            // Ovo srediti
+            $path = 'storage/icons/groceries/' . $icon;
+
+            echo asset($path);
+
+            ?>"" >
+        </td>
+        <td width="30%"><?php echo e($grocery->name); ?></td>
+        <td width="20%"><?php echo e($grocery->category()->first()->name); ?></td>
+        <td width="10%"><input name="f_<?php echo e($grocery->id); ?>_q" id="f_<?php echo e($grocery->id); ?>_q" type="text" class="form-control" value=""></td>
+        <td width="10%"><?php echo e($grocery->unite()->first()->unite); ?></td>
+        <td width="10%"><?php echo e($grocery->GroceriesPrices()->first()['price']); ?></td>
+        <td width="10%">
+            <button type="button" class="btn btn-default btn-circle" id="add_<?php echo e($grocery->id); ?>"" onClick="addGrocery('<?php echo e($grocery->id); ?>'); "><i class="fa fa-plus"></i> 
+        </td>
+   
+    </tr>
+        
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+    <tr><td colspan="100%" align="center"><?php echo e($groceries->links()); ?></td></tr> 
+
+<?php endif; ?> 
+
+
+<!-- Groceries load -->
+<script type="text/javascript">
+
+     // OVDE SAM STAO, PRAVIM DODAVANJE NAMIRNICA U RECEPT
+    // Add grocery to a recipe
+    function addGrocery(id) {
+        
+    
+        // Setovanje forme
+        var form = $("#f_add_groceries");
+
+        // Setovanje kolicine
+        $("#f_quantity").val($("#f_" + id + '_q').val());
+
+        // Setovanje namirnice
+        $("#f_grocery").val(id);
+
+        // Brise prethodne greske
+        $('#errors' + '> span').remove();
+
+
+        // DODATI VREDNOSTI KOJE SE SALJU - KOLICINA, ID NAMIRNICE
+
+        $.ajax({
+        headers: {'X-CSRF-TOKEN' : '<?php echo e(csrf_token()); ?>'},
+        type: 'post',
+        url: form.attr("action"),
+        dataType: 'json',
+        data: form.serialize(),
+
+            success: function(response) {
+
+                // Brise namirnicu iz korpe u koliko je dodata u recept
+                $('#'+response.relation['grocery_id'] + '_row').remove();
+
+                // Setovanje kolicine
+                $("#f_quantity").val('');
+
+                // Setovanje namirnice
+                $("#f_grocery").val('');
+                $("#f_" + id + '_q').val('');
+
+
+                // Load all groceries.
+                loadTableData('<?php echo e(route("recipes.basketload",["id" => $recipe->id])); ?>','basket');
+
+                console.log(response);
+            },
+
+            error: function(response) {
+
+                // Prikaz notifikacije
+                //showNotification('danger', 'The recipe could not be added');
+
+                // Prikaz gresaka
+                var data = response.responseJSON;
+
+                $.each(data.errors, function(index,val){
+
+                    console.log(val);
+                    // Dodajem crveni okvir
+                    $('#errors').addClass('has-error');
+                    // Brisem span ako postoji
+                    $('#errors' + '> span').remove();
+                    // Dodajem span kako bih prikazao gresku
+                    $('#errors').append('<span class="help-block">'+val+'</span>');
+                });
+
+                //console.log(response);
+            }
+
+        });
+    }
+
+
+
+</script>

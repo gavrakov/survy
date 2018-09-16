@@ -1,0 +1,56 @@
+  <?php if(isset($items)): ?>
+    	<?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+        <div id="<?php echo $item->id; ?>" class="row">
+
+            <div id="date" class="col-md-4">
+            <h4><img width=20x" src="<?php  $path = 'storage/icons/calendar-icon.png'; echo asset($path); ?>">&nbsp;<?php echo e($item->date); ?></h4>
+            <!-- Na ovu foru ce ici prikaz da li imaju popunjena jela ili nemaju, aktivnosti, namirnice, itd
+            <!--button type="button" class="btn btn-default btn-circle btn-sm"><i class="fa fa-check"></i>
+            </button>
+            <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-list"></i>
+            </button>
+            <button type="button" class="btn btn-success btn-circle"><i class="fa fa-link"></i>
+            </button>
+            <button type="button" class="btn btn-info btn-circle"><i class="fa fa-check"></i>
+            </button>
+            <button type="button" class="btn btn-warning btn-circle"><i class="fa fa-times"></i>
+            </button>
+            <button type="button" class="btn btn-danger btn-circle"><i class="fa fa-heart"></i>
+            </button-->
+            <!--div id="icon_holder" class="pull-center">
+            <p class="btn btn-default btn-circle btn-sm"><i class="glyphicon glyphicon-cutlery"></i></p>       
+            <p class="btn btn-default btn-circle btn-sm"><i class="glyphicon glyphicon-shopping-cart"></i></p> 
+            <p class="btn btn-default btn-circle btn-sm"><i class="glyphicon glyphicon-glass"></i></p>
+            </div-->
+            </div>
+
+            <div id="item_list" class="col-md-4">
+                 <!--p><i class="glyphicon glyphicon-cutlery"></i> 
+                 <span class="badge badge badge-danger badge-lg"> Jaja na oko</span>
+                 <span class="badge badge badge-danger badge-lg"> Slatki kupus</span>
+                 <span class="badge badge badge-danger badge-lg"> Kvasenice</span>
+                 </p>
+                 <p><i class="glyphicon glyphicon-shopping-cart"></i> 
+                 <span class="badge badge badge-danger badge-lg"> Hleb</span>
+                 </p>
+                 <p><i class="glyphicon glyphicon-glass"></i> 
+                 <span class="badge badge badge-danger badge-lg"> Kafa u Actorsu</span>
+                 </p-->
+
+                  <p class="btn btn-default btn-circle btn-sm"><i class="glyphicon glyphicon-cutlery"></i></p>       
+                  <p class="btn btn-default btn-circle btn-sm"><i class="glyphicon glyphicon-shopping-cart"></i></p> 
+                  <p class="btn btn-default btn-circle btn-sm"><i class="glyphicon glyphicon-glass"></i></p>
+            </div>
+
+            <div id="see_all" class="col-md-4">
+           
+                <span id="btn_breakfast" class="btn btn-default btn-sm pull-right"  onClick="window.location.replace('<?php echo e(route('plans.items.show',['plan_id' => $item->plan_id, 'item_id' => $item->id])); ?>');"><i class="fa fa-edit fa-fw"></i>&nbsp;edit</span>
+
+            </div>
+        </div>
+
+        <hr>  
+
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>     
+<?php endif; ?>

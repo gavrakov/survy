@@ -1,0 +1,86 @@
+<!-- Modal create recipe -->
+<div id="create" class="modal fade">
+  <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Create grocery</h3>
+            </div>
+            <div class="modal-body">
+                    <form id="create_f" role="form" enctype="multipart/form-data" method="POST" action="<?php echo e(route('groceries.store')); ?>">
+                            <?php echo e(csrf_field()); ?>
+
+
+                                <!-- Name -->
+                                <div id="f_name" class="form-group <?php echo e($errors->has('name') ? ' has-error' : ''); ?>">
+                                    <label for="name">Name</label>
+                                    <input id="name" type="text" class="form-control" name="name" value="<?php echo e(old('name')); ?>" required autofocus>
+                                    <?php if($errors->has('name')): ?>
+                                        <span class="help-block">
+                                            <?php echo e($errors->first('name')); ?>
+
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+
+                                <!-- Category -->
+                                 <div id="f_category" class="form-group">
+                                        <label>Category</label>
+                                        <select id="category" name="category" class="form-control">
+                                            <?php if(isset($form_data['categories'])): ?>
+                                                <?php $__currentLoopData = $form_data['categories']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                                    <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?> - <?php echo e($category->description); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endif; ?>
+                                        </select>
+                                </div>
+
+                                <!-- Unite -->
+                                <div id="f_unite" class="form-group">
+                                        <label>Unite</label>
+                                        <select id="unite" name="unite" class="form-control">
+                                             <?php if(isset($form_data['unites'])): ?>
+                                                <?php $__currentLoopData = $form_data['unites']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unite): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                                    <option value="<?php echo e($unite->id); ?>"><?php echo e($unite->unite); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endif; ?>
+                                        </select>
+                                </div>
+
+                                <!-- Quantity -->
+                                <div id="f_quantity" class="form-group <?php echo e($errors->has('quantity') ? ' has-error' : ''); ?>">
+                                <label for="quantity">Quantity</label>
+                                <input id="quantity" type="text" class="form-control" name="quantity" value="<?php echo e(old('quantity')); ?>" required autofocus>
+                                <?php if($errors->has('quantity')): ?>
+                                    <span class="help-block">
+                                        <?php echo e($errors->first('quantity')); ?>
+
+                                    </span>
+                                <?php endif; ?>
+                                </div>
+
+
+                                <?php if($form_data['location'] !== null): ?>
+                                    <!-- Price -->
+                                    <div id="f_price" class="form-group <?php echo e($errors->has('price') ? ' has-error' : ''); ?>">
+                                    <label for="price">Price in <small class='text-danger'>(<?php echo e($form_data['location']->currency); ?>)</small></label>
+                                    <input id="price" type="text" class="form-control" name="price" value="<?php echo e(old('price')); ?>" required autofocus>
+                                    <?php if($errors->has('price')): ?>
+                                        <span class="help-block">
+                                            <?php echo e($errors->first('price')); ?>
+
+                                        </span>
+                                    <?php endif; ?>
+                                    </div>
+
+                                <?php endif; ?>
+
+                                
+
+                        </form>
+            </div>
+            <div class="modal-footer">
+                 <button id="btn_insert" onClick="save('create');" type="button" name="btn_insert" class="btn btn-md btn-success">Save</button>
+            </div>
+        </div>
+  </div>  
+</div>

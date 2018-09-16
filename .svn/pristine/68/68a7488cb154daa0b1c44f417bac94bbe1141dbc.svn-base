@@ -1,0 +1,63 @@
+<?php $item = $data['item']; ?>
+<?php $category = $data['category']; ?>
+
+
+<!-- Modal edit photos -->
+<div id="m_recipes" class="modal fade">
+  <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add <?php echo e(\App\RecipesCategory::find($category)->name); ?></h3>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div name="data" class="col-md-12">
+                        
+                            <!-- Search -->
+                            <div class="input-group custom-search-form col-md-12">
+                                        <input type="text" id="search" name="search" class="form-control" placeholder="Search...">
+                            </div>
+
+                             <form name="f_add_recipe" id="f_add_recipe" type="post" action="'<?php echo e(route('plans.addrecipe',['item' => $item])); ?>')">
+                                <input name="f_category" id="f_category" value="<?php echo e($category); ?>" type="text" class="form-control" value="" hidden>
+                                <input name="f_recipe" id="f_recipe" type="text" class="form-control" value="" hidden>
+                            </form>
+
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="row">
+
+                    <!-- Load recipes -->
+                    <div id="recipes"  class="col-md-12"></div>
+                        
+                </div>
+
+
+            </div> <!-- Modal body - end -->
+
+        </div> <!-- Modal content - end -->
+
+  </div>  <!-- Modal dialog - end --> 
+
+</div> <!-- Modal - end -->
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function(){
+
+        // Load plan recipes
+        loadDivData("<?php echo e(route('plans.modalrecipesload',['item' => $item, 'category' => $category])); ?>",'recipes');
+});
+    
+</script>
+
+
+
+
+

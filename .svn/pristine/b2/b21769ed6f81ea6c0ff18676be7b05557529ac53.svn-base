@@ -1,0 +1,50 @@
+  <?php if(isset($items)): ?>
+    	<?php $__currentLoopData = $items; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+        <div id="<?php echo e($item->id); ?>" class="row">
+
+
+            <!-- Recipe name and dates -->
+            <div id="date" class="col-md-3">
+                <h4><img width=20x" src="<?php  $path = 'storage/icons/calendar-icon.png'; echo asset($path); ?>">&nbsp;<?php echo e($item->date); ?></h4>
+            </div>
+
+            <!-- Recipes -->
+            <div id="recipes_list" class="col-md-3">
+                    
+                        <h5><i class="glyphicon glyphicon-cutlery"> Meals</i></h5>
+                    
+                        <?php if($item->breakfast != null): ?>
+                            <span class="label label-info"><?php echo e($item->breakfast()->first()->name); ?></span>
+                        <?php endif; ?>
+                        <?php if($item->lunch != null): ?>
+                            <span class="label label-success"><?php echo e($item->lunch()->first()->name); ?></span>
+                        <?php endif; ?>
+                        <?php if($item->dinner != null): ?>
+                            <span class="label label-warning"><?php echo e($item->dinner()->first()->name); ?></span>
+                        <?php endif; ?>
+
+                        <?php if($item->breakfast == null and $item->lunch == null and $item->dinner == null): ?>
+                            <p class="bg-warning"><i>No meals for these day</i></p>
+                        <?php endif; ?>
+                  
+            </div>
+
+
+            <!-- Activities --> 
+            <div id="activitie_list" class="col-md-3">      
+                        <h5><i class="glyphicon glyphicon-glass"> Activities</i></h5> 
+            </div>
+
+
+            <!-- Edit item -->
+            <div id="see_all" class="col-md-3">
+                <span id="btn_breakfast" class="btn btn-default btn-sm pull-right"  onClick="window.location.replace('<?php echo e(route('plans.items.show',['plan_id' => $item->plan_id, 'item_id' => $item->id])); ?>');"><i class="fa fa-edit fa-fw"></i>&nbsp;edit</span>
+            </div>
+
+        </div>
+
+        <hr>  
+
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>     
+<?php endif; ?>

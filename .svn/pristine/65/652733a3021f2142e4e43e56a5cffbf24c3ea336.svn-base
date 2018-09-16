@@ -1,0 +1,51 @@
+<?php $recipe = $data['recipe']; ?>
+<?php $item = $data['item']; ?>
+<?php $location = $data['location']; ?>
+
+<?php if(isset($recipe)): ?>
+
+	<div class="col-md-3">
+
+		<!-- Photo -->
+		<img width="40px" src="<?php 
+
+	        // Vraca collection of object
+	        $photo = $recipe->cover()->first();
+
+	        $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/150_' . $photo['name'];
+	        
+	        echo asset($path);
+	        
+	        ?>" style="position:relative; border-radius:3%; border:1px">
+	</div>
+
+	<!-- Name -->
+	<div class="col-md-3">
+		<p><?php echo e($recipe->name); ?></p>
+	</div>
+
+
+	<!-- Price -->
+	<?php if(session()->has('location')): ?>
+
+		<div class="col-md-3">
+			<p><?php echo e(number_format((float)$recipe->getTotalPrice(), 2, '.', '')); ?>
+
+	        <small class='text-danger'>(<?php echo e($location->currency); ?>)</small>
+	        </p>
+		</div>
+
+	 <?php endif; ?>
+
+	<!-- Button -->
+	<div class="col-md-3">
+		<span id="btn_<?php echo e($recipe->id); ?>" class="btn btn-default btn-sm" onClick="insertRecipe(<?php echo e($recipe->id); ?>,<?php echo e($item->id); ?>);"><i class="fa fa-plus fa-fw"></i>&nbsp Remove</span>
+	</div>
+
+<?php else: ?>
+
+	<p id="brakfast_p" class="text-justify">
+        No breakfast for today...
+    </p>
+    
+<?php endif; ?>

@@ -1,0 +1,18 @@
+<h4>Photos</h4>       
+
+<?php $photos = $recipe->photos()->get(); ?>
+
+<?php $__currentLoopData = $photos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $photo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <a href="<?php echo e(asset('storage/photos/recipes') . '/'. $photo->dir .'/'. $photo->name); ?>"><img style="margin-bottom:3px;" name="<?php echo e($photo->id); ?>" src="
+            <?php
+                $path = 'storage/photos/recipes/' . $photo->dir .  '/thumbs/150_' . $photo->name;
+                echo asset($path);
+            ?>"
+        	>
+        </span>
+    </a>
+    
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+<br><br>
+

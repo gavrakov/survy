@@ -1,0 +1,62 @@
+<?php $__env->startSection('content'); ?>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Create new grocery</div>
+            <div class="panel-body">
+                   <form role="form" enctype="multipart/form-data" method="POST" action="<?php echo e(route('groceries.store')); ?>">
+                            <?php echo e(csrf_field()); ?>
+
+
+                                <!-- Name -->
+                                <div class="form-group <?php echo e($errors->has('name') ? ' has-error' : ''); ?>">
+                                    <label for="name">Name</label>
+                                    <input id="name" type="text" class="form-control" name="name" value="<?php echo e(old('name')); ?>" required autofocus>
+                                    <?php if($errors->has('name')): ?>
+                                        <span class="help-block">
+                                            <?php echo e($errors->first('name')); ?>
+
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+
+                                <!-- Category -->
+                                 <div class="form-group">
+                                        <label>Category</label>
+                                        <select name="category" class="form-control">
+                                            <?php if(isset($form_data['categories'])): ?>
+                                                <?php $__currentLoopData = $form_data['categories']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                                    <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endif; ?>
+                                        </select>
+                                </div>
+
+                                <!-- Unite -->
+                                <div class="form-group">
+                                        <label>Unite</label>
+                                        <select name="unite" class="form-control">
+                                             <?php if(isset($form_data['unites'])): ?>
+                                                <?php $__currentLoopData = $form_data['unites']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unite): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                                    <option value="<?php echo e($category->id); ?>"><?php echo e($unite->unite); ?></option>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endif; ?>
+                                        </select>
+                                </div>
+
+                             	<!-- Register btn -->
+                                <div class="form-group">
+                                        <button type="submit" class="btn btn-md btn-success">
+                                            Save
+                                        </button>
+                                </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

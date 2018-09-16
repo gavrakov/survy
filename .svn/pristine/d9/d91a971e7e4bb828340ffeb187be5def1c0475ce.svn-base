@@ -1,0 +1,46 @@
+    <?php if(isset($recipes)): ?>
+    	<?php $__currentLoopData = $recipes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $recipe): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+    		<tr>
+                
+                <td> <a href="<?php echo route("recipes.show",['id' => $recipe->id]); ?>">
+
+                    <img width="60px" src="<?php 
+
+                    // Vraca collection of object
+                    $photo = $recipe->cover()->first();
+
+                    $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/150_' . $photo['name'];
+                    
+                    echo asset($path);
+                    
+                    ?>" style="position:relative; border-radius:3%; border:1px"></a>
+
+               
+                </td>
+                <td><?php echo e($recipe->name); ?></td>
+                <td>
+                    <!-- Ovo srediti -->
+                    <?php $counter = 0; ?>
+                    <?php $__currentLoopData = $recipe->categories()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php if($counter != 0) {echo ",";} ?>
+                        <?php echo e($category['name']); ?>
+
+
+                        <?php $counter++ ?>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </td>
+
+                <!-- Recipe price -->
+                <?php if(session()->has('location')): ?>
+                    <td><?php echo e(number_format((float)$recipe->getTotalPrice(), 2, '.', '')); ?></td>
+                <?php endif; ?>
+
+                <!-- Ovo srediti -->
+                <td><span class="btn btn-default btn-sm"><i class="fa fa-edit fa-fw"  onClick="window.location.replace('<?php echo e(route('recipes.show',['id' => $recipe->id])); ?>');"></i>&nbsp;Edit recipe</span></td>
+                <td><span class="btn btn-danger btn-sm" id="del_<?php echo e($recipe->id); ?>" onClick="deleteRecipe('<?php echo e(route('recipes.destroy',['id' => $recipe->id])); ?>');" ><i class="glyphicon glyphicon-remove"></i>&nbsp;Delete</span></td>
+                <!--td><i class="fa fa-edit fa-fw"></i></td-->
+            </tr>
+    	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <tr><td colspan="100%" align="center"><?php echo e($recipes->links()); ?></td></tr>         
+    <?php endif; ?>

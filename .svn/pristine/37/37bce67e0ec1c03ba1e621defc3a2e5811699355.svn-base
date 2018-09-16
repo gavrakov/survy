@@ -1,0 +1,19 @@
+    <?php if(isset($locations)): ?>
+    	<?php $__currentLoopData = $locations; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $location): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
+    		<tr> 
+                <td><?php echo e($location->country()->first()->country_name); ?></td>
+                <td><?php echo e($location->country()->first()->currency); ?></td>
+                <td><input type="radio" name="f_activ" id="f_activ" value="<?php echo e($location->id); ?>" onClick="setActive('<?php echo e(route('locations.update',['id' =>$location->id])); ?>');" 
+                    <?php if ($location->active == 1)  {
+                        echo "checked disabled";
+
+                    } 
+                    ?>
+                >
+                </td>
+                <td align="center"><span id="del_<?php echo e($location->id); ?>" onClick="deleteLocation('<?php echo e(route('locations.destroy',['id' => $location->id])); ?>');" class="btn btn-danger btn-xs" ><i class="glyphicon glyphicon-remove"></i>&nbsp;Delete</span></td>
+            </tr>
+    	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+            <tr><td colspan="100%" align="center"><?php echo e($locations->links()); ?></td></tr>         
+    <?php endif; ?>

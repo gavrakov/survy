@@ -1,0 +1,187 @@
+<?php $recipe = $data['recipe']; ?>
+<?php $groceries = $data['groceries']; ?>
+<?php $location = $data['location']; ?>
+
+
+
+<!-- Modal edit photos -->
+<div id="m_groceries" class="modal modal-wide fade">
+  <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit recipes groceries</h3>
+            </div>
+            <div class="modal-body">
+               
+
+  <div class="row-fluid">
+                <div class="col-md-8">
+              
+                <div class="panel panel-default">
+                    <div class="panel-heading"><p class="glyphicon glyphicon-book">&nbsp;Groceries</p></div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            
+                                <form name="f_add_groceries" id="f_add_groceries" type="post" action="{{ route('recipes.addgrocery',['id' => $recipe->id]) }}">
+                                <input name="f_grocery" id="f_grocery" type="text" class="form-control" value="" hidden>
+                                <input name="f_quantity" id="f_quantity" type="text" class="form-control" value="" hidden>
+                                </form>
+
+                                <!-- Errors -->
+                                <div id='errors' name="errors" class="pull-left" style="width:70%;"></div>
+
+                                <!-- Search bar -->
+                                <div class="input-group custom-search-form pull-right" align="center" style="width:30%;">
+                                        <input width="150px" type="text" id="groceriessearch" name="groceriessearch" class="form-control" placeholder="Search...">
+                                        <!--span class="input-group-btn">
+                                            <button class="btn btn-default" type="button">
+                                                <i class="fa fa-search"></i>
+                                            </button>
+                                        </span-->
+                                </div>
+                                
+                                <table id="groceries" class="table">
+                                    <thead>
+                                        
+                                            <th width="10%">Photo</th>
+                                            <th width="30%">Name</th>
+                                            <th width="20%">Category</th>
+                                            <th width="10%">Quantity</th>
+                                            <th width="10%">Unite</th>
+                                            @if ($location !== null)   
+                                                <th width="15%">Price <small class='text-danger'>({{$location->currency}})</small></th>
+                                            @endif
+                                            <th width="10%">Price</th>
+                                            <th width="10%"></th>
+                                        
+                                        
+                                    </thead>
+
+                                    <tbody>
+                                       <!-- Load groceries - Ajax -->
+                                    </tbody>
+
+                                </table>
+                            </div><!-- /.table-responsive - end -->
+                        </div> <!-- panel-body - end -->
+                    </div>
+                </div> <!-- panel panel-default - end -->
+            </div> <!-- col-md-8 -end -->
+
+
+            <div class="col-md-4">
+                <!--- List of recipes groceries -->
+
+                <div class="panel panel-default">
+                    <div class="panel-heading"><p class="glyphicon glyphicon-book">&nbsp;Basket</p></div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+
+                       
+
+                            <table id="basket" class="table">
+                                <tbody>
+                                    <!-- Load basket - Ajax -->
+                                </tbody>
+                            </table>
+
+                    
+
+                        </div> <!-- table-responsive - end -->
+                        <!-- ovde paginacija -->
+                    </div>
+                </div>
+
+            </div> <!-- col-md-4 - end -->  
+
+        </div> <!-- row-fluid - end -->
+
+                      
+                    
+
+
+        </div> <!-- Modal body - end -->
+
+    </div> <!-- Modal content - end -->
+
+  </div>  <!-- Modal dialog - end --> 
+
+</div> <!-- Modal - end -->
+
+
+
+<!-- File upload -->
+<script type="text/javascript">
+
+
+    $(document).ready(function(){
+     
+        // Load groceries
+        loadTableData('{{ route("recipes.modalgroceriesload",["id" => $recipe->id]) }}','groceries');
+
+        // Load basket - inserted groceries
+        loadTableData('{{ route("recipes.modalbasketload",["id" => $recipe->id]) }}','basket');
+
+
+        // Pagination
+        $(function() {
+            $('#groceries > tbody').on('click', '.pagination a', function(e) {
+                e.preventDefault();
+                var url = $(this).attr('href');  
+                getGroceries(url);
+                window.history.pushState("", "", url);
+            });
+
+
+            function getGroceries(url) {
+                $.ajax({
+                    type: 'get',
+                    url : url ,
+                    dataType: 'html' 
+                }).done(function (data) {
+                    $('#groceries > tbody').html(data);  
+                }).fail(function () {
+                    alert('Recipes could not be loaded.');
+                });
+            }
+        });
+
+
+        // Close modal edit photos event
+        $('#m_groceries').on('hide.bs.modal', function(){
+
+            // Load basket - inserted groceries
+            loadTableData('{{ route("recipes.basketload",["id" => $recipe->id]) }}','groceries_basket');
+        });
+
+
+
+        // Live search 
+        $('#groceriessearch').on('keyup',function(){
+          
+            $value=$(this).val();
+
+            $.ajax({
+             
+                type : 'get',
+                url : '{{ route("recipes.groceriessearch",["id" => $recipe->id]) }}',
+                dataType: 'html',
+                data:{'search':$value},
+                success:function(data){
+                    console.log(data);
+                    $('#groceries > tbody').html(data);      
+                }
+         
+            });
+         
+        });
+
+
+
+    });
+
+
+   
+
+
+</script>

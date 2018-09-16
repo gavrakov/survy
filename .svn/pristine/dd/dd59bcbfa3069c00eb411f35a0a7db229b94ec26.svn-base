@@ -1,0 +1,95 @@
+<?php if(isset($form_data['grocery'])) { $grocery = $form_data['grocery'];} ?>
+
+<div id="edit" class="modal fade">
+  <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit grocery</h3>
+            </div>
+            <div class="modal-body">
+                    <form id="create_f" role="form" enctype="multipart/form-data" method="POST" action="<?php echo e(route('groceries.update',['id' => $grocery->id])); ?>'">
+                            <?php echo e(csrf_field()); ?>
+
+
+                                <!-- Name -->
+                                <div id="f_name" class="form-group <?php echo e($errors->has('name') ? ' has-error' : ''); ?>">
+                                    <label for="name">Name</label>
+                                    <input id="name" type="text" class="form-control" name="name" value="<?php echo e($grocery->name); ?>" required autofocus>
+                                    <?php if($errors->has('name')): ?>
+                                        <span class="help-block">
+                                            <?php echo e($errors->first('name')); ?>
+
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+
+                                <!-- Category -->
+                                 <div id="f_category" class="form-group">
+                                        <label>Category</label>
+                                        <select id="category" name="category" class="form-control">
+                                            <?php if(isset($form_data['categories'])): ?>
+                                                <?php $__currentLoopData = $form_data['categories']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                                    <?php if($category->id == $grocery->category): ?>
+                                                        <option value="<?php echo e($category->id); ?>" selected><?php echo e($category->name); ?> - <?php echo e($category->description); ?></option>
+                                                    <?php else: ?>
+                                                        <option value="<?php echo e($category->id); ?>"><?php echo e($category->name); ?> - <?php echo e($category->description); ?></option>
+                                                    <?php endif; ?>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endif; ?>
+                                        </select>
+                                </div>
+
+                                <!-- Unite -->
+                                <div id="f_unite" class="form-group">
+                                        <label>Unite</label>
+                                        <select id="unite" name="unite" class="form-control">
+                                             <?php if(isset($form_data['unites'])): ?>
+                                                <?php $__currentLoopData = $form_data['unites']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $unite): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                                    <?php if($unite->id == $grocery->unite): ?>
+                                                        <option value="<?php echo e($unite->id); ?>" selected><?php echo e($unite->unite); ?></option>
+                                                    <?php else: ?>
+                                                        <option value="<?php echo e($unite->id); ?>"><?php echo e($unite->unite); ?></option>
+                                                    <?php endif; ?>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            <?php endif; ?>
+                                        </select>
+                                </div>
+
+                                
+
+                                <!-- Quantity -->
+                                <div id="f_quantity" class="form-group <?php echo e($errors->has('quantity') ? ' has-error' : ''); ?>">
+                                <label for="quantity">Quantity</label>
+                                <input id="quantity" type="text" class="form-control" name="quantity" value="<?php echo e($grocery->quantity); ?>" required autofocus>
+                                <?php if($errors->has('quantity')): ?>
+                                    <span class="help-block">
+                                        <?php echo e($errors->first('quantity')); ?>
+
+                                    </span>
+                                <?php endif; ?>
+                                </div>
+
+                                <?php if($form_data['location'] !== null): ?>
+
+                                    <!-- Price -->
+                                    <div id="f_price" class="form-group <?php echo e($errors->has('price') ? ' has-error' : ''); ?>">
+                                    <label for="price">Price in <small class='text-danger'>(<?php echo e($form_data['location']->currency); ?>)</small></label>
+                                    <input id="price" type="text" class="form-control" name="price" value=" <?php echo e($grocery->GroceriesPrices()->first()['price']); ?>" required autofocus>
+                                    <?php if($errors->has('price')): ?>
+                                        <span class="help-block">
+                                            <?php echo e($errors->first('price')); ?>
+
+                                        </span>
+                                    <?php endif; ?>
+                                    </div>
+
+                                <?php endif; ?>
+
+                        </form>
+            </div>
+            <div class="modal-footer">
+                 <button id="btn_edit" type="button" onClick="save('edit');" name="btn_edit" class="btn btn-md btn-success">Save</button>
+            </div>
+        </div>
+  </div>  
+</div>

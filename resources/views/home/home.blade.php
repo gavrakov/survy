@@ -114,122 +114,13 @@
 
                     <!-- Breakfast -->
                     <div id="breakfast" class="col-md-4">
-                        <!--i class="glyphicon glyphicon-cutlery"></i>&nbsp;<em>Breakfast</em-->
-                        <!---div class="panel panel-info">
-                            <div class="panel-heading">
-                                <i class="glyphicon glyphicon-cutlery">&nbsp;Breakfast</i>
-                            </div>
-                            <div class="panel-body">
-                                @if($breakfast != null)
-
-                                    <div class="col-md-2">
-                                        <img width="50px" src="<?php 
-
-                                      
-                                        $photo = $breakfast->cover()->first();
-                                        $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/150_' . $photo['name'];
-                                        echo asset($path);
-                                        
-                                        ?>" style="position:relative; border-radius:3%; border:1px">
-                                    </div>
-                                    <div class="col-md-8">
-                                        <p>{{$breakfast->name}}</p>
-
-                                       
-                                       
-                                            <small>
-                                                {{number_format((float)$breakfast->getTotalPrice(), 2, '.', '')}}
-                                                <span class='text-danger'>({{LocationManager::country()->currency}})</span>
-                                            </small>
-                                        
-                                    </div>
-
-                                    <div class="col-md-2"><button class="btn btn-default btn-sm pull-right">Show recipe</button></div>
-                                @else
-                                    <em>No breakfast for today</em>
-                                @endif
-
-                                
-                            </div>
-                  
-                        </div-->
-                        
-                        <!--div class="recipe-card-large">
-                                    <img src="<?php 
-                                                // Vraca collection of object
-                                                $photo = PlanManager::today()->breakfast()->first()->cover()->first();
-                                                $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/150_' . $photo['name'];
-                                                echo asset($path); ?>
-
-                                        " alt="Avatar">
-                                    
-                                    <span>
-                                        {{PlanManager::today()->breakfast()->first()->name}} -
-                                        <small>
-                                            {{number_format((float) PlanManager::today()->breakfast()->first()->getTotalPrice(), 2, '.', '')}}
-                                            <span class='text-danger'>({{LocationManager::country()->currency}})</span>
-                                        </small>
-                                    </span>
-                                </div>
-                        </div-->
-
-                        <!--div class="card" style="height:150px;">
-                            <img class="card-img-top" src="<?php
-                                $photo = PlanManager::today()->breakfast()->first()->cover()->first();
-                                $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/150_' . $photo['name'];
-                                echo asset($path);
-                          ?>" alt="Card image" style="height:150px;">  
-
-                            <div class="card-body">
-                                <h4 class="card-title">{{PlanManager::today()->breakfast()->first()->name}}</h4>
-                                <p class="card-text">
-                                    {{number_format((float) PlanManager::today()->breakfast()->first()->getTotalPrice(), 2, '.', '')}}
-                                    <span class='text-danger'>({{LocationManager::country()->currency}})</span>
-                                </p>
-                                <span class="btn btn-info">Show</span>
-                            </div>       
-                        </div-->
-
-                        <!--div class="card" style="width:400px">
-                          <img class="card-img-top" src="<?php
-                                $photo = PlanManager::today()->breakfast()->first()->cover()->first();
-                                $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/300_' . $photo['name'];
-                                echo asset($path);
-                          ?>" alt="Card image" style="width:100%">
-                          <div class="card-body">
-                            <h4 class="card-title">{{PlanManager::today()->breakfast()->first()->name}}</h4>
-                            <p class="card-text">
-                                {{number_format((float) PlanManager::today()->breakfast()->first()->getTotalPrice(), 2, '.', '')}}
-                                <span class='text-danger'>({{LocationManager::country()->currency}})</span>
-                            </p>
-                            <a href="#" class="btn btn-info">Show</a>
-                          </div>
-                        </div-->
-
-                        <!--div class="card">
-                              <img src="<?php
-                                $photo = PlanManager::today()->breakfast()->first()->cover()->first();
-                                $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/300_' . $photo['name'];
-                                echo asset($path);
-
-                              ?>" alt="Avatar">
-                              <div class="container">
-                                <h4><b>{{PlanManager::today()->breakfast()->first()->name}}</b></h4> 
-                                <p>
-                                    {{number_format((float) PlanManager::today()->breakfast()->first()->getTotalPrice(), 2, '.', '')}}
-                                    <span class='text-danger'>({{LocationManager::country()->currency}})</span>
-                                </p> 
-                                
-                              </div>
-                        </div-->
-
-
+            
                         <!-- Breakfast -->
                         <div class="card">
                             
                             <div class="card-header bg-info">Breakfast</div>
                             
-                                 
+                            @if (PlanManager::today()->breakfast()->first() !== null)     
                             <img class="card-image" src="<?php
                                 $photo = PlanManager::today()->breakfast()->first()->cover()->first();
                                 $path = 'storage/photos/recipes/' . $photo['dir'] .  '/' . $photo['name'];
@@ -253,6 +144,10 @@
                                 <span href="#" class="btn-default btn pull-right">Show</span>
                                 
                             </div>
+
+                            @else
+                                <p>No breakfast for today</p>
+                            @endif
    
 
                         </div>
@@ -268,7 +163,7 @@
                             
                             <div class="card-header bg-success">Lunch</div>
                             
-                                 
+                            @if (PlanManager::today()->lunch()->first() !== null)     
                             <img class="card-image" src="<?php
                                 $photo = PlanManager::today()->lunch()->first()->cover()->first();
                                 $path = 'storage/photos/recipes/' . $photo['dir'] .  '/' . $photo['name'];
@@ -293,6 +188,10 @@
                                 
                             </div>
 
+                            @else
+                                <p>No lunch for today</p>
+                            @endif
+
 
                         </div>
 
@@ -305,9 +204,9 @@
                     <div id="lunch" class="col-md-4">
                         <div class="card">
                             
-                            <div class="card-header bg-warning">Lunch</div>
+                            <div class="card-header bg-warning">Dinner</div>
                             
-                                 
+                            @if (PlanManager::today()->dinner()->first())     
                             <img class="card-image" src="<?php
                                 $photo = PlanManager::today()->dinner()->first()->cover()->first();
                                 $path = 'storage/photos/recipes/' . $photo['dir'] .  '/' . $photo['name'];
@@ -331,6 +230,10 @@
                                 <span href="#" class="btn-default btn pull-right">Show</span>
                                 
                             </div>
+
+                            @else
+                                <p>No lunch for today</p>
+                            @endif
 
 
                         </div>

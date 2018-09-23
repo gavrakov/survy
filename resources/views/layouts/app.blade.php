@@ -65,15 +65,15 @@
             <div id="page-wrapper">
 
               
-                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light" role="navigation">
 
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapse1" aria-controls="collapse1" aria-expanded="false" aria-label="Toggle navigation">           
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">           
                                 <span class="sr-only">Toggle navigation</span>
                                 <span><i class="fas fa-bars"></i></span>
                          </button> 
 
 
-                        <div class="collapse container-fluid" id="collapse1"> <!-- OVDE SAM STIGAO -->
+                        <div class="container-fluid"> <!-- OVDE SAM STIGAO -->
 
 
                             <!--button type="button" id="btnnavCollapse" class="btn btn-info">
@@ -84,7 +84,7 @@
                            
                             <!--button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> </button-->
 
-                            <!--div class="collapse navbar-collapse" id="navbarSupportedContent"-->
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
                                 <ul class="navbar-nav ml-auto">
 
@@ -135,7 +135,6 @@
 
 
                                             <ul class="dropdown-menu dropdown-user">
-                                         
                                                 <li class="dropdown-item">
                                                     <a href="{{ route('user.profile') }}"><i class="fa fa-user fa-fw"></i>&nbsp;User Profile</a>
                                                 </li>
@@ -161,7 +160,7 @@
                                     </li>
                                     
                                 </ul>
-                            <!--/div-->
+                            </div>
 
                         </div>
 

@@ -195,16 +195,15 @@ ul ul a {
     }
 
     .container-fluid {
-      margin-left: 0px;
+      margin-top: 5px;
     }
     
     .nav-border {
       display: block;
-      border-bottom: #3f6673 dotted 1px;
-      border-right: 0px;
+      /*border-bottom: #3f6673 dotted 1px;*/
       padding: 3px 15px;
+      border: 0px;
       cursor: pointer; 
-
     }
 }
 

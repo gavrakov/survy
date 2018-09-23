@@ -1,0 +1,191 @@
+@import 'https://fonts.googleapis.com/css?family=Montserrat:400,500,600';
+
+body {
+	background-color:#f6f9fa;
+	color:#3f6673;
+	text-shadow: 1px 1px #fff;
+
+}
+
+
+body h1 {
+	font-size:35px;
+	text-shadow: 2px 2px #fff;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    
+}
+
+
+#wrapper {
+	display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+
+#page-wrapper {
+  width:100%;
+  margin:0px; 
+  padding: 0rem 2.50rem;
+  min-height: 568px;
+
+}
+
+
+#page-content {
+	
+}
+
+
+/* Main navigation */
+
+#main-nav {
+	min-width:250px;
+	max-width:250px;
+	background:#fff;
+	padding: 0;
+	margin: 0px;
+	height:100vh;
+	border-right: #efefef solid 1px;
+}
+
+
+#main-nav .sidebar-header {
+	padding: 20px;
+
+}
+
+#main-nav ul.components {
+	padding: 20px 0px;
+}
+
+
+#main-nav ul p {
+    color: #efefef;
+    padding: 10px;
+}
+
+#main-nav ul li a {
+    padding: 10px 20px;
+    font-size: 1.0em;
+    display: block;
+}
+
+#main-nav ul li a i {
+    margin-right: 10px;
+
+}
+
+#main-nav ul li a:hover {
+    color: #3f6673;
+    background: #dee9ed;
+}
+
+
+#main-nav ul li.active>a,
+a[aria-expanded="true"] {
+    color: #3f6673;
+    background: #dee9ed;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+
+/* Main navigation - ends */
+
+.nav-border {
+	display: block;
+	border-right: #3f6673 dotted 1px;
+	padding: 3px 15px;
+	cursor: pointer; 
+}
+
+.nav-border :hover {
+	color: #b8d2db;
+}
+
+/* Privremeno cu zakomentarisati ovaj deo*/
+/* Dropdown - top links menu */
+
+/*.dropdown-menu li {
+  display: block;
+}*/
+
+/*.dropdown-menu li:last-child {
+  margin-right: 0;
+}*/
+
+ /*.dropdown-menu li a div {
+  white-space: normal;
+}*/
+
+.dropdown-menu li a {
+  padding: 0px;
+  min-height: 0px;
+  margin: 0px;
+  background-color: transparent;
+}
+
+
+.dropdown-user {
+  right: 0;
+  left: auto;
+  margin-top: 7px;
+}
+
+/* Override .dropdown-item */
+.dropdown-user .dropdown-item {
+  padding: 0.25rem 0.25rem;
+  clear: both;
+}
+
+
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #main-nav {
+        /*margin-left: -250px;*/
+        z-index: 1;
+        position: relative;
+        width:250px;
+        margin-top:60px;
+
+    }
+    #main-nav.active {
+        margin-left: 0;
+    }
+    #btnnavCollapse span {
+        display: none;
+    }
+}
+
+
+
+/* Card header white */
+.card .card-header-white {
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+
+
+}

@@ -40,13 +40,17 @@
     <!-- Bootstrap datepicker -->
     <link href="{{ asset('css_bs4/bootstrap-datepicker.css') }}" rel="stylesheet" type="text/css">
 
+    <!-- Font awesome icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    
 
-    
+
     
 </head>
 <body>
+
+    <!-- App -->
+    <div id="wrapper">
 
     @guest
 
@@ -54,74 +58,136 @@
 
     @else
 
-    <!-- App -->
-    <div class="container-fluid no-gutters">
-
-        <div class="row">
 
            <!-- Nav -->
            @include('inc/nav')
 
-           <div class="col-10">
+            <div id="page-wrapper">
 
-                <div class="row">
-                    
-                    <div class="col-12">
+              
+                    <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-                        <ul class="nav">
+                        <div class="container-fluid survy"> <!-- OVDE SAM STIGAO -->
 
-                            <li class="nav-item">
-                        
-                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" align="center">
-                                        
-                                        <img src="/uploads/users/{{ Auth::user()->avatar}}" style="width:50px; width:50px; position:relative; border-radius:50%; border:1px #888888 solid">
-                                    </a>
-                            </li>
-                            <li class="nav-item">
-                             
-                                <div id="location_box" url="{{route('locations.country')}}" class="btn btn-outline btn-default" onClick="window.location.replace('{{route('locations')}}');">
-                                    <span id="loc_icon"><image id="img_loc" width="16px;" src="{{asset('storage/icons/earth.png')}}"></span>
-                                    <span id="loc_name" ></span>
-                                </div>
+                            <!--button type="button" id="btnnavCollapse" class="btn btn-info">
+                                <span><i class="fas fa-align-left"></i> Toggle Sidebar</span>
+                            </button-->
 
-                            </li>
-                           
-                            <li class="nav-item">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
-                                </a>
-                                <ul class="dropdown-menu dropdown-user">
-                                    <li><a href="{{ route('user.profile') }}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                                <ul class="navbar-nav ml-auto">
+
+                                    <li class="nav-item">
+                                         <div class="nav-border text-center" url="{{route('locations.country')}}" onClick="window.location.replace('{{route('locations')}}');">
+                                      
+                                            <!--image id="img_loc" width="16px;" src="{{asset('storage/icons/earth.png')}}"-->
+                                            <i class="fa fa-globe"></i>&nbsp;<br>
+                                                @if(LocationManager::isActive())
+                                                    {{LocationManager::country()->country_name}}
+                                                @else
+                                                    No location selected
+                                                @endif
+                                            
+                                       
+                                      
+                                        </div> 
                                     </li>
-                                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
-                                    </li>
-                                    <li class="divider"></li>
-                                    <li>
-                                         <a href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
-                                                    <i class="fa fa-sign-out fa-fw"></i> Logout
-                                                </a>
 
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                    {{ csrf_field() }}
-                                                </form>
+                                    <li class="nav-item">
+                                         <div class="nav-border text-center" url="{{route('locations.country')}}" onClick="window.location.replace('{{route('plans')}}');">
+                                      
+                                            <!--image id="img_loc" width="16px;" src="{{asset('storage/icons/earth.png')}}"-->
+                                            <i class="fa fa-calendar"></i>&nbsp;<br>
+                                                @if(PlanManager::isActive() != null)
+                                                    {{PlanManager::getActive()->name}}
+                                                @else
+                                                    No plan selected
+                                                @endif
+                                            
+                                       
+                                      
+                                        </div> 
                                     </li>
+
+                                    <li class="nav-item">
+                                       
+                                        <div class="btn-group nav-border text-center" style="border:0;">
+                                            <!--a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" align="center">
+                                                
+                                                <img src="/uploads/users/{{ Auth::user()->avatar}}" style="width:40px; width:40px; position:relative; border-radius:50%; border:1px #888888 solid">
+                                            </a-->
+
+                                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                                                <i class="fa fa-user fa-fw"></i><br>
+                                                {{Auth::user()->name}}
+                                            </a>
+
+
+                                            <ul class="dropdown-menu dropdown-user">
+                                         
+                                                <li class="dropdown-item">
+                                                    <a href="{{ route('user.profile') }}"><i class="fa fa-user fa-fw"></i>&nbsp;User Profile</a>
+                                                </li>
+                                                <li class="dropdown-item">
+                                                    <a href="#"><i class="fas fa-cog"></i>&nbsp;Settings</a>
+                                                </li>
+                                                <li class="dropdown-divider"></li>
+                                                <li class="dropdown-item">
+                                                    <a href="{{ route('logout') }}"
+                                                                onclick="event.preventDefault();
+                                                                         document.getElementById('logout-form').submit();">
+                                                                <i class="fas fa-sign-out-alt"></i>&nbsp;Logout
+                                                    </a>
+
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                        {{ csrf_field() }}
+                                                    </form>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+                                        <!-- Dropdown-user end -->
+                                    </li>
+                                    
                                 </ul>
-                                
-                            </li>
-                         
+                            </div>
 
-                        </ul>
+                        </div>
 
+                    </nav>
+                
+                <div class="row">
+                    <div id="page-content" class="col-lg-12">
+                        <h1 class="page-header">
+                            @php
+                                $page = explode('.',Route::current()->getName());
+                                echo ucfirst($page[0]);
+                            @endphp
+                        </h1>
+
+                       
+                        @if (session('status'))
+                            <div class="alert alert-success">
+                                {{ session('status') }}
+                            </div>
+                        @endif
                     </div>
-
-                        
                 </div>
+
+
+                @yield('content')
+            </div>
+
+
+
+
+          
+
+                
 
          
            
-                <div class="row">
+                <!--div class="row">
                     <div id="page_content" class="col-lg-12">
 
                       
@@ -143,20 +209,21 @@
 
                 </div> 
 
-                @yield('content') 
+                {{--@yield('content') --}}
 
 
-            </div>
+            </div-->
 
         
 
-        </div> <!-- row ends -->
-    </div>
+        <!--/div--> <!-- row ends -->
 
    
 
 
     @endguest
+
+    </div>
 
 
     <!-- Scripts -->
@@ -164,29 +231,29 @@
 
 
     <!-- Metis Menu Plugin JavaScript -->
-    <script src="{{ asset('js_bs4/metisMenu.min.js') }}"></script>
+    <script src="{{ asset('js/metisMenu.min.js') }}"></script>
 
     <!-- Global functions -->
-    <script src="{{ asset('js_bs4/functions.js') }}"></script>
+    <script src="{{ asset('js/functions.js') }}"></script>
 
     <!-- Survy js -->
     <!--script src="{{ asset('js_bs4/bootstrap.min.js') }}"></script-->
-    <link href="{{ asset('bs4/js/bootstrap.min.js') }}" rel="stylesheet">
+    <script src="{{ asset('bs4/js/bootstrap.min.js') }}"></script>
 
     <!-- Survy bundle -->
-    <script src="{{ asset('js_bs4/bootstrap.bundle.min.js') }}"></script>
+    <!--script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script-->
 
     <!-- Popup notifications -->
-    <script src="{{ asset('js_bs4/notify/bootstrap-notify.js') }}"></script>
+    <script src="{{ asset('js/notify/bootstrap-notify.js') }}"></script>
     <!--script src="{{ asset('js/notify/Gruntfile.js') }}"></script-->
 
     <!-- Upload files plugin -->
-    <script src="{{ asset('js_bs4/file/jquery.ui.widget.js') }}"></script>
-    <script src="{{ asset('js_bs4/file/jquery.iframe-transport.js') }}"></script>
-    <script src="{{ asset('js_bs4/file/jquery.fileupload.js') }}"></script>
+    <script src="{{ asset('js/file/jquery.ui.widget.js') }}"></script>
+    <script src="{{ asset('js/file/jquery.iframe-transport.js') }}"></script>
+    <script src="{{ asset('js/file/jquery.fileupload.js') }}"></script>
 
        <!-- Bootstrap datepicker -->
-    <script src="{{ asset('js_bs4/bootstrap-datepicker.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
 
     <!-- Select2 js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>

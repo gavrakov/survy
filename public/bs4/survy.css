@@ -45,7 +45,7 @@ a:focus {
 
 /* Main navigation */
 
-#main-nav {
+.main-nav {
 	min-width:250px;
 	max-width:250px;
 	background:#fff;
@@ -56,39 +56,44 @@ a:focus {
 }
 
 
-#main-nav .sidebar-header {
+.main-nav .sidebar-header {
 	padding: 20px;
 
 }
 
-#main-nav ul.components {
+.main-nav .sidebar-header-small {
+  display: none;
+
+}
+
+.main-nav ul.components {
 	padding: 20px 0px;
 }
 
 
-#main-nav ul p {
+.main-nav ul p {
     color: #efefef;
     padding: 10px;
 }
 
-#main-nav ul li a {
+.main-nav ul li a {
     padding: 10px 20px;
     font-size: 1.0em;
     display: block;
 }
 
-#main-nav ul li a i {
+.main-nav ul li a i {
     margin-right: 10px;
 
 }
 
-#main-nav ul li a:hover {
+.main-nav ul li a:hover {
     color: #3f6673;
     background: #dee9ed;
 }
 
 
-#main-nav ul li.active>a,
+.main-nav ul li.active>a,
 a[aria-expanded="true"] {
     color: #3f6673;
     background: #dee9ed;
@@ -160,19 +165,46 @@ ul ul a {
 ----------------------------------------------------- */
 
 @media (max-width: 768px) {
-    #main-nav {
-        /*margin-left: -250px;*/
-        z-index: 1;
-        position: relative;
-        width:250px;
-        margin-top:60px;
 
+    .main-nav {
+       /* margin-left: -250px;*/
+        z-index: 1;
+        margin-top:0px;
+        min-width: 10px
     }
-    #main-nav.active {
-        margin-left: 0;
+
+    .main-nav span {
+      display:none;
     }
-    #btnnavCollapse span {
-        display: none;
+
+    .main-nav .sidebar-header {
+      display: none;
+    } 
+
+    .main-nav .sidebar-header-small {
+      display:block;
+      padding:20px;
+    }
+
+    .main-nav .sidebar-header-small h3 {
+      font-size: 1rem;
+    }
+
+    .main-nav.active {
+        margin-left: auto;
+    }
+
+    .container-fluid {
+      margin-left: 0px;
+    }
+    
+    .nav-border {
+      display: block;
+      border-bottom: #3f6673 dotted 1px;
+      border-right: 0px;
+      padding: 3px 15px;
+      cursor: pointer; 
+
     }
 }
 

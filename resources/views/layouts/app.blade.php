@@ -67,13 +67,24 @@
               
                     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-                        <div class="container-fluid survy"> <!-- OVDE SAM STIGAO -->
+                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapse1" aria-controls="collapse1" aria-expanded="false" aria-label="Toggle navigation">           
+                                <span class="sr-only">Toggle navigation</span>
+                                <span><i class="fas fa-bars"></i></span>
+                         </button> 
+
+
+                        <div class="collapse container-fluid" id="collapse1"> <!-- OVDE SAM STIGAO -->
+
 
                             <!--button type="button" id="btnnavCollapse" class="btn btn-info">
                                 <span><i class="fas fa-align-left"></i> Toggle Sidebar</span>
                             </button-->
 
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <!-- Navbar toggler -->   
+                           
+                            <!--button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> </button-->
+
+                            <!--div class="collapse navbar-collapse" id="navbarSupportedContent"-->
 
                                 <ul class="navbar-nav ml-auto">
 
@@ -150,7 +161,7 @@
                                     </li>
                                     
                                 </ul>
-                            </div>
+                            <!--/div-->
 
                         </div>
 

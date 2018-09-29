@@ -114,7 +114,7 @@ ul ul a {
 
 .nav-border {
 	display: block;
-	border-right: #3f6673 dotted 1px;
+	border-right: /*#3f6673*/ #e8edef solid 1px;
 	padding: 3px 15px;
 	cursor: pointer; 
 }
@@ -201,8 +201,10 @@ ul ul a {
     .nav-border {
       display: block;
       /*border-bottom: #3f6673 dotted 1px;*/
+      border-bottom: #e8edef solid 1px;
+      border-right:0px;
       padding: 3px 15px;
-      border: 0px;
+    
       cursor: pointer; 
     }
 }

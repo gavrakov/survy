@@ -73,18 +73,9 @@
                          </button> 
 
 
-                        <div class="container-fluid"> <!-- OVDE SAM STIGAO -->
+                        <div class="container-fluid">
 
-
-                            <!--button type="button" id="btnnavCollapse" class="btn btn-info">
-                                <span><i class="fas fa-align-left"></i> Toggle Sidebar</span>
-                            </button-->
-
-                            <!-- Navbar toggler -->   
-                           
-                            <!--button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"> </button-->
-
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent"> <!-- Podsetnik: sklanja menu kada je prikaz manji -->
 
                                 <ul class="navbar-nav ml-auto">
 
@@ -168,7 +159,9 @@
                 
                 <div class="row">
                     <div id="page-content" class="col-lg-12">
-                        <h1 class="page-header">
+                        <h1
+                         class="page-header">
+                          
                             @php
                                 $page = explode('.',Route::current()->getName());
                                 echo ucfirst($page[0]);

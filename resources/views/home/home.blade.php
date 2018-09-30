@@ -10,7 +10,7 @@
 
     <!-- Active location -->
     @if (LocationManager::isActive())
-        <div class="col-lg-4">
+        <div class="col-md-4">
          
             <div class="card text-center">
                 <h6 class="card-header-white">Active location</h6>
@@ -70,170 +70,177 @@
 
         </div>  <!-- Col-md-4 -->
 
+
+        <!-- Videcemo sta cemo -->
+        <div class="col-md-4">
+            <div class="card text-center">
+                    <h6 class="card-header-white">Test box</h6>
+                    <div class="card-body">
+                              
+                        <p class="card-text text-justify"> 
+
+                              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
+                        </p>       
+                       
+                    </div>
+            </div> <!-- card - ends -->
+
+        </div>  <!-- Col-md-4 -->
+
     </div> <!-- Row ends -->
 
-    
+
     @if (PlanManager::isActive() != null)
-  
-        <!--h5>Today</h5>
 
-            <div class="card-body">
+    <div class="row">
 
-                <div class="row">
 
-     
-                    <div id="breakfast" class="col-md-4">
-            
-                   
-                        <div class="card">
-                            
-                            <div class="card-header bg-info">Breakfast</div>
-                            
-                            @if (PlanManager::today()->breakfast()->first() !== null)     
-                            <img class="card-image" src="<?php
-                                $photo = PlanManager::today()->breakfast()->first()->cover()->first();
-                                $path = 'storage/photos/recipes/' . $photo['dir'] .  '/' . $photo['name'];
-                                echo asset($path);
-                            ?>">
-                                    
-                                    
-                                 
-                            <div class="card-body">
-                                <h4><i>{{PlanManager::today()->breakfast()->first()->name}}</i> </h4>
-                                     <small>
-                                        {{number_format((float) PlanManager::today()->breakfast()->first()->getTotalPrice(), 2, '.', '')}}
-                                        <span class='text-danger'>({{LocationManager::country()->currency}})</span>
-                                    </small>
-                               
-                               
+        <!--div class="card-columns  col-lg-12 col-md-12"-->
+
+                <div class="card mr-2" style="width: 10rem;">
+
+                    <h6 class="card-header-white">Breakfast</h6>
+
+                    @if (PlanManager::today()->breakfast()->first() !== null) 
+
+                        <img class="card-img-top" src="<?php
+                            $photo = PlanManager::today()->breakfast()->first()->cover()->first();
+                            $path = 'storage/photos/recipes/' . $photo['dir'] .  '/' . $photo['name'];
+                            echo asset($path);
+                        ?>">
                                 
-                            </div>
 
-                            <div class="card-footer bg-info">
-                                <span href="#" class="btn-default btn pull-right">Show</span>
-                                
-                            </div>
-
-                            @else
-                                <p>No breakfast for today</p>
-                            @endif
-   
-
+                        <div class="card-body">
+                            <h5 class="card-title">{{PlanManager::today()->breakfast()->first()->name}}</h5>
+                            <p class="card-text">
+                                {{number_format((float) PlanManager::today()->breakfast()->first()->getTotalPrice(), 2, '.', '')}}
+                                <span class='text-danger'>({{LocationManager::country()->currency}})</span>
+                            </p>
+                             <span href="#" class="btn-light btn pull-right">Show</span>
                         </div>
 
-                    </div>
+                    @else
+                        <div class="card-body">
+                            <p class="card-text">No breakfast for today</p>
+                        </div>
+                    @endif
 
 
+                </div>
 
-               
 
-                    <div id="lunch" class="col-md-4">
-                        <div class="card">
-                            
-                            <div class="card-header bg-success">Lunch</div>
-                            
-                            @if (PlanManager::today()->lunch()->first() !== null)     
-                            <img class="card-image" src="<?php
-                                $photo = PlanManager::today()->lunch()->first()->cover()->first();
-                                $path = 'storage/photos/recipes/' . $photo['dir'] .  '/' . $photo['name'];
-                                echo asset($path);
-                            ?>">
-                                    
-                                    
-                                 
-                            <div class="card-body">
-                                <h4><i>{{PlanManager::today()->lunch()->first()->name}}</i> </h4>
-                                     <small>
-                                        {{number_format((float) PlanManager::today()->lunch()->first()->getTotalPrice(), 2, '.', '')}}
-                                        <span class='text-danger'>({{LocationManager::country()->currency}})</span>
-                                    </small>
-                               
-                               
+                <div class="card mr-2" style="width: 10rem;">
+
+                    <h6 class="card-header-white">Lunch</h6>
+
+                    @if (PlanManager::today()->lunch()->first() !== null) 
+       
+                        <img class="card-img-top" src="<?php
+                            $photo = PlanManager::today()->lunch()->first()->cover()->first();
+                            $path = 'storage/photos/recipes/' . $photo['dir'] .  '/' . $photo['name'];
+                            echo asset($path);
+                        ?>">
                                 
-                            </div>
-
-                            <div class="card-footer bg-success">
-                                <span href="#" class="btn-default btn pull-right">Show</span>
-                                
-                            </div>
-
-                            @else
-                                <p>No lunch for today</p>
-                            @endif
-
-
+ 
+                        <div class="card-body">
+                            <h5 class="card-title">{{PlanManager::today()->lunch()->first()->name}}</h5>
+                            <p class="card-text">
+                                {{number_format((float) PlanManager::today()->lunch()->first()->getTotalPrice(), 2, '.', '')}}
+                                <span class='text-danger'>({{LocationManager::country()->currency}})</span>
+                            </p>
+                             <a href="#" class="btn-light btn pull-right">Show</a>
                         </div>
 
-                    </div>
+                    @else
+                        <div class="card-body">
+                            <p class="card-text">No lunch for today</p>
+                        </div>
+                    @endif
+
+                </div>
 
 
+                <div class="card mr-2" style="width: 10rem;">
 
+                    <h6 class="card-header-white">Dinner</h6>
 
-                    <div id="lunch" class="col-md-4">
-                        <div class="card">
-                            
-                            <div class="card-header bg-warning">Dinner</div>
-                            
-                            @if (PlanManager::today()->dinner()->first())     
-                            <img class="card-image" src="<?php
-                                $photo = PlanManager::today()->dinner()->first()->cover()->first();
-                                $path = 'storage/photos/recipes/' . $photo['dir'] .  '/' . $photo['name'];
-                                echo asset($path);
-                            ?>">
-                                    
-                                    
-                                 
-                            <div class="card-body">
-                                <h4><i>{{PlanManager::today()->dinner()->first()->name}}</i> </h4>
-                                     <small>
-                                        {{number_format((float) PlanManager::today()->dinner()->first()->getTotalPrice(), 2, '.', '')}}
-                                        <span class='text-danger'>({{LocationManager::country()->currency}})</span>
-                                    </small>
-                               
-                               
+                    @if (PlanManager::today()->dinner()->first() !== null) 
+       
+                        <img class="card-img-top" src="<?php
+                            $photo = PlanManager::today()->dinner()->first()->cover()->first();
+                            $path = 'storage/photos/recipes/' . $photo['dir'] .  '/' . $photo['name'];
+                            echo asset($path);
+                        ?>">
                                 
-                            </div>
-
-                            <div class="card-footer bg-warning">
-                                <span href="#" class="btn-default btn pull-right">Show</span>
-                                
-                            </div>
-
-                            @else
-                                <p>No lunch for today</p>
-                            @endif
-
-
+ 
+                        <div class="card-body">
+                            <h5 class="card-title">{{PlanManager::today()->dinner()->first()->name}}</h5>
+                            <p class="card-text">
+                                {{number_format((float) PlanManager::today()->dinner()->first()->getTotalPrice(), 2, '.', '')}}
+                                <span class='text-danger'>({{LocationManager::country()->currency}})</span>
+                            </p>
+                             <span href="#" class="btn-light btn pull-right">Show</span>
                         </div>
 
+                    @else
+                        <div class="card-body">
+                            <p class="card-text">No dinner for today</p>
+                        </div>
+                    @endif
+
+                </div>
+
+                <div class="col-md-4">
+                    <div class="card mr-2">
+                        <h6 class="card-header-white">Actvities</h6>
+                        <div class="card-body">
+                            <p class="card-text">
+                                    Kafa u Actorsu
+                                    <span class='text-danger'></span>
+                            </p>
+                            <span href="#" class="btn-light btn pull-right">Show</span>
+                        </div>
                     </div>
-
-
-      
-
+                    
                 </div> 
+                <div class="col-md-4">
+                    <div class="card mr-2">
+                        <h6 class="card-header-white">Groceries</h6>
+                        <div class="card-body">
+                            <p class="card-text">
+                                    Hleb
+                                    <span class='text-danger'></span>
+                            </p>
+                            <span href="#" class="btn-light btn pull-right">Show</span>
+                        </div>
+                    </div>
+                    
+                </div>     
+
+        <!--/div--> <!-- Card columns ends -->
+ 
+
+    </div> <!-- Row ends -->
 
 
-        @endif <!-- Plan::isActive() ends -->
+    @endif <!-- Plan::isActive() ends -->
 
 
-        <div class="row">
-                <!-- Groceries -->
+        <!--div class="row">
+          
                 <h4>Groceries</h4>
                 <hr>
                 <div class="row">
                 </div>    
 
 
-                 <!-- Activities -->
+              
                 <h4>Actvities</h4>
                 <hr>
                 <div class="row">
                 </div> 
 
-        </div>
-
-</div> <!-- Panel body ends -->
+        </div-->
 
 
    

@@ -97,7 +97,9 @@
 
         <!--div class="card-columns  col-lg-12 col-md-12"-->
 
-                <div class="card mr-2" style="width: 10rem;">
+        <div class="col-md-4">
+
+                <div class="card mr-2">
 
                     <h6 class="card-header-white">Breakfast</h6>
 
@@ -111,12 +113,16 @@
                                 
 
                         <div class="card-body">
-                            <h5 class="card-title">{{PlanManager::today()->breakfast()->first()->name}}</h5>
+                            <h6 class="card-title">{{PlanManager::today()->breakfast()->first()->name}}</h6>
                             <p class="card-text">
                                 {{number_format((float) PlanManager::today()->breakfast()->first()->getTotalPrice(), 2, '.', '')}}
                                 <span class='text-danger'>({{LocationManager::country()->currency}})</span>
                             </p>
-                             <span href="#" class="btn-light btn pull-right">Show</span>
+                             
+                        </div>
+
+                        <div class="card-footer-white text-center">
+                            <a href="#" class="btn-light btn-sm">Show</a>
                         </div>
 
                     @else
@@ -129,7 +135,7 @@
                 </div>
 
 
-                <div class="card mr-2" style="width: 10rem;">
+                <div class="card mr-2">
 
                     <h6 class="card-header-white">Lunch</h6>
 
@@ -143,12 +149,16 @@
                                 
  
                         <div class="card-body">
-                            <h5 class="card-title">{{PlanManager::today()->lunch()->first()->name}}</h5>
+                            <h6 class="card-title">{{PlanManager::today()->lunch()->first()->name}}</h6>
                             <p class="card-text">
                                 {{number_format((float) PlanManager::today()->lunch()->first()->getTotalPrice(), 2, '.', '')}}
                                 <span class='text-danger'>({{LocationManager::country()->currency}})</span>
                             </p>
-                             <a href="#" class="btn-light btn pull-right">Show</a>
+                             
+                        </div>
+
+                        <div class="card-footer-white text-center">
+                            <a href="#" class="btn-light btn-sm">Show</a>
                         </div>
 
                     @else
@@ -160,7 +170,7 @@
                 </div>
 
 
-                <div class="card mr-2" style="width: 10rem;">
+                <div class="card mr-2">
 
                     <h6 class="card-header-white">Dinner</h6>
 
@@ -174,12 +184,15 @@
                                 
  
                         <div class="card-body">
-                            <h5 class="card-title">{{PlanManager::today()->dinner()->first()->name}}</h5>
+                            <h6 class="card-title">{{PlanManager::today()->dinner()->first()->name}}</h6>
                             <p class="card-text">
                                 {{number_format((float) PlanManager::today()->dinner()->first()->getTotalPrice(), 2, '.', '')}}
                                 <span class='text-danger'>({{LocationManager::country()->currency}})</span>
                             </p>
-                             <span href="#" class="btn-light btn pull-right">Show</span>
+                             
+                        </div>
+                        <div class="card-footer-white text-center">
+                            <a href="#" class="btn-light btn-sm">Show</a>
                         </div>
 
                     @else
@@ -189,6 +202,8 @@
                     @endif
 
                 </div>
+
+            </div>
 
                 <div class="col-md-4">
                     <div class="card mr-2">

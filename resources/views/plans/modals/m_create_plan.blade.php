@@ -1,9 +1,10 @@
 <!-- Modal create recipe -->
-<div id="m_create_plan" class="modal fade">
+<div id="m_create_plan" class="modal fade" tabindex="-1">
   <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Create new plan</h3>
+                <h5 class="modal-title">Create new plan</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <div class="modal-body">
@@ -98,7 +99,8 @@
             </div> <!-- modal-body end -->
 
             <div class="modal-footer">
-                 <button id="btn_insert" onClick="save('create');" type="button" name="btn_insert" class="btn btn-md btn-success">Save</button>
+                <button id="btn_close" data-dismiss="modal" type="button" name="btn_close" class="btn btn-md btn-secondary">Close</button>
+                <button id="btn_insert" onClick="save('create');" type="button" name="btn_insert" class="btn btn-md btn-info">Save</button>
             </div>
 
         </div>

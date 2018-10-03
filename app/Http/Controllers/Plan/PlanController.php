@@ -48,6 +48,7 @@ class PlanController extends Controller
 	* Show modal for createing plan
     */
     public function create() {
+        // Ovo nece trebati
     	return view('plans/modals/m_create_plan')->render();
 
     }

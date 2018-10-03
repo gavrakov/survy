@@ -23,22 +23,22 @@
 
 
     <!-- Custom Fonts -->
-    <link href="{{ asset('css_bs4/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Metis menu -->
-    <link href="{{ asset('css_bs4/metisMenu.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/metisMenu.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
 
     <!-- Animate -->
-    <link href="{{ asset('css_bs4/Animate.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/Animate.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Select2 -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 
     <!-- Bootstrap datepicker -->
-    <link href="{{ asset('css_bs4/bootstrap-datepicker.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/bootstrap-datepicker.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
@@ -69,13 +69,14 @@
         
       
             <div id="page-content" class="col-lg-12">
-                <h1 class="page-header">
+                <h4 class="page-header mb-4">
                   
                     @php
                         $page = explode('.',Route::current()->getName());
                         echo ucfirst($page[0]);
                     @endphp
-                </h1>
+                </h4>
+
 
                
                 @if (session('status'))
@@ -140,7 +141,7 @@
         $(document).ready(function(){
             
             // Set plan location
-            setActiveLocation();
+            //setActiveLocation();
 
         });
 

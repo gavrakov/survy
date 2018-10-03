@@ -21,6 +21,10 @@ a:focus {
     
 }
 
+.btn {
+  text-shadow: none;
+}
+
 
 #wrapper {
 	display: flex;
@@ -40,6 +44,16 @@ a:focus {
 
 #page-content {
 }
+
+
+/*.page-header-hr {
+  display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #edf1f2;
+    margin-bottom: 1.5em;
+    padding: 0; 
+}*/
 
 
 /* Main navigation */
@@ -172,6 +186,27 @@ ul ul a {
   margin-bottom: 0;
   background-color: transparent;
   border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+
+/* Table - survy */
+.table-survy {
+  background-color: #fff;
+  border-radius: 0.25rem;
+
+}
+
+.table-survy td {
+  padding:1.25rem;
+}
+
+
+.search-holder {
+  width:100%;
+  display: flex;
+  background-color: #fff;
+  padding-top: 1.5rem;
+  padding-bottom: 1.25rem;
 }
 
 

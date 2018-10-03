@@ -2,86 +2,72 @@
 @section('content')
 
 
+<!-- Modal -->
+@include('plans/modals/m_create_plan')
+
+
 <div class="row">
 
-	<!-- Show active plan -->
-    @if (isset($active) and !empty($active))
-	<div class="col-lg-12">
-     
-        <div class="panel panel-info">
-            <div class="panel-heading">
-                <i class="glyphicon glyphicon-ok-circle"></i> Active plan
-            </div>
-            <div class="panel-body">
-                <div class="row">
-              
-            		<!--div class="col-md-1">
-	            		<img width="20px" src="<?php  
-	            			$path = 'storage/icons/calendar-icon.png';
-	                    	echo asset($path);
+    <div class="col-md-8">
 
-		            	?>">
-	            	</div-->
-                    
-            	
-            		  
-	            	<div class="col-md-4">
-	            		<h4><img id="plan-icon" name="plan-icon" src="{{ asset('storage/icons/plan-icon24.png') }}"> {{$active->name}}</h4>
-	            		<em>{{$active->dateFrom()}} - {{$active->dateTo()}}</em> 
-	            	</div>
+            <div class="row"> 
 
-                    <div class="col-md-4">
-                        <!--p><i class="glyphicon glyphicon-cutlery"></i> Slatki kupus</p>
-                        <p><i class="glyphicon glyphicon-shopping-cart"></i> Lubenice</p>  
-                        <p><i class="glyphicon glyphicon-glass"></i> Kafa u actu</p--> 
-                    </div>	
+                <div class="col-md-12">    
 
-                     
-                    <div class="col-md-4">
-                         <span id="btn_edit" class="btn btn-default btn-sm pull-right"  onClick="window.location.replace('{{route('plans.show',['id' => $active->id])}}');"><i class="fa fa-edit fa-fw"></i>&nbsp;edit</span>
+                    <div class="search-holder">  
+
+                        <div class="col-md-8 col-sm-4">
+                            <button id="create_plan" class="btn btn-info btn-sm" data-toggle="modal" data-target="#m_create_plan"><i class="fas fa-plus"></i>&nbsp; Create new plan</button>
+                        </div>
+
+
+
+                        <div class="col-md-4 col-sm-4">
+                                 <input type="text" style="width:100%;" id="plansearch" name="plansearch" class="form-control pull-right" placeholder="Search...">     
+                        </div>
+
+                    </div>  
+                   
+                    <div class="table-responsive">
+
+                        <table id="plans" class="table table-survy">
+                            <tbody></tbody>
+                        </table>
+
                     </div>
-	            	
-             
+
                 </div>
+
             </div>
-        </div> <!-- panel-info - ends -->
+
+    </div> <!-- col-md-8 ends -->
+
+     @if (isset($active) and !empty($active))
+    <div class="col-md-4 mb-3 col-sm-12">
+     
+        <div class="card text-left">
+            <h6 class="card-header-white">
+                Active plan
+            </h6>
+            <div class="card-body">
+            
+                <h6 class="card-title"><img id="plan-icon" name="plan-icon" src="{{ asset('storage/icons/plan-icon24.png') }}"> {{$active->name}}</h6>
+                <p class="card-text">
+                    <em>{{$active->dateFrom()}} - {{$active->dateTo()}}</em>
+                </p> 
+            
+                <button id="btn_edit" class="btn btn-default btn-sm"  onClick="window.location.replace('{{route('plans.show',['id' => $active->id])}}');"><i class="far fa-edit"></i>&nbsp;edit</button>
+            </div>
+            
+        </div> <!-- card-info - ends -->
 
     </div>
     @endif
 
-
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading"><p class="fa fa-calendar">&nbsp;My plans</p></div>
-            <div class="panel-body">
-          
-                    <!--span id="create_plan" class="btn btn-default btn"><i class="glyphicon glyphicon-plus"></i>&nbsp; Create new</span-->
-                    <div class="row">
-
-                        <div class="col-md-6">
-                            <span id="create_plan" class="btn btn-sm btn-default btn" style="margin-bottom: 10px"><i class="glyphicon glyphicon-plus"></i>&nbsp; Create new plan</span>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="input-group custom-search-form  pull-right">
-                                    <input width="150px" type="text" id="plansearch" name="plansearch" class="form-control" placeholder="Search...">
-                                    <span class="input-group-btn"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr>
-
-                    <!-- Plans load -->
-                    <div id="plans" name="plans" class="col-md-12">&nbsp;</div>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
+
+
+
 
 
 <script type="text/javascript">
@@ -89,17 +75,8 @@
 
 $(document).ready(function(){
 
-
-    // Modal Create/Edit
-    $('#create_plan').on('click',function(){
-        showEditModal('{{ route('plans.create') }}','m_create_plan'); 
-    });
-
-
     // Load all plans
-    loadDivData('{{route("plans.load")}}','plans');
-
-
+    loadTableData('{{route("plans.load")}}','plans');
 });
 
 

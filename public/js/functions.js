@@ -17,15 +17,16 @@ function showModal(a_url,modal_id) {
         dataType: 'html',
 
         success: function(response) {
-            
+            console.log(response);
             $("#"+modal_id).remove();
             $('#page_content').append(response);
             $("#"+modal_id).modal('show');
+            console.log($("#"+modal_id));
             
         },
 
         error: function(response) {
-            //console.log(response);
+            console.log(response);
         }
     });
 }
@@ -51,7 +52,6 @@ function loadTableData(url,id=null) {
       
     }).done(function (data) {
          $(table + ' > tbody').html(data);  
-         console.log(data);
     }).fail(function (data) {
          $(table + ' > tbody').html('<tr><td colspan="100%" align="center">The data could not be found</tr>');
     });

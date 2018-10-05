@@ -39,7 +39,7 @@ class PlanItemController extends Controller
     			$item->date = $f_date->formatLocalized('%d %B %Y');
     		}
 
-    		return view('plans/items')->with('items',$data['items'])->render();
+    		return view('plans/items_table')->with('items',$data['items'])->render();
     }
     
     

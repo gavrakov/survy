@@ -1,7 +1,7 @@
 @if (isset($plans))
 	@foreach ($plans as $plan)
     <tr>
-        <td>
+        <td class="p-4">
             <h6>
                 <img id="plan-icon" name="plan-icon" src="{{ asset('storage/icons/plan-icon24.png') }}">&nbsp;
                 {{$plan->name}}
@@ -12,7 +12,7 @@
 	@endforeach
 
     <tr>
-        <td  id="pagination" colspan="100%" align="center">{{ $plans->links() }}</td>
+        <td  id="pagination" colspan="2">{{ $plans->links() }}</td>
     </tr>
 
 @endif

@@ -174,25 +174,18 @@ format: 'mm/dd/yyyy'
 
         success: function(response) {
 
-            //console.log(response);
-
-            
-
             // Form reset
             form[0].reset();
 
             $("#" + modal_id).modal('hide');
 
-            var url_redirect = '{{URL::to('plans/show')}}'; 
+            var url_redirect = '{{URL::to('plans')}}'; 
 
             window.location.replace(url_redirect + '/' + response[1]);
-
-            //alert('tu');
 
        },
 
         error: function(response) {
-            //alert('ovde');
             console.log(response);
             // Show errors
             showValidationErrors(response);

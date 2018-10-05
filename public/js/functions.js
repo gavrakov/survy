@@ -163,33 +163,14 @@ function showNotification(a_type, a_message) {
 }
 
 
- // Funkcija za pripremu i prikaz gresaka prilikom validacije forme
+    // Funkcija za pripremu i prikaz gresaka prilikom validacije forme
     function showValidationErrors(response) {
 
-        /*if (response.responseJSON !== 'undefined') {
-            var data = response.responseJSON;
-        } else {
-            var data = response;
-        }*/
-
         var data = response.responseJSON;
-
-        var form = $('.needs-validation');
-
-        console.log(form);
-        form[0].reset();
-        //form.validator('destroy').validator();
-
-       
-
+        
         $.each(data.errors, function(index,val){
-            // Dodajem crveni okvir
-            //$('#f_'+index).addClass('has-error');
-            // Brisem span ako postoji
-            //$('#f_'+index + '> span').remove();
-            // Dodajem span kako bih prikazao gresku
-            //$('#f_'+index).append('<span class="help-block">'+val+'</span>');
 
+            // Dodajem crveni okvir
             $('#'+index).addClass('is-invalid');
             $('#f_'+index + '> .invalid-feedback').remove();
             $('#f_'+index).append('<div class="invalid-feedback">'+val+'</div>');

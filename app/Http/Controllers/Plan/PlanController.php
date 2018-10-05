@@ -45,7 +45,7 @@ class PlanController extends Controller
 
 
     /*
-	* Show modal for createing plan
+	* Show modal for createing plan -- ovo vise ne koristimo
     */
     public function create() {
         // Ovo nece trebati

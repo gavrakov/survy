@@ -21,7 +21,7 @@ a:focus {
     
 }
 
-.btn {
+.btn, .badge {
   text-shadow: none;
 }
 
@@ -198,6 +198,18 @@ ul ul a {
 
 .table-survy td {
   padding:1.25rem;
+}
+
+.table-survy td:last-child {
+    border-right: 1px solid #dfdfdf;
+}
+
+.table-survy td:first-child {
+    border-left: 1px solid #dfdfdf;
+}
+
+.table-survy tr:last-child {
+  border-bottom: 1px solid #dfdfdf; 
 }
 
 

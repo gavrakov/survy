@@ -6,25 +6,25 @@
 
 <div class="row">
 	
-			<div id="plan" class="col-md-6">
+			<div id="plan" class="col-md-4">
 	
-			<div class="panel panel-default">
-	            <div class="panel-heading">
-	              <p class="fa fa-file-o"><b>&nbsp;Plan details </b></p>
+			<div class="card text-left mb-4">
+	            <div class="card-header-white">
+	             	<p class="fa fa-file"><b>&nbsp;Plan details </b></p>
 	            </div>
-	            <div class="panel-body">
 
-		         
+	            <div class="card-body">
+
 		        	<!-- Details -->
 	            	<div class="row">
 
 		            	<div id="picture" class="col-md-2">
-		            		<img id="plan-icon" name="plan-icon" src="{{ asset('storage/icons/plan-icon64.png') }}">
+		            		<img id="plan-icon" name="plan-icon" src="{{ asset('storage/icons/plan-icon32.png') }}">
 		            	</div>
 
 		            	<!-- Name and date -->
 		            	<div id="details" class="col-md-10">
-		            		<h4>{{$plan->name}}</h4>
+		            		<h5>{{$plan->name}}</h5>
 		                	<em>{{$plan->dateFrom()}} - {{$plan->dateTo()}}</em>
 		            	</div>         	
 
@@ -55,32 +55,42 @@
 		 			<!-- Edit btn -->
 		 			<div class="row">
 		            	<div id ="btn" class="col-md-12">
-		            	<span id="btn_edit" class="btn btn-default col-md-4 col-md-offset-4" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</span>
+		            	<button id="btn_edit" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>
 
 		            	</div>
-	            	</div>
-
-	            	
+	            	</div>	
 	      	       
 	            </div>
 	           
 	        </div>
     	</div>
 
+    	<div class="col-md-8">
+			<div class="table-responsive">
+				<table id="items" class="table table-survy">
+                    <tbody></tbody>
+                </table>
+
+	           
+	            	
+	           
+			</div>	
+		</div>
+
 		
 		<!-- Today -->
 		@if (!empty($today) and $today != null)
-		<div class="col-md-6">
-			<div class="panel panel-info">
-				<div class="panel-heading"><p><b>Today</b></p></div>
+		<div class="col-md-4">
+			<div class="card text-left mb-4">
+				<p class="card-header-white"><b>Today</b></p>
 
-	            <div class="panel-body">
+	            <div class="card-body">
 
 	            	<!-- Meals -->
 	            	<div class="row">
 
 
-	            		<h5 class="col-md-12"><i class="glyphicon glyphicon-cutlery"> Meals</i></h5>
+	            		<h6 class="col-md-12"><i class="glyphicon glyphicon-cutlery"> Meals</i></h6>
 
 	            		<!-- Breakfast -->
 	            		@if($today->breakfast()->first() != null)
@@ -165,10 +175,10 @@
 				<span class="badge badge badge-danger badge-lg"> Slatki kupus</span>
 				<span class="badge badge badge-danger badge-lg"> Kvasenice</span-->
 				<hr>
-				<h5><i class="glyphicon glyphicon-shopping-cart"> Groceries</i></h5>
+				<h6><i class="glyphicon glyphicon-shopping-cart"> Groceries</i></h6>
 				<!--span class="badge badge badge-danger badge-lg"> Hleb</span -->
 				<hr>
-				<h5><i class="glyphicon glyphicon-glass"> Activities</i></h5>
+				<h6><i class="glyphicon glyphicon-glass"> Activities</i></h6>
 				<!--span class="badge badge badge-danger badge-lg"> Kafa u actorsu</span-->
 
 				<hr>
@@ -177,26 +187,31 @@
 				<span class="badge badge badge-danger badge-lg"><i class="glyphicon glyphicon-shopping-cart"> Prasak za ves</i></span>
 				<span class="badge badge badge-warning badge-lg"><i class="glyphicon glyphicon-shopping-cart"> Kafa u Actorsu</i></span-->
 			
-            	<span id="btn_see_all" class="btn btn-default btn-sm pull-right" onClick="window.location.replace('{{route('plans.items.show',['plan_id' => $today->plan_id, 'item_id' => $today->id])}}');"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</span>
+            	<button id="btn_see_all" class="btn btn-info btn-sm" onClick="window.location.replace('{{route('plans.items.show',['plan_id' => $today->plan_id, 'item_id' => $today->id])}}');"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>
 
 	            		            	
-	            </div><!-- panel body - ends -->
+	        </div><!-- panel body - ends -->
 	            
 			</div>	
 		</div>
 		@endif
 
-		<div class="col-md-12">
-			<div class="panel panel-default">
-				<div class="panel-heading"><p class="fa fa-calendar"><b>&nbsp;Calendar</b></p></div>
-	            <div class="panel-body">
+		
 
-	            	<!-- Load items -->
+		<!-- Stari izgled - koristio div -->
+		<!--div class="col-md-12">
+			<div class="card text-left">
+				<div class="card-header-white"><p class="fa fa-calendar"><b>&nbsp;Calendar</b></p></div>
+	            <div class="card-body">
+
+	           
 	            	<div id="items" name="items" class="col-md-12"></div>
 	            	
-	            </div><!-- panel body - ends -->
+	            </div>
 			</div>	
-		</div>		
+		</div-->
+
+
 		
 
 	
@@ -215,7 +230,8 @@ $(document).ready(function(){
 		});
 
 	    // Load plan items
-	    loadDivData('{{ route("plans.items",["id" => $plan->id]) }}','items');
+	    loadTableData('{{ route("plans.items",["id" => $plan->id]) }}','items');
+	    //loadDiv//Data('{{ route("plans.items",["id" => $plan->id]) }}','items');
 });
 
 

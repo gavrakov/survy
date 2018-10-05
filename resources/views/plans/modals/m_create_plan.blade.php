@@ -8,94 +8,96 @@
             </div>
 
             <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
 
-                <div class="row">
+                        <form id="create_f" class="form" role="form" enctype="multipart/form-data" method="POST" action="{{ route('plans.store') }}">
 
-                    <form id="create_f" class="form" role="form" enctype="multipart/form-data" method="POST" action="{{ route('plans.store') }}">
-
-                        <!-- Name -->
-                        <div class="col-md-12">
-                        <div id="f_name" class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
-                            
-                                <label for="name">Plan name</label>
-                                <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus >
-                                @if ($errors->has('name'))
-                                    <span class="help-block">
-                                        {{ $errors->first('name') }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <!-- Date -->
-                        <div id="f_dates" class="form_group">
-
+                            <!-- Name -->
                             <div class="col-md-12">
-                                <div id="f_plan_period" class= class="form-group {{ $errors->has('date_from') ? ' has-error' : '' }}">
+                                <div id="f_name" class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+                                    
+                                        <label for="name">Plan name</label>
+                                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus >
+                                        @if ($errors->has('name'))
+                                            <span class="help-block">
+                                                {{ $errors->first('name') }}
+                                            </span>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
 
-                            <!-- Date from -->
-                            <div class="col-md-6">
-                                <div id="f_date_from" class= class="form-group {{ $errors->has('date_from') ? ' has-error' : '' }}">
-                                    <label for="date_from">Date from</label>
-                                    <input id="date_from" type="text" class="form-control" name="date_from" value="{{ old('date_from') }}" placeholder="MM/DD/YYYY" autocomplete="off" required autofocus>
-                                    @if ($errors->has('date_from'))
-                                    <span class="help-block">
-                                        {{ $errors->first('date_from') }}
-                                    </span>
+                                <!-- Date -->
+                                <div id="f_dates" class="form_group">
+
+                                    <div class="col-md-12">
+                                        <div id="f_plan_period" class= class="form-group {{ $errors->has('date_from') ? ' has-error' : '' }}">
+                                        </div>
+                                    </div>
+
+                                    <!-- Date from -->
+                                    <div class="d-flex">
+                                        <div class="col-md-6">
+                                            <div id="f_date_from" class= class="form-group {{ $errors->has('date_from') ? ' has-error' : '' }}">
+                                                <label for="date_from">Date from</label>
+                                                <input id="date_from" type="text" class="form-control" name="date_from" value="{{ old('date_from') }}" placeholder="MM/DD/YYYY" autocomplete="off" required autofocus>
+                                                @if ($errors->has('date_from'))
+                                                <span class="help-block">
+                                                    {{ $errors->first('date_from') }}
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+
+                                        <!-- Date to -->
+                                        <div class="col-md-6">
+                                            <div id="f_date_to" class="form-group {{ $errors->has('date_to') ? ' has-error' : '' }}">
+                                                <label for="date_to">Date to</label>
+                                                <input id="date_to" type="text" class="form-control" name="date_to" value="{{ old('date_to') }}" placeholder="MM/DD/YYYY" autocomplete="off" required autofocus >
+                                                @if ($errors->has('date_to'))
+                                                <span class="help-block">
+                                                    {{ $errors->first('date_to') }}
+                                                </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div> 
+
+
+                            <!-- Number of persons -->
+                            <div class="col-md-12">
+                                <div id="f_persons" class="form-group {{ $errors->has('persons') ? ' has-error' : '' }}">
+                                
+                                    <label for="persons">Number of persons</label>
+                                    <input id="persons" type="text" class="form-control" name="persons" value="{{ old('persons') }}" autocomplete="off" required autofocus >
+                                    @if ($errors->has('persons'))
+                                        <span class="help-block">
+                                            {{ $errors->first('persons') }}
+                                        </span>
                                     @endif
                                 </div>
                             </div>
 
-                            <!-- Date to -->
-                            <div class="col-md-6">
-                                <div id="f_date_to" class="form-group {{ $errors->has('date_to') ? ' has-error' : '' }}">
-                                    <label for="date_to">Date to</label>
-                                    <input id="date_to" type="text" class="form-control" name="date_to" value="{{ old('date_to') }}" placeholder="MM/DD/YYYY" autocomplete="off" required autofocus >
-                                    @if ($errors->has('date_to'))
-                                    <span class="help-block">
-                                        {{ $errors->first('date_to') }}
-                                    </span>
+                            
+                            <!-- Description -->
+                            <div class="col-md-12">
+                                <div id="f_description" class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
+                                
+                                    <label for="description">Description</label>
+                                     <textarea id="description" class="form-control" name="description"  value="{{ old('description') }}" rows="10"></textarea>
+                                    @if ($errors->has('description'))
+                                        <span class="help-block">
+                                            {{ $errors->first('description') }}
+                                        </span>
                                     @endif
                                 </div>
                             </div>
+                                  
+                        </form>
 
-                        </div> 
-
-
-                        <!-- Number of persons -->
-                        <div class="col-md-12">
-                        <div id="f_persons" class="form-group {{ $errors->has('persons') ? ' has-error' : '' }}">
-                            
-                                <label for="persons">Number of persons</label>
-                                <input id="persons" type="text" class="form-control" name="persons" value="{{ old('persons') }}" autocomplete="off" required autofocus >
-                                @if ($errors->has('persons'))
-                                    <span class="help-block">
-                                        {{ $errors->first('persons') }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        
-                        <!-- Description -->
-                        <div class="col-md-12">
-                        <div id="f_description" class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
-                            
-                                <label for="description">Description</label>
-                                 <textarea id="description" class="form-control" name="description"  value="{{ old('description') }}" rows="10"></textarea>
-                                @if ($errors->has('description'))
-                                    <span class="help-block">
-                                        {{ $errors->first('description') }}
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-                              
-                    </form>
-
-                </div> <!-- row end -->
+                    </div> <!-- row end -->
+                </div>
             </div> <!-- modal-body end -->
 
             <div class="modal-footer">

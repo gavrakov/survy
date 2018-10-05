@@ -174,14 +174,25 @@ function showNotification(a_type, a_message) {
 
         var data = response.responseJSON;
 
-        $.each(data.errors, function(index,val){
+        var form = $('.needs-validation');
 
+        console.log(form);
+        form[0].reset();
+        //form.validator('destroy').validator();
+
+       
+
+        $.each(data.errors, function(index,val){
             // Dodajem crveni okvir
-            $('#f_'+index).addClass('has-error');
+            //$('#f_'+index).addClass('has-error');
             // Brisem span ako postoji
-            $('#f_'+index + '> span').remove();
+            //$('#f_'+index + '> span').remove();
             // Dodajem span kako bih prikazao gresku
-            $('#f_'+index).append('<span class="help-block">'+val+'</span>');
+            //$('#f_'+index).append('<span class="help-block">'+val+'</span>');
+
+            $('#'+index).addClass('is-invalid');
+            $('#f_'+index + '> .invalid-feedback').remove();
+            $('#f_'+index).append('<div class="invalid-feedback">'+val+'</div>');
         });
     }
 

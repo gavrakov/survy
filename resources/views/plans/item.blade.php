@@ -69,24 +69,16 @@
         <div class="card text-left mb-3">
             <h6 class="card-header-white">Groceries</h6>
             <div class="card-body">
-           
-  
-                        <p>Groceries</p>
-
-                        <p id="dinner_p" class="text-justify">  
-                            No groceries for today...  
-                        </p>
-                        
-                        <table id="groceries_basket" class="table table-sm" style="width:50%">
-                                <tbody>
-                                    <!-- Load basket - Ajax -->
-                                </tbody>
-                        </table>
-                       
-                       
-                        <span id="btn_groceries" class="btn btn-light btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</span>
-                 
-               
+                <p>Groceries</p>
+                <p id="dinner_p" class="text-justify">  
+                    No groceries for today...  
+                </p>
+                <table id="groceries_basket" class="table table-sm" style="width:50%">
+                        <tbody>
+                            <!-- Load basket - Ajax -->
+                        </tbody>
+                </table>
+                <span id="btn_groceries" class="btn btn-light btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</span>
             </div>
         </div>
     </div>
@@ -98,21 +90,15 @@
             <h6 class="card-header-white">Activities</h6>
             <div class="card-body">
                     <p>Activities</p>
-
                     <p id="dinner_p" class="text-justify">  
                         No activities for today...  
                     </p>
-                    
                     <table id="activities_basket" class="table table-sm" style="width:50%">
                             <tbody>
                                 <!-- Load basket - Ajax -->
                             </tbody>
                     </table>
-
                     <span id="btn_activities" class="btn btn-light btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add activities</span>
-
-                 
-               
             </div>
         </div>
     </div>
@@ -174,10 +160,6 @@ function insertRecipe(recipe_id,item_id,category_id,adresa) {
     url: adresa, 
     dataType: 'json',
     data: form.serialize(),
-
-    /*complete : function(){
-        alert(this.url)
-    },*/
 
         success: function(response) {
 

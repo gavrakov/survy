@@ -39,21 +39,21 @@
 
 	<!-- Button -->
 	<div class="col-md-3">
-		<span id="btn_{{$recipe->id}}" class="btn btn-default btn-sm btn-circle" onClick="deleteRecipe({{$item->id}},{{$category}},'{{route('plans.items.recipe.destroy',['plan_id' => $item->plan_id, 'item_id' => $item->id, 'category_id' => $category])}}');"><i class="fa fa-times"></i></span>
+		<span id="btn_{{$recipe->id}}" class="btn btn-light btn-sm" onClick="deleteRecipe({{$item->id}},{{$category}},'{{route('plans.items.recipe.destroy',['plan_id' => $item->plan_id, 'item_id' => $item->id, 'category_id' => $category])}}');"><i class="fas fa-trash"></i>&nbsp; Remove</span>
 	</div>
 
 @else
 
 	@if ($category == 1)
-		<p id="brakfast_p" class="text-justify">No breakfast for today...</p>
+		<p id="brakfast_p" class="text-justify ml-3"><i>No breakfast for today...</i></p>
 	@endif
 
 	@if ($category == 2)
-		<p id="lunch_p" class="text-justify">No lunch for today...</p>
+		<p id="lunch_p" class="text-justify ml-3"><i>No lunch for today...</i></p>
 	@endif
 
 	@if ($category == 3)
-		<p id="dinner_p" class="text-justify">No dinner for today...</p>
+		<p id="dinner_p" class="text-justify ml-3"><i>No dinner for today...</i></p>
 	@endif
 
 @endif

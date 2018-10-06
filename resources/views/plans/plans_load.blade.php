@@ -1,18 +1,21 @@
 @if (isset($plans))
 	@foreach ($plans as $plan)
     <tr>
-        <td class="p-4">
+        <td class="p-4 align-middle">
             <h6>
                 <img id="plan-icon" name="plan-icon" src="{{ asset('storage/icons/plan-icon24.png') }}">&nbsp;
                 {{$plan->name}}
             </h6>
         </td>
-        <td><em>{{$plan->dateFrom()}} - {{$plan->dateTo()}}</em></td>
+        <td class="align-middle"><em>{{$plan->dateFrom()}} - {{$plan->dateTo()}}</em></td>
+        <td class="align-middle">
+            <a href="{{route('plans.show',['id'=>$plan->id])}}" class="btn btn-light btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp; Edit</a>
+        </td>
     </tr>
 	@endforeach
 
     <tr>
-        <td  id="pagination" colspan="2">{{ $plans->links() }}</td>
+        <td  id="pagination" colspan="3">{{ $plans->links() }}</td>
     </tr>
 
 @endif

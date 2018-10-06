@@ -111,19 +111,15 @@ class PlanController extends Controller
 
 
 
-      /*
+    /*
     * Edit form for plan detals
     */
     public function edit(int $id) {
-
-
         if(!isset($id)) {
             return redirect('/plans');
         }
-
         $data['plan'] = Plan::find($id);
         return view('plans/modals/m_edit_plan')->with('plan',$data['plan']);
-
     }
 
 
@@ -155,7 +151,6 @@ class PlanController extends Controller
 
 
 
-
     /**
      * Load and search all plans
      */
@@ -173,8 +168,6 @@ class PlanController extends Controller
         return redirect()->route('plans');
  
     }
-
-
 
 
 

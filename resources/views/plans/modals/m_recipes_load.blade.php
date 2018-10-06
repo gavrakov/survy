@@ -13,7 +13,6 @@ if (session()->has('location')) {
  <div class="row">
  	
 	<form name="f_add_recipe" id="f_add_recipe" type="post" action="">
-	    <!--input name="f_category" id="f_category" value="{{$category}}" type="text" class="form-control" value="" hidden-->
 	    <input name="f_recipe" id="f_recipe" type="text" class="form-control" value="" hidden>
 	</form>
 
@@ -57,7 +56,7 @@ if (session()->has('location')) {
 
 			<!-- Button -->
 			<div class="col-md-3">
-				<span id="btn_{{$recipe->id}}" class="btn btn-default btn-sm" onClick="insertRecipe({{$recipe->id}},{{$item->id}},{{$category}},'{{route('plans.items.recipe.add',['plan_id' => $item->plan_id, 'item_id' => $item->id, 'category_id' => $category])}}');"><i class="fa fa-plus fa-fw"></i>&nbsp Add</span>
+				<span id="btn_{{$recipe->id}}" class="btn btn-light btn-sm" onClick="insertRecipe({{$recipe->id}},{{$item->id}},{{$category}},'{{route('plans.items.recipe.add',['plan_id' => $item->plan_id, 'item_id' => $item->id, 'category_id' => $category])}}');"><i class="fa fa-plus fa-fw"></i>&nbsp; Add</span>
 			</div>
 		                                     
 

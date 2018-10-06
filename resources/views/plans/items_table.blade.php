@@ -5,14 +5,14 @@
 
 
             <!-- Recipe name and dates -->
-            <td id="date">
+            <td id="date" class="p-2 align-middle">
                 <h6><img width=20x" src="<?php  $path = 'storage/icons/calendar-icon.png'; echo asset($path); ?>">&nbsp;{{$item->date}}</h6>
             </td>
 
             <!-- Recipes -->
-            <td id="recipes_list>
+            <td id="recipes_list" class="p-2">
                     
-                        <h5><i class="glyphicon glyphicon-cutlery"> Meals</i></h5>
+                        <p>Meals</p>
                     
                         @if ($item->breakfast != null)
                             <span class="badge badge-info">{{$item->breakfast()->first()->name}}</span>
@@ -34,13 +34,13 @@
 
 
             <!-- Activities --> 
-            <td id="activitie_list">      
-                        <p><i class="glyphicon glyphicon-glass"> Activities</i></p> 
+            <td id="activitie_list" class="p-2 align-middle">      
+                        <p>Activities</p> 
             </div>
 
 
             <!-- Edit item -->
-            <td id="see_all">
+            <td id="see_all" class="p-2 align-middle">
                 <button id="btn_breakfast" class="btn btn-light btn-sm pull-right"  onClick="window.location.replace('{{route('plans.items.show',['plan_id' => $item->plan_id, 'item_id' => $item->id])}}');"><i class="fa fa-edit fa-fw"></i>&nbsp;edit</button>
             </td>
 

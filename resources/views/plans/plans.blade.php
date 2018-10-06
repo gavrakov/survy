@@ -7,47 +7,10 @@
 
 
 <div class="row">
-
     <div class="col-md-8">
-
             <div class="row"> 
-
                 <div class="col-md-12">    
-
-                    <!--div class="search-holder">  
-
-                        <div class="col-md-8 col-sm-4">
-                            <button id="create_plan" class="btn btn-info btn-sm" data-toggle="modal" data-target="#m_create_plan"><i class="fas fa-plus"></i>&nbsp; Create new plan</button>
-                        </div>
-
-
-
-                        <div class="col-md-4 col-sm-4">
-                                 <input type="text" style="width:100%;" id="plansearch" name="plansearch" class="form-control pull-right" placeholder="Search...">     
-                        </div>
-
-                    </div-->
-
-                    <!-- Ovako nesto obavezno probati, a takodje probati resiti ovo sa CARDS -->
-                    <!--div class="row p-3 bg-white">
-                        <div class="col">
-                            <button id="create_plan" class="btn btn-info btn-sm" data-toggle="modal" data-target="#m_create_plan"><i class="fas fa-plus"></i>&nbsp; Create new plan</button>
-                        </div>
-                        <div class="col">
-                            <input type="text" style="width:50%;" id="plansearch" name="plansearch" class="form-control pull-right" placeholder="Search...">   
-                        </div>
-                    </div-->  
-                   
-                    <!--div class="table-responsive">
-
-                        <table id="plans" class="table table-survy">
-                            <tbody></tbody>
-                        </table>
-
-                    </div-->
-
                     <div class="card text-left mb-3">
-                        <!--div class="card-header-white">Blablabal</div-->
                         <div class="card-body p-0">
                             <div class="row p-4">
                                 <div class="col">
@@ -57,11 +20,10 @@
                                     <input type="text" style="width:50%;" id="plansearch" name="plansearch" class="form-control pull-right" placeholder="Search..."> 
                                 </div>
                             </div>
-                            
 
-                                <table id="plans" class="table">
-                                    <tbody></tbody>
-                                </table>
+                            <table id="plans" class="table">
+                                <tbody></tbody>
+                            </table>
                            
                         </div>
 
@@ -73,26 +35,27 @@
 
     </div> <!-- col-md-8 ends -->
 
-     @if (isset($active) and !empty($active))
-    <div class="col-md-4 mb-3 col-sm-12">
-     
-        <div class="card text-left">
-            <h6 class="card-header-white">
-                Active plan
-            </h6>
-            <div class="card-body">
-            
-                <h6 class="card-title"><img id="plan-icon" name="plan-icon" src="{{ asset('storage/icons/plan-icon24.png') }}"> {{$active->name}}</h6>
-                <p class="card-text">
-                    <em>{{$active->dateFrom()}} - {{$active->dateTo()}}</em>
-                </p> 
-            
-                <button id="btn_edit" class="btn btn-default btn-sm"  onClick="window.location.replace('{{route('plans.show',['id' => $active->id])}}');"><i class="far fa-edit"></i>&nbsp;edit</button>
-            </div>
-            
-        </div> <!-- card-info - ends -->
 
-    </div>
+    @if (isset($active) and !empty($active))
+        <div class="col-md-4 mb-3 col-sm-12">
+         
+            <div class="card text-left">
+                <h6 class="card-header-white">
+                    Active plan
+                </h6>
+                <div class="card-body">
+                
+                    <h6 class="card-title"><img id="plan-icon" name="plan-icon" src="{{ asset('storage/icons/plan-icon24.png') }}"> {{$active->name}}</h6>
+                    <p class="card-text">
+                        <em>{{$active->dateFrom()}} - {{$active->dateTo()}}</em>
+                    </p> 
+                
+                    <button id="btn_edit" class="btn btn-default btn-sm"  onClick="window.location.replace('{{route('plans.show',['id' => $active->id])}}');"><i class="far fa-edit"></i>&nbsp;edit</button>
+                </div>
+                
+            </div> <!-- card-info - ends -->
+
+        </div>
     @endif
 
 </div>

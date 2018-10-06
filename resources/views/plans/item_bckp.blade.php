@@ -17,60 +17,78 @@
     </div>
   
 
-    <div class="col-md-4">    
+    <div class="col-md-12">    
         <div class="card text-left mb-3">
             <h6 class="card-header-white">Meals</h6>
             <div class="card-body p-0">
-                    <ul class="list-group list-group-flush">
-                        <li id="breakfast_row" class="list-group-item">
+
+                <div name="data" class="col-md-12">
+
+                    <!-- Breakfast -->
+                    <div id="breakfast_row" class="row">
+                        
+                        <div class="col-md-12">
                             <p>Breakfast</p>
 
                             <!-- Load breakfast -->
                             <div id="breakfast_container" class="row recipe-row"></div> 
                                 
                             <div class="row recipe-row">
-                                    <button id="btn_breakfast" class="btn btn-light btn-sm m-3"><i class="fa fa-edit fa-fw"></i>&nbsp;Add</button>
+                                    <button id="btn_breakfast" class="btn btn-default btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add breakfast</button>
                             </div>
+                        </div>
                         
-                        </li>
-                        <li id="lunch_row" class="list-group-item">
-                            <p>Lunch</p>
+                    </div>
 
-                            <!-- Load lunch -->
-                            <div id="lunch_container" class="row recipe-row"></div> 
+                    <hr>
+
+                    <!-- Lunch -->
+                    <div id="lunch_row" class="row">
+                        <div class="col-md-12">
+                            <p>Lunch</p>
+                                <!-- Load lunch -->
+                                <div id="lunch_container" class="row recipe-row"></div> 
 
                             <div class="row recipe-row">        
-                                <button id="btn_lunch" class="btn btn-light btn-sm m-3"><i class="fa fa-edit fa-fw"></i>&nbsp;Add</button>
+                                <button id="btn_lunch" class="btn btn-default btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add lunch</button>
                             </div>
+                        </div>
+                    </div>
 
-                        </li>
-                        <li id="dinner_row" class="list-group-item">
+                    <hr>
+
+
+                    <!-- Lunch -->
+                    <div id="dinner_row" class="row">
+                        <div class="col-md-12">
                             <p>Dinner</p>
 
                             <!-- Dinner lunch -->
                             <div id="dinner_container" class="row recipe-row"></div> 
                             
                             <div class="row recipe-row"> 
-                                 <button id="btn_dinner" class="btn btn-light btn-sm m-3"><i class="fa fa-edit fa-fw"></i>&nbsp;Add</button>
+                                 <button id="btn_dinner" class="btn btn-default btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add dinner</button>
                             </div>
-                        </li>
-                        <li id="meals-total" class="list-group-item">
-                            Total:
-                        </li>
-                    </ul>
-   
+                        </div>
+                    </div>
+
+
+                </div> <!-- Data div - ends -->
+                    
             </div> <!-- Card body - ends -->
         </div> <!-- Card - ends -->
     </div>
 
 
     <!-- Groceries -->
-    <div class="col-md-4">
+    <div class="col-md-12">
         <div class="card text-left mb-3">
             <h6 class="card-header-white">Groceries</h6>
             <div class="card-body">
            
-  
+                <div name="data" class="col-md-12">
+                    <!-- Breakfast -->
+                    <div id="groceries_row" class="row">
                         <p>Groceries</p>
 
                         <p id="dinner_p" class="text-justify">  
@@ -84,8 +102,8 @@
                         </table>
                        
                        
-                        <span id="btn_groceries" class="btn btn-light btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</span>
-                 
+                        <span id="btn_groceries" class="btn btn-default btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</span>
+                    </div>  
                
             </div>
         </div>
@@ -93,31 +111,37 @@
     
 
     <!-- Activities -->
-    <div class="col-md-4">
-        <div class="card text-left mb-3">
-            <h6 class="card-header-white">Activities</h6>
-            <div class="card-body">
-                    <p>Activities</p>
+    <div class="col-md-8">
+        <div class="panel panel-default">
+            <div class="panel-heading"><p class="glyphicon glyphicon-glass"> Activities</p></div>
+            <div class="panel-body">
+           
+   
+                <div name="data" class="col-md-12">
 
-                    <p id="dinner_p" class="text-justify">  
-                        No activities for today...  
-                    </p>
-                    
-                    <table id="activities_basket" class="table table-sm" style="width:50%">
-                            <tbody>
-                                <!-- Load basket - Ajax -->
-                            </tbody>
-                    </table>
+                    <!-- Breakfast -->
+                    <div id="activities_row" class="row">
+                        <h4>Activities</h4>
 
-                    <span id="btn_activities" class="btn btn-light btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add activities</span>
+                        <p id="dinner_p" class="text-justify">  
+                            No activities for today...  
+                        </p>
+                        
+                        <table id="activities_basket" class="table table-sm" style="width:50%">
+                                <tbody>
+                                    <!-- Load basket - Ajax -->
+                                </tbody>
+                        </table>
+                       
+                       
+                        <span id="btn_activities" class="btn btn-default btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add activities</span>
+                    </div>  
 
-                 
+                </div>    
                
             </div>
         </div>
     </div>
-
-</div> <!-- row ends -->
 
 
 <script type="text/javascript">

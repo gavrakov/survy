@@ -17,12 +17,10 @@ function showModal(a_url,modal_id) {
         dataType: 'html',
 
         success: function(response) {
-            console.log(response);
             $("#"+modal_id).remove();
-            $('#page_content').append(response);
-            $("#"+modal_id).modal('show');
-            console.log($("#"+modal_id));
-            
+            $('#page-content').append(response);
+            $("#page-content > #"+modal_id).modal('show');
+            //console.log($("#"+modal_id)); 
         },
 
         error: function(response) {

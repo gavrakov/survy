@@ -12,8 +12,11 @@
                     ?>
                 >
                 </td>
-                <td align="center"><span id="del_{{$location->id}}" onClick="deleteLocation('{{ route('locations.destroy',['id' => $location->id]) }}');" class="btn btn-danger btn-xs" ><i class="glyphicon glyphicon-remove"></i>&nbsp;Delete</span></td>
+                <td align="center"><span id="del_{{$location->id}}" onClick="deleteLocation('{{ route('locations.destroy',['id' => $location->id]) }}');" class="btn btn-default btn-sm" ><i class="fas fa-trash"></i></span></td>
             </tr>
     	@endforeach
-            <tr><td colspan="100%" align="center">{{ $locations->links() }}</td></tr>         
+
+        @if($locations->links() != '')
+            <tr><td colspan="100%" align="center">{{ $locations->links() }}</td></tr>    
+        @endif     
     @endif

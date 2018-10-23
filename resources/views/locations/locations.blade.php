@@ -1,8 +1,64 @@
 @extends('layouts.app')
 @section('content')
+
+
 <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-default">
+
+
+        <div class="col-md-8">    
+                    <div class="card text-left mb-3">
+                        <div class="card-body p-0">
+                             
+                            <div class="row p-4">
+                                <div class="col">
+                                    <form class="form-inline" id="add_location_f" name="add_location_f" role="form" method="post" action="{{ route('locations.store') }}">
+
+                                    <div id="f_country" class="form-group {{ $errors->has('country') ? ' has-error' : '' }}">   
+                                        <div class="input-group mr-2">
+                                            <select id="country" name="country" class="form-control">
+                                                @if (isset($countries)) 
+                                                    @foreach($countries as $country)
+                                                        <option value="{{$country->id}}"><?php echo $country->country_name; ?></option>
+                                                    @endforeach 
+                                                @endif
+                                            </select>
+                                            
+                                        </div>
+                                        <button id="add" class="btn btn-info btn-mb-2 btn-sm"><i class="fas fa-plus"></i>&nbsp; Add</button>
+                                     </div>  
+                                    </form>
+                                    
+                                </div>
+                            </div>
+
+                            <form id="set_active_f" role="form" method="post" action="">
+                                <table id="recipes" class="table">
+                                    <thead>
+                                        <tr>
+                                            
+                                            <th width="40%" class="border-bottom-0">Location</th>
+                                            <th width="20%" class="border-bottom-0">Currency</th>
+                                            <th width="10%" class="border-bottom-0">Active</th>
+                                            <th class="border-bottom-0"> </th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @include('locations/locations_load')
+                                    </tbody>
+                                </table>
+                            </form>
+                           
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+        <!---div class="panel panel-default">
             <div class="panel-heading"><p class="fa fa-location-arrow">&nbsp;Locations</p></div>
             <div class="panel-body">
             	<div class="table-responsive">
@@ -42,9 +98,9 @@
                             </table>
                         </form>
                     </div>
-                    <!-- /.table-responsive -->
+                   
                 </div>
-            </div>
+            </div-->
         </div>
     </div>
 </div>

@@ -3,45 +3,44 @@
 
 <div name='rowica' class="row">
     <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-heading"><p class="glyphicon glyphicon-book">&nbsp;Groceries</p></div>
-            <div class="panel-body">
-            	<div class="table-responsive">
-                        <span id="create_grocery" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus"></i>&nbsp; Create new</span>
-                        <!--/a-->
-                        <div class="input-group custom-search-form pull-right" align="center" style="width:15%;">
-                                <input width="150px" type="text" id="search" name="search" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <hr>
-                        <table id="groceries" class="table">
-                            <thead>
-                                <tr>
-                                    <th width="10%">Photo</th>
-                                    <th width="20%">Name</th>
-                                    <th width="20%">Category</th>
-                                    <th width="10%">Unite</th>
-                                    <th width="10%">Quantity</th>
-                                    @if ($form_data['location'] !== null)   
-                                        <th width="15%">Price <small class='text-danger'>({{$form_data['location']->currency}})</small></th>
-                                    @endif
-                                    <th width="5%"></th>
-                                    <th width="5%"></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                              
-                            </tbody>
-                        </table>
+
+        <!-- Card - add and search part -->
+        <div class="card text-left mb-3">
+            <div class="card-body p-0">
+                <div class="row p-4">
+                    <div class="col">
+                        <button id="create_grocery" class="btn btn-info btn-sm"><i class="fas fa-plus"></i>&nbsp; Create new</button>
                     </div>
-                    <!-- /.table-responsive -->
+                    <div class="col">
+                        <input type="text" style="width:50%;" id="search" name="search" class="form-control pull-right" placeholder="Search..."> 
+                    </div>
                 </div>
+
+                <table id="groceries" class="table">
+                    <thead>
+                        <tr>
+                            <th width="10%" class="border-bottom-0">Photo</th>
+                            <th width="20%" class="border-bottom-0">Name</th>
+                            <th width="20%" class="border-bottom-0">Category</th>
+                            <th width="10%" class="border-bottom-0">Unite</th>
+                            <th width="10%" class="border-bottom-0">Quantity</th>
+                            @if (LocationManager::isActive())
+                                <th width="15%" class="border-bottom-0">Price <small class='text-danger'>({{LocationManager::country()->currency}})</small></th>
+                            @endif
+                            <th width="5%" class="border-bottom-0"></th>
+                            <th width="5%" class="border-bottom-0"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+               
             </div>
+
         </div>
+
+        
     </div>
 </div>
 

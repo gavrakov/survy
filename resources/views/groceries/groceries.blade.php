@@ -40,11 +40,8 @@
 
         </div>
 
-        
     </div>
-</div>
-
-
+<div>
 
 <script type="text/javascript">
 
@@ -54,9 +51,9 @@
         // Load all groceries
         loadTableData('{{URL::to('groceries/load')}}');
 
-        // Open modal create recipe 
+        // Open modal create recipe
         $("#create_grocery").on('click', function(){
-            showEditModal('{{ route('groceries.create') }}','create'); 
+            showModal('{{ route('groceries.create') }}','create'); 
         });
 
         // Search
@@ -69,8 +66,8 @@
 
 
     // Delete grocery
-    function deleteGrocery(url) {
-     
+    function delGrocery(url) {
+       
         $.ajax({
             headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
             type: 'get',
@@ -100,34 +97,6 @@
        
     }
 
-
-    // Create and Edit grocery
-    function showEditModal(a_url,modal_id) {
-
-        $.ajax({
-
-            headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
-            type: 'get',
-            url: a_url,
-            dataType: 'html',
-
-            success: function(response) {
-                
-                $("#"+modal_id).remove();
-                $('#page_content').append(response);
-                $("#"+modal_id).modal('show');
-                
-            },
-
-            error: function(response) {
-                //console.log(response);
-            }
-        });
-    }
-
-
-
-// SREDITI UPLOAD FOTOGRAFIJE I FORM VALIDATION SA PRIKAZOM GRESAKA
 
     /* 
     * Save grocery  

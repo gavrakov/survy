@@ -12,7 +12,7 @@
             <img class="icon_object" src="<?php 
 
             // Vraca collection of object
-            $icon = $ins_grocery->getGroceryCategoryIcon();;
+            $icon = $ins_grocery->getGroceryCategoryIcon();
 
             // Ovo srediti
             $path = 'storage/icons/groceries/' . $icon;
@@ -33,19 +33,19 @@
         
     @endforeach
 
-
     <tr>
-        <td colspan="4" align="right">
-
-            @if($location !== null)
-            <p> 
-                <b>&nbsp;Total price: {{ number_format((float)$recipe->getTotalPrice(), 2, '.', '')}} 
-                    <small class='text-danger'>{{$location->currency}}</small>
-                </b>
-            </p>
-             @endif
+        <td colspan="3" align="right">
+            Total price:
         </td>
-        <td>&nbsp;</td>
+        <td>
+            @if($location !== null)
+                <strong>{{ number_format((float)$recipe->getTotalPrice(), 2, '.', '')}}</strong> 
+                <small class='text-danger'>{{$location->currency}}</small>
+            @else
+                0.00
+            @endif
+        </td>
+
     </tr>
 
 

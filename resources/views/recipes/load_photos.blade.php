@@ -1,5 +1,3 @@
-<h4>Photos</h4>       
-
 <?php $photos = $recipe->photos()->get(); ?>
 
 @foreach ($photos as $photo)

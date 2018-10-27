@@ -25,7 +25,8 @@
   <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Create recipe</h3>
+                <h5 class="modal-title">Edit recipe</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                     <form id="edit_f" role="form" enctype="multipart/form-data" method="POST" action="{{ route('recipes.update',['id' => $recipe->id]) }}">
@@ -75,7 +76,8 @@
                     </form>
             </div>
             <div class="modal-footer">
-                 <button id="btn_edit" onClick="save('edit');" type="button" name="btn_edit" class="btn btn-md btn-success">Save</button>
+                <button id="btn_close" data-dismiss="modal" type="button" name="btn_close" class="btn btn-md btn-secondary">Close</button>
+                <button id="btn_edit" onClick="save('edit');" type="button" name="btn_edit" class="btn btn-md btn-info">Save</button>
             </div>
         </div>
   </div>  
@@ -87,6 +89,7 @@
 
 $(document).ready(function() {
     $('#categories').select2({
+
     });
 
 

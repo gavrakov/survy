@@ -2,62 +2,130 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading"><p class="glyphicon glyphicon-book">&nbsp;{{$recipe->name}}</p></div>
-            <div class="panel-body">
-                <div id="alert" class="alert alert-success hide">
-                        
-                </div>
-                	
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <!--div class="panel-heading"><p class="glyphicon glyphicon-book">&nbsp;{{$recipe->name}}</p></div-->
+            <div class="card-body">
 
-                <div name="data" class="col-md-12">
+                <div class="d-flex">
 
-                    <!-- Recipe data --> <!-- Ovaj deo cu morati da sredim -->
-                    <div id="recipe_data" class="row"> 
-                        
-                        <h4>Recipe data</h4>  
+                    <div>
+                   
+                         <img class="mr-4" style="position:relative; width:60px;  border-radius:100%; padding: 2px; border:1px #888888 solid"
+                        src="
+                        <?php 
+                        $photo = $recipe->cover()->first();
+                        $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/150_' . $photo['name'];
+                        echo asset($path); 
+                        ?>" 
+                        style="position:relative; border-radius:3%; border:1px">
+                    </div>
                   
-                        <p>
-                            <span class="d-inline-block">Name:</span> 
-                            <span id="recipe_name" class="d-inline-block"><b>{{$recipe->name}}</b></span>
+                    <div>
+
+                        <h5>{{$recipe->name}}</h5>
+                   
+                        <p id="recipe_categories" class="d-inline-block">
+                            <i>
+
+                            <?php $counter = 0; ?>
+                            @foreach($recipe->categories()->get() as $category)
+
+                                <?php if($counter != 0) { echo",";}?>
+
+                                {{$category['name']}}
+
+                                <?php $counter ++; ?>
+                            @endforeach
+                        
+
+                            </i>
                         </p>
-                        <p>
-                            <span class="d-inline-block">Categories:</span> 
-                            <span id="recipe_categories" class="d-inline-block"><b>
-
-                                <?php $counter = 0; ?>
-                                @foreach($recipe->categories()->get() as $category)
-
-                                    <?php if($counter != 0) { echo",";}?>
-
-                                    {{$category['name']}}
-
-                                    <?php $counter ++; ?>
-                                @endforeach
-                            
-
-
-                            </b></span>
-                        </p>
+                   
                         <p>
                             <span class="d-inline-block">Number of persons:</span> 
                             <span id="recipe_persons" class="d-inline-block"><b>{{$recipe->persons}}</b></span>
-                        </p>
-
-                        <button id="btn_edit" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.edit',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit recipe</button>
-                        
+                        </p>     
+                            
                     </div>
 
-                    <hr>
+                </div>
 
+                <button id="btn_edit" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.edit',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit details</button>
+        </div>
+
+    </div>
+                
+
+    <!-- Groceries -->	
+    <div class="card mb-3">
+        <div class="card-body p-0">
+           <h6 class="card-title p-3">Groceries</h6>
+
+            <table id="groceries_basket" class="table">
+                <tbody>
+                    <!-- Load basket - Ajax -->
+                </tbody>
+            </table>
+           
+            <button id="btn_groceries" class="btn btn-light btn-sm m-3"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</button>
+
+        </div>
+        
+    </div>
+
+ 
+</div> <!-- col-md-4 ends -->
+
+
+<!-- Description -->
+<div class="col-md-4">
+    <div class="card mb-3">
+        <div class="card-body">
+            <h6 class="card-title">Description</h6>
+            <p id="description_p" class="text-justify">
+                @if ($recipe->description == '') 
+                    <i>Describe every step in making this recipe...</i>
+                @else
+                    {{$recipe->description}}
+                @endif
+            </p>
+            <button id="btn_description" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.description',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;
+                @if ($recipe->description == '')  Add description
+                  @else
+                    Edit description
+                @endif
+            </button>
+
+        </div>
+    </div>
+</div>
+
+ <!-- Photos -->
+<div class="col-md-4">
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h6 class="card-title">Photos</h6>
+
+            <!--div id="photos_row" name="photos_row" class="row"-->
+            <div id="photos"></div>  
+            <button id="btn_edit_photos" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit photos
+            </button> 
+            <!--/div-->
+        </div>
+        
+    </div>
+    
+</div>
+                
                     <!-- Groceries -->
-                    <div id="groceries_row" class="row">
-                        <h4>Groceries</h4>
+                    <!--div id="groceries_row" class="row">
+                        <h6>Groceries</h6>
                         
                         <table id="groceries_basket" class="table table-sm" style="width:50%">
                                 <tbody>
-                                    <!-- Load basket - Ajax -->
+                                   
                                 </tbody>
                         </table>
                        
@@ -65,11 +133,11 @@
                         <span id="btn_groceries" class="btn btn-default btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</span>
                     </div>
 
-                    <hr>
+                    <hr-->
 
                     <!-- Description -->
-                    <div id="description_row" class="row">
-                        <h4>Description</h4>
+                    <!--div id="description_row" class="row">
+                        <h6>Description</h6>
                         <p id="description_p" class="text-justify">
 
                             @if ($recipe->description == '') 
@@ -86,23 +154,8 @@
                         </button>
                     </div>
 
-                    <hr>
-
-
-                    <!-- Photos -->
-                    <div id="photos_row" name="photos_row" class="row">
-                        <div id="photos">
-                        </div>  
-                        <button id="btn_edit_photos" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit photos</button> 
-                    </div>
-
-                </div> 
-                    
-                   
-                </div>
-            </div>
-        </div>
-    </div>
+                    <hr-->
+  
 </div>
 
 
@@ -188,7 +241,7 @@ $(document).ready(function(){
 
                 // Setovanje novih podataka
                 $("#recipe_name").html('<b>' + response.recipe.name + '</b>');
-                $("#recipe_categories").html('<b>' + response.categories + '</b>');
+                $("#recipe_categories").html('<i>' + response.categories + '</i>');
                 $("#recipe_persons").html('<b>' + response.recipe.persons + '</b>');
 
            },

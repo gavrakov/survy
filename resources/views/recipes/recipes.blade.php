@@ -1,46 +1,39 @@
 @extends('layouts.app')
 @section('content')
 <div class="row">
-    <div class="col-md-8">
-        <div class="panel panel-default">
-            <div class="panel-heading"><p class="fa fa-book">&nbsp;Recipes</p></div>
-            <div class="panel-body">
-            	<div class="table-responsive">
-                      
-                        <span id="create_recipe" class="btn btn-default btn-sm"><i class="glyphicon glyphicon-plus"></i>&nbsp; Create new</span>
-                        
-                        <div class="input-group custom-search-form pull-right" align="center" style="width:15%;">
-                                <input width="150px" type="text" id="search" name="search" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <!--button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button-->
-                                </span>
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-body p-0">
+               
+                    <div class="row p-4">
+                        <div class="col">
+                            <button id="create_recipe" class="btn btn-info btn-sm" data-toggle="modal" data-target="#m_create_plan"><i class="fas fa-plus"></i>&nbsp; Create new recipe</button>
                         </div>
-                        <hr>
-                        <table id="recipes" class="table">
-                            <thead>
-                                <tr>
-                                    
-                                    <th width="30%">Photo</th>
-                                    <th width="30%">Name</th>
-                                    <th width="10%">Category</th>
-
-                                    @if($location != null)
-                                        <th width="10%">Price <small class='text-danger'>({{$location->currency}})</small></th>
-                                    @endif
-
-                                    <th width="10%">&nbsp;</th>
-                                    <th width="10%">&nbsp;</th>
-                                   
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                        <div class="col">
+                            <input type="text" style="width:50%;" id="plansearch" name="plansearch" class="form-control pull-right" placeholder="Search...">
+                        </div>
                     </div>
-                    <!-- /.table-responsive -->
+                    <table id="recipes" class="table">
+                        <!--thead>
+                            <tr>   
+                                <th width="30%" class="border-bottom-0">Photo</th>
+                                <th width="30%" class="border-bottom-0">Name</th>
+                                <th width="10%" class="border-bottom-0">Category</th>
+
+                                @if($location != null)
+                                    <th width="10%" class="border-bottom-0">Price <small class='text-danger'>({{$location->currency}})</small></th>
+                                @endif
+
+                                <th width="10%" class="border-bottom-0">&nbsp;</th>
+                                <th width="10%" class="border-bottom-0">&nbsp;</th>
+                               
+                            </tr>
+                        </thead-->
+                        <tbody>
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
         </div>
     </div>
@@ -57,7 +50,7 @@ $(document).ready(function(){
 
     // Modal Create/Edit
     $('#create_recipe').on('click',function(){
-        showEditModal('{{ route('recipes.create') }}','create'); 
+        showModal('{{ route('recipes.create') }}','create'); 
     });
 
 
@@ -66,7 +59,7 @@ $(document).ready(function(){
 
  // Create and Edit grocery
 
-function showEditModal(a_url,modal_id) {
+/*function showEditModal(a_url,modal_id) {
 
     $.ajax({
 
@@ -87,7 +80,7 @@ function showEditModal(a_url,modal_id) {
             //console.log(response);
         }
     });
-}
+}*/
 
 
  // Delete recipe

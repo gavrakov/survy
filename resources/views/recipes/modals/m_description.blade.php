@@ -3,14 +3,15 @@
   <div class="modal-dialog modal-lg"">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Edit description</h3>
+                <h5 class="modal-title">Edit description</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                 <form id="description_f" role="form" enctype="multipart/form-data" method="POST" action="{{ route('recipes.upddescription',['id' => $recipe->id]) }}">
          
                     <!-- Description -->
                     <div id="f_description" class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
-                        <label>Description</label>
+                        <label>Describe every step in making this recipe</label>
                         <textarea id="description" class="form-control" name="description"  value="{{ old('description') }}" rows="20">@if ($recipe->description != '') {{$recipe->description}} @else '' @endif</textarea>
                         @if ($errors->has('description'))
                             <span class="help-block">
@@ -21,7 +22,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                 <button id="btn_save" onClick="description();" type="button" name="btn_insert" class="btn btn-md btn-success">Save</button>
+                 <button id="btn_close" data-dismiss="modal" type="button" name="btn_close" class="btn btn-md btn-secondary">Close</button>
+                 <button id="btn_save" onClick="description();" type="button" name="btn_insert" class="btn btn-md btn-info">Save</button>
             </div>
         </div>
   </div>  

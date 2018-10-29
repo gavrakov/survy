@@ -8,23 +8,18 @@
 	<div class="col-md-3">
 
 		<!-- Photo -->
-		<img width="50px" src="<?php 
+		<img style="position:relative; width:60px;  border-radius:100%; padding: 2px; border:1px #888888 solid"
 
-	        // Vraca collection of object
-	        $photo = $recipe->cover()->first();
+        src="{{asset($recipe->cover_link_sm())}}"
 
-	        $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/150_' . $photo['name'];
-	        
-	        echo asset($path);
-	        
-	        ?>" style="position:relative; border-radius:3%; border:1px">
+        style="position:relative; border-radius:3%; border:1px">
+
 	</div>
 
 	<!-- Name -->
 	<div class="col-md-3">
 		<p>{{$recipe->name}}</p>
 	</div>
-
 
 	<!-- Price -->
 	@if (session()->has('location'))

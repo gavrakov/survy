@@ -1,44 +1,37 @@
  <?php $photos = $recipe->photos()->get(); ?>
 
+
+
 <form id="upd_f" role="form" enctype="multipart/form-data" method="POST" action="">
     <input id="photo" name="photo" type="text" class="form-control" name="name" value="" hidden >
 
- @foreach ($photos as $photo)
-    <!-- photos -->
-    
-    <div class="img_holder">
-        <img class="img_object" 
+    <div class="card-columns-photos">
 
-            name="{{$photo->id}}" src="
+         @foreach ($photos as $photo)
 
-            <?php
-                        $path = 'storage/photos/recipes/' . $photo->dir .  '/thumbs/300_' . $photo->name;
-                        echo asset($path);
-            ?>"
-        >
-        <div class="overlay">
-       
-            <button name="cover_{{$photo->id}}" type="button" class="btn btn-default btn-circle btn-lg" onClick="cover('{{ route('recipes.updcover',['id' => $recipe->id]) }}','{{$photo->id}}');" style="margin-top:50px; margin-left:30px"><i class="fa fa-check"></i></button>
-            <button name="destroy_{{$photo->id}}" type="button" class="btn btn-danger btn-circle" onClick="destroy('{{ route('recipes.destroyphoto',['id' => $recipe->id]) }}','{{$photo->id}}');" align="center" style="margin-top:50px; margin-left:5px;""><i class="fa fa-times"></i></button>
+            <!-- photos -->
+            <div class="card m-1" style="width:150px;">
 
-        </div>
+                <img class="card-img-top" name="{{$photo->id}}" src="{{asset($photo->link_sm())}}">
 
+                <!--div class="card-body text-center p-1"-->
+                <div class="card-img-overlay p-0 text-center">
+                    <div style="display:block; background-color: rgba(255,255,255,0.5); padding:3px;">
+                    <button name="cover_{{$photo->id}}" type="button" 
+                        @if ($photo->cover == 1) 
+                            class="btn btn-primary btn-circle"
+                        @else
+                            class="btn btn-default btn-circle"
+                        @endif 
+                        onClick="cover('{{ route('recipes.updcover',['id' => $recipe->id]) }}','{{$photo->id}}');"><i class="fa fa-check"></i></button>
+                    <button name="destroy_{{$photo->id}}" type="button" class="btn btn-danger btn-circle" onClick="destroy('{{ route('recipes.destroyphoto',['id' => $recipe->id]) }}','{{$photo->id}}');"><i class="fa fa-times"></i></button>   
+                    </div> 
+                </div>
+            </div>
 
-        @if ($photo->cover == 1)
-                
-             <span type="button" class="btn btn-primary btn-circle btn-sm" style="
-                        margin: 0;
-                        position: absolute;
-                        bottom: -6px;
-                        right: -6px;
-                        opacity: 1;
-                        z-index: 10;
+        @endforeach
 
-             "><i class="fa fa-check"></i></span>
-                       
-        @endif
     </div>
-@endforeach
 
 </form>
 
@@ -75,10 +68,6 @@
             },
 
             error: function(response) {
-
-                // Prikaz notifikacije
-                //showNotification('danger', 'The grocery could not be deleted');
-
                 console.log(response);
             }
 

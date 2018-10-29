@@ -51,6 +51,19 @@ class Recipe extends Model
 
 
     /**
+     * Get the cover 150px size photo for the recipe with output link.
+     */
+    public function cover_link_sm() {
+        
+        $photo = $this->hasMany('App\RecipesPhotos')->where('cover',1)->first();
+
+        // If photo does not exists, returns default cover
+        return $photo == '' ? RecipesPhotos::link_default_sm() : $photo->link_sm();
+    }
+
+
+
+    /**
      * Get all groceries for the recipe.
      */
     public function groceries() {

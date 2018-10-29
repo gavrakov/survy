@@ -9,39 +9,40 @@
   <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Edit recipes groceries</h3>
+                <h5 class="modal-title">Edit recipes groceries</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                
+            <div class="row">
 
-  <div class="row-fluid">
-                <div class="col-md-8">
-              
-                <div class="panel panel-default">
-                    <div class="panel-heading"><p class="glyphicon glyphicon-book">&nbsp;Groceries</p></div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            
-                                <form name="f_add_groceries" id="f_add_groceries" type="post" action="{{ route('recipes.addgrocery',['id' => $recipe->id]) }}">
-                                <input name="f_grocery" id="f_grocery" type="text" class="form-control" value="" hidden>
-                                <input name="f_quantity" id="f_quantity" type="text" class="form-control" value="" hidden>
-                                </form>
+                <div class="col">
+                    
+                    <!-- Card -->
+                    <div class="card">
+                        
+                        <!-- Card body -->
+                        <div class="card-body p-0">
 
-                                <!-- Errors -->
-                                <div id='errors' name="errors" class="pull-left" style="width:70%;"></div>
+                                <h6 class="card-title pl-3 pt-3">Groceries</h6>
+                          
+                                
+                                <form name="f_add_groceries" id="f_add_groceries" role="form" class="main-form needs-validation" type="post" action="{{ route('recipes.addgrocery',['id' => $recipe->id]) }}">
+                                    <input name="f_grocery" id="f_grocery" type="text" class="form-control" value="" hidden>
+                                    <input name="f_quantity" id="f_quantity" type="text" class="form-control" value="" hidden>
+                               
+                                    <!-- Errors -->
+                                    <div id='errors' name="errors" class="pull-left p-3" style="width:70%;"></div>
 
-                                <!-- Search bar -->
-                                <div class="input-group custom-search-form pull-right" align="center" style="width:30%;">
-                                        <input width="150px" type="text" id="groceriessearch" name="groceriessearch" class="form-control" placeholder="Search...">
-                                        <!--span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">
-                                                <i class="fa fa-search"></i>
-                                            </button>
-                                        </span-->
-                                </div>
+                                    <!-- Search bar -->
+                                    <div class="input-group custom-search-form pull-right p-3" align="center" style="width:30%;">
+                                            <input width="150px" type="text" id="groceriessearch" name="groceriessearch" class="form-control" placeholder="Search...">
+                                    </div>
+
+                               
                                 
                                 <table id="groceries" class="table">
-                                    <thead>
+                                    <!--thead>
                                         
                                             <th width="10%">Photo</th>
                                             <th width="30%">Name</th>
@@ -55,44 +56,44 @@
                                             <th width="10%"></th>
                                         
                                         
-                                    </thead>
+                                    </thead-->
 
                                     <tbody>
                                        <!-- Load groceries - Ajax -->
                                     </tbody>
 
                                 </table>
-                            </div><!-- /.table-responsive - end -->
-                        </div> <!-- panel-body - end -->
-                    </div>
-                </div> <!-- panel panel-default - end -->
-            </div> <!-- col-md-8 -end -->
+
+                            </form>
+                                
+                        </div> <!-- Card-body - end -->
+                        
+                    </div> <!-- Card - end -->
+                </div> <!-- col-md-8 -end -->
 
 
-            <div class="col-md-4">
                 <!--- List of recipes groceries -->
-
-                <div class="panel panel-default">
-                    <div class="panel-heading"><p class="glyphicon glyphicon-book">&nbsp;Basket</p></div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-
-                       
-
-                            <table id="basket" class="table">
-                                <tbody>
-                                    <!-- Load basket - Ajax -->
-                                </tbody>
-                            </table>
-
+                <div class="col">
                     
+                    <!-- Card -->
+                    <div class="card">
+                        <!-- Card body -->
+                        <div class="card-body p-0">
 
-                        </div> <!-- table-responsive - end -->
-                        <!-- ovde paginacija -->
-                    </div>
-                </div>
+                                <h6 class="card-title mt-3 ml-3">Basket</h6>
 
-            </div> <!-- col-md-4 - end -->  
+                                <table id="basket" class="table">
+                                    <tbody>
+                                        <!-- Load basket - Ajax -->
+                                    </tbody>
+                                </table>
+
+                            <!-- ovde paginacija -->
+
+                        </div> <!-- Card-body ends -->
+                    </div>  <!-- Card ends -->
+
+                </div> <!-- col-md-4 - end -->  
 
         </div> <!-- row-fluid - end -->
 
@@ -101,6 +102,10 @@
 
 
         </div> <!-- Modal body - end -->
+
+        <div class="modal-footer">
+                <button id="btn_close" data-dismiss="modal" type="button" name="btn_close" class="btn btn-md btn-secondary">Close</button>
+        </div>
 
     </div> <!-- Modal content - end -->
 

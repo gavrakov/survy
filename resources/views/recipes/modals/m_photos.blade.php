@@ -5,7 +5,8 @@
   <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Edit photos</h3>
+                <h5 class="modal-title">Edit photos</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
                
@@ -53,7 +54,7 @@
 
             </div>
             <div class="modal-footer">
-                 
+                 <button id="btn_close" data-dismiss="modal" type="button" name="btn_close" class="btn btn-md btn-secondary">Close</button>
             </div>
         </div>
   </div>  

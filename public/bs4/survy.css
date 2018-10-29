@@ -247,24 +247,57 @@ ul ul a {
 }
 
 
+
 /* ---------------------------------------------------
-    MODALS
+    MODAL-WIDE
 ----------------------------------------------------- */
-.modal-wide {
-  /*max-width: 80% !important; */  
-  max-width: 1500px !important;         
+
+/* ~~~ Modal - wide screen ~~~ */
+.modal-wide .modal-dialog{
+  max-width:80%;
+  
+}
+
+
+/* -----------------------------
+    CARD COLUMNS PHOTOS
+------------------------------*/
+
+@media (min-width: 576px) {
+  .card-columns-photos {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 4;
+    -webkit-column-gap: 1.25rem;
+    -moz-column-gap: 1.25rem;
+    column-gap: 1.25rem;
+  }
+  .card-columns-photos .card {
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 5;
+  }
 }
 
 
 
-/* ---------------------------------------------------
-    MEDIAQUERIES
------------------------------------------------------ */
-
-@media (min-width: 992px) {
-  .modal-wide {
-    max-width: 800px;
+@media (min-width: 576px) {
+  .modal-dialog-wide {
+    max-width: 500px;
+    margin: 1.75rem auto;
   }
+  .modal-dialog-wide-centered {
+    min-height: calc(100% - (1.75rem * 2));
+  }
+
 }
 
 @media (max-width: 768px) {

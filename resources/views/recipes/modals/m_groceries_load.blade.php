@@ -21,7 +21,7 @@
         </td>
         <td width="30%">{{$grocery->name}}</td>
         <td width="20%">{{$grocery->getCategoryName()}}</td>
-        <td width="10%"><input name="f_{{$grocery->id}}_q" id="f_{{$grocery->id}}_q" type="text" class="form-control" value=""></td>
+        <td width="10%"><input name="f_{{$grocery->id}}_q" id="f_{{$grocery->id}}_q" type="text" class="form-control" value="" required autofocus></td>
         <td width="10%">{{$grocery->getUnite()}}</td>
         <td width="10%">{{$grocery->getPrice()}}</td>
         <td width="10%">
@@ -40,7 +40,6 @@
 <!-- Groceries load -->
 <script type="text/javascript">
 
-     // OVDE SAM STAO, PRAVIM DODAVANJE NAMIRNICA U RECEPT
     // Add grocery to a recipe
     function addGrocery(id) {
         
@@ -79,6 +78,9 @@
                 $("#f_grocery").val('');
                 $("#f_" + id + '_q').val('');
 
+                $('#errors').removeClass('has-error');
+                $('#errors' + '> div').remove();
+
 
                 // Load all groceries.
                 loadTableData('{{ route("recipes.modalbasketload",["id" => $recipe->id]) }}','basket');
@@ -87,9 +89,6 @@
             },
 
             error: function(response) {
-
-                // Prikaz notifikacije
-                //showNotification('danger', 'The recipe could not be added');
 
                 // Prikaz gresaka
                 var data = response.responseJSON;
@@ -102,9 +101,9 @@
                     // Dodajem crveni okvir
                     $('#errors').addClass('has-error');
                     // Brisem span ako postoji
-                    $('#errors' + '> span').remove();
+                    $('#errors' + '> div').remove();
                     // Dodajem span kako bih prikazao gresku
-                    $('#errors').append('<span class="help-block">'+val+'</span>');
+                    $('#errors').append('<div class="invalid-feedback d-block">'+val+'</div>');
                 });
 
                 //console.log(response);

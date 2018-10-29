@@ -5,77 +5,73 @@
     <div class="col-md-4">
         <div class="card mb-3">
             <!--div class="panel-heading"><p class="glyphicon glyphicon-book">&nbsp;{{$recipe->name}}</p></div-->
-            <div class="card-body">
+                <div class="card-body">
 
-                <div class="d-flex">
+                    <div class="d-flex">
 
-                    <div>
-                   
-                         <img class="mr-4" style="position:relative; width:60px;  border-radius:100%; padding: 2px; border:1px #888888 solid"
-                        src="
-                        <?php 
-                        $photo = $recipe->cover()->first();
-                        $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/150_' . $photo['name'];
-                        echo asset($path); 
-                        ?>" 
-                        style="position:relative; border-radius:3%; border:1px">
-                    </div>
-                  
-                    <div>
+                        <div>
+                       
+                             <img class="mr-4" style="position:relative; width:60px;  border-radius:100%; padding: 2px; border:1px #888888 solid"
+                            src="{{asset($recipe->cover_link_sm())}}"
+                          
+                            style="position:relative; border-radius:3%; border:1px">
+                        </div>
+                      
+                        <div>
 
-                        <h5>{{$recipe->name}}</h5>
-                   
-                        <p id="recipe_categories" class="d-inline-block">
-                            <i>
+                            <h5>{{$recipe->name}}</h5>
+                       
+                            <p id="recipe_categories" class="d-inline-block">
+                                <i>
 
-                            <?php $counter = 0; ?>
-                            @foreach($recipe->categories()->get() as $category)
+                                <?php $counter = 0; ?>
+                                @foreach($recipe->categories()->get() as $category)
 
-                                <?php if($counter != 0) { echo",";}?>
+                                    <?php if($counter != 0) { echo",";}?>
 
-                                {{$category['name']}}
+                                    {{$category['name']}}
 
-                                <?php $counter ++; ?>
-                            @endforeach
-                        
-
-                            </i>
-                        </p>
-                   
-                        <p>
-                            <span class="d-inline-block">Number of persons:</span> 
-                            <span id="recipe_persons" class="d-inline-block"><b>{{$recipe->persons}}</b></span>
-                        </p>     
+                                    <?php $counter ++; ?>
+                                @endforeach
                             
+
+                                </i>
+                            </p>
+                       
+                            <p>
+                                <span class="d-inline-block">Number of persons:</span> 
+                                <span id="recipe_persons" class="d-inline-block"><b>{{$recipe->persons}}</b></span>
+                            </p>     
+                                
+                        </div>
+
                     </div>
 
-                </div>
+                    <button id="btn_edit" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.edit',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit details</button>
+            </div>
 
-                <button id="btn_edit" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.edit',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit details</button>
         </div>
-
-    </div>
                 
 
-    <!-- Groceries -->	
-    <div class="card mb-3">
-        <div class="card-body p-0">
-           <h6 class="card-title p-3">Groceries</h6>
+        <!-- Groceries -->	
+        <div class="card mb-3">
+            <div class="card-body p-0">
+               <h6 class="card-title p-3">Groceries</h6>
 
-            <table id="groceries_basket" class="table">
-                <tbody>
-                    <!-- Load basket - Ajax -->
-                </tbody>
-            </table>
-           
-            <button id="btn_groceries" class="btn btn-light btn-sm m-3"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</button>
+                <table id="groceries_basket" class="table">
+                    <tbody>
+                        <!-- Load basket - Ajax -->
+                    </tbody>
+                </table>
+               
+                <button id="btn_groceries" class="btn btn-light btn-sm m-3"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</button>
 
+            </div>
+            
         </div>
-        
-    </div>
 
  
-</div> <!-- col-md-4 ends -->
+    </div> <!-- col-md-4 ends -->
 
 
 <!-- Description -->
@@ -119,43 +115,8 @@
     
 </div>
                 
-                    <!-- Groceries -->
-                    <!--div id="groceries_row" class="row">
-                        <h6>Groceries</h6>
-                        
-                        <table id="groceries_basket" class="table table-sm" style="width:50%">
-                                <tbody>
-                                   
-                                </tbody>
-                        </table>
-                       
-                       
-                        <span id="btn_groceries" class="btn btn-default btn-sm"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</span>
-                    </div>
+       
 
-                    <hr-->
-
-                    <!-- Description -->
-                    <!--div id="description_row" class="row">
-                        <h6>Description</h6>
-                        <p id="description_p" class="text-justify">
-
-                            @if ($recipe->description == '') 
-                                <i>Describe every step in making this recipe...</i>
-                            @else
-                                {{$recipe->description}}
-                            @endif
-                        </p>
-                        <button id="btn_description" class="btn btn-default btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.description',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;
-                            @if ($recipe->description == '')  Add description
-                              @else
-                                Edit description
-                            @endif
-                        </button>
-                    </div>
-
-                    <hr-->
-  
 </div>
 
 

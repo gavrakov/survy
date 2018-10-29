@@ -7,16 +7,9 @@
 
                     <img style="position:relative; width:60px;  border-radius:100%; padding: 2px; border:1px #888888 solid"
 
-                     src="<?php 
-
-                    // Vraca collection of object
-                    $photo = $recipe->cover()->first();
-
-                    $path = 'storage/photos/recipes/' . $photo['dir'] .  '/thumbs/150_' . $photo['name'];
+                    src="{{asset($recipe->cover_link_sm())}}"
                     
-                    echo asset($path);
-                    
-                    ?>" style="position:relative; border-radius:3%; border:1px"></a>
+                    style="position:relative; border-radius:3%; border:1px"></a>
 
                
                 </td>

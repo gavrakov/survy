@@ -32,7 +32,7 @@
                     <td width="10%" style="vertical-align: center">{{ number_format((float)$ins_grocery->calculateGroceryPrice(), 2, '.', '')}}</td>
         @endif
         
-        <td width="10%" style="vertical-align: center"><button type="button" id="del_{{$ins_grocery->grocery_id}}" onClick="delGrocery('{{ route('recipes.delgrocery',['id' => $ins_grocery->id]) }}'); " class="btn btn-default btn-circle"><i class="fa fa-times"></i>
+        <td width="10%" style="vertical-align: center"><button type="button" id="del_{{$ins_grocery->grocery_id}}" onClick="delGrocery('{{ route('recipes.groceries.destroy',['recipe_id' => $ins_grocery->recipe_id, 'grocery_id' => $ins_grocery->grocery_id]) }}'); " class="btn btn-default btn-circle"><i class="fa fa-times"></i>
         </td>
     </tr>
         
@@ -68,7 +68,7 @@
 
         $.ajax({
         headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
-        type: 'post',
+        type: 'DELETE',
         url: url,
         dataType: 'json',
         
@@ -76,10 +76,10 @@
             success: function(response) {
 
                 // Load groceries
-                loadTableData('{{ route("recipes.modalgroceriesload",["id" => $recipe->id]) }}','groceries');
+                loadTableData('{{ route("recipes.groceries.load",["id" => $recipe->id]) }}','groceries');
 
                 // Load basket.
-                loadTableData('{{ route("recipes.modalbasketload",["id" => $recipe->id]) }}','basket');
+                loadTableData('{{ route("recipes.groceries.basket",["id" => $recipe->id]) }}','basket');
 
                 console.log(response);
             },

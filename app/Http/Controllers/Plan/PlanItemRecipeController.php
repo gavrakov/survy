@@ -9,6 +9,7 @@ use App\RecipesCategory;
 use Carbon\Carbon;
 use \App\Recipe;
 use \App\Http\Controllers\Controller;
+use App\PlanItemList;
 
 
 
@@ -42,7 +43,7 @@ class PlanItemRecipeController extends Controller
 
 
     /*
-	* Show breakfast
+	* Show recipes
     */
     public function show(int $plan_id, int $item_id, int $category) {
 
@@ -76,34 +77,35 @@ class PlanItemRecipeController extends Controller
 
 
     /*
-    * Add recipe to the item - OVO JE PITANJE, DA LI CE INSERTOVANJE RECEPTA ICI OVDE ILI U KONTROLORU ZA RECEPTE
+    * Insert recipe into the plan item.
     */
     public function add(Request $request, int $plan_id, int $item_id, int $category) {
-
-
-      //  dd($request->input('f_recipe'));
 
         $item = PlanItem::find($item_id);
         $recipe = Recipe::find($request->input('f_recipe'));
 
+
         switch($category) {
             case 1:
                 $item->breakfast = $recipe->id;
+                $item->save();
+                $item->addBreakfastToList();
                 break;
             case 2:
                 $item->lunch = $recipe->id;
+                $item->save();
+                $item->addLunchToList();
                 break;
             case 3:
                 $item->dinner = $recipe->id;
+                $item->save();
+                $item->addDinnerToList();
                 break;
 
             default:
                 return response()->json(array('error' => 'Unnoungh recipe category'), 401);
         }
                 
-        
-        $item->save();
-
         return response()->json(array('success' => 'The recipe has successfully added'), 200);
     }
 
@@ -138,13 +140,16 @@ class PlanItemRecipeController extends Controller
 
         switch($category) {
             case 1:
+                $item->removeBreakfastFromList();
                 $item->breakfast = null;
                 break;
             case 2:
-                $item->lunch = null;
+                $item->removeLunchFromList();
+                 $item->lunch = null;
                 break;
             case 3:
-                $item->dinner = null;
+                $item->removeDinnerFromList();
+                 $item->dinner = null;
                 break;
 
             default:

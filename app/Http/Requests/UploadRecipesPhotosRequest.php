@@ -31,7 +31,7 @@ class UploadRecipesPhotosRequest extends FormRequest
             $rules['photos_' . $index] = 'image|mimes:jpeg,jpg,gif,png|max:4000';
         }*/
 
-        $rules['photos.*'] = 'image|mimes:jpeg,jpg,gif,png|max:4000';
+        $rules['photos.*'] = 'image|mimes:jpeg,jpg,gif,png|max:8000000';
  
         return $rules;
     }
@@ -44,7 +44,7 @@ class UploadRecipesPhotosRequest extends FormRequest
     public function messages()
     {
         $messages['photos.*.mimes'] = 'Only jpeg, jpg, png and gif images are allowed';
-        $messages['photos.*.max']  = 'Maximum allowed size for an image is 2MB';
+        $messages['photos.*.max']  = 'Maximum allowed size for an image is 8MB';
 
         return $messages;
     }

@@ -27,7 +27,7 @@
                                 <h6 class="card-title pl-3 pt-3">Groceries</h6>
                           
                                 
-                                <form name="f_add_groceries" id="f_add_groceries" role="form" class="main-form needs-validation" type="post" action="{{ route('recipes.addgrocery',['id' => $recipe->id]) }}">
+                                <form name="f_add_groceries" id="f_add_groceries" role="form" class="main-form needs-validation" type="post" action="{{ route('recipes.groceries.store',['id' => $recipe->id]) }}">
                                     <input name="f_grocery" id="f_grocery" type="text" class="form-control" value="" hidden>
                                     <input name="f_quantity" id="f_quantity" type="text" class="form-control" value="" hidden>
                                
@@ -122,10 +122,10 @@
     $(document).ready(function(){
      
         // Load groceries
-        loadTableData('{{ route("recipes.modalgroceriesload",["id" => $recipe->id]) }}','groceries');
+        loadTableData('{{ route("recipes.groceries.load",["id" => $recipe->id]) }}','groceries');
 
         // Load basket - inserted groceries
-        loadTableData('{{ route("recipes.modalbasketload",["id" => $recipe->id]) }}','basket');
+        loadTableData('{{ route("recipes.groceries.basket",["id" => $recipe->id]) }}','basket');
 
 
         // Pagination
@@ -136,6 +136,7 @@
                 getGroceries(url);
                 window.history.pushState("", "", url);
             });
+
 
 
             function getGroceries(url) {
@@ -156,7 +157,7 @@
         $('#m_groceries').on('hide.bs.modal', function(){
 
             // Load basket - inserted groceries
-            loadTableData('{{ route("recipes.basketload",["id" => $recipe->id]) }}','groceries_basket');
+            loadTableData('{{ route("recipes.basket",["id" => $recipe->id]) }}','groceries_basket');
         });
 
 
@@ -169,7 +170,7 @@
             $.ajax({
              
                 type : 'get',
-                url : '{{ route("recipes.groceriessearch",["id" => $recipe->id]) }}',
+                url : '{{ route("recipes.groceries.search",["id" => $recipe->id]) }}',
                 dataType: 'html',
                 data:{'search':$value},
                 success:function(data){

@@ -32,34 +32,10 @@
 					 </ul>
     			</div>
     		</div>
-    	</div>
 
-    	<!-- Items list -->
-    	<div class="col-md-8">
-    		<div class="card text-left mb-3">
-    			<div class="card-body p-0">
-    				<table id="items" class="table">
-                        <tbody></tbody>
-                    </table>
-    				
-    			</div>
-    			
-    		</div>
-    	</div>
 
-    	<!-- Stara tabela -->
-    	<!--div class="col-md-8">
-			<div class="table-responsive">
-				<table id="items" class="table table-survy">
-                    <tbody></tbody>
-                </table>	
-			</div>	
-		</div-->
-
-		
-		<!-- Today -->
-		@if (!empty($today) and $today != null)
-		<div class="col-md-4">
+    		<!-- Today -->
+			@if (!empty($today) and $today != null)
 			<div class="card text-left mb-4">
 				<h6 class="card-header-white">Today</h6>
 
@@ -155,24 +131,24 @@
 	        </div><!-- panel body - ends -->
 	            
 			</div>	
-		</div>
-		@endif
-
 		
+		@endif	
 
-		<!-- Stari izgled - koristio div -->
-		<!--div class="col-md-12">
-			<div class="card text-left">
-				<div class="card-header-white"><p class="fa fa-calendar"><b>&nbsp;Calendar</b></p></div>
-	            <div class="card-body">
 
-	           
-	            	<div id="items" name="items" class="col-md-12"></div>
-	            	
-	            </div>
-			</div>	
-		</div-->
+    	</div>
 
+    	<!-- Items list -->
+    	<div class="col-md-8">
+    		<div class="card text-left mb-3">
+    			<div class="card-body p-0">
+    				<table id="items" class="table">
+                        <tbody></tbody>
+                    </table>
+    				
+    			</div>
+    			
+    		</div>
+    	</div>
 
 
 </div>	<!-- row - ends -->

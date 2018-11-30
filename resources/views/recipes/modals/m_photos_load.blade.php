@@ -23,8 +23,8 @@
                         @else
                             class="btn btn-default btn-circle"
                         @endif 
-                        onClick="cover('{{ route('recipes.updcover',['id' => $recipe->id]) }}','{{$photo->id}}');"><i class="fa fa-check"></i></button>
-                    <button name="destroy_{{$photo->id}}" type="button" class="btn btn-danger btn-circle" onClick="destroy('{{ route('recipes.destroyphoto',['id' => $recipe->id]) }}','{{$photo->id}}');"><i class="fa fa-times"></i></button>   
+                        onClick="cover('{{ route('recipes.photos.updcover',['id' => $recipe->id, 'photo_id => $photo->id']) }}','{{$photo->id}}');"><i class="fa fa-check"></i></button>
+                    <button name="destroy_{{$photo->id}}" type="button" class="btn btn-danger btn-circle" onClick="destroy('{{ route('recipes.photos.destroy',['id' => $recipe->id, 'photo_id' => $photo->id]) }}');"><i class="fa fa-times"></i></button>   
                     </div> 
                 </div>
             </div>
@@ -60,7 +60,7 @@
             success: function(response) {
 
                 // Load all photos.
-                loadDivData('{{ route("recipes.modalphotosload",["id" => $recipe->id]) }}',"photos_list");
+                loadDivData('{{ route("recipes.photos.load",["id" => $recipe->id]) }}',"photos_list");
 
                 form[0].reset();
 
@@ -77,19 +77,16 @@
 
 
     // Update cover photo
-    function destroy(a_url,id) {
+    function destroy(a_url) {
 
         var form = $('#upd_f');
 
         // Dodavanje url-a
         form.attr('action',a_url);
 
-       $("input[name=photo]").val(id);
-
-
         $.ajax({
             headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
-            type: 'put',
+            type: 'DELETE',
             url: form.attr("action"),
             dataType: 'json',
             data: form.serialize(),
@@ -97,7 +94,7 @@
             success: function(response) {
 
                 // Load all photos.
-                loadDivData('{{ route("recipes.modalphotosload",["id" => $recipe->id]) }}',"photos_list");
+                loadDivData('{{ route("recipes.photos.load",["id" => $recipe->id]) }}',"photos_list");
 
                 form[0].reset();
 

@@ -72,6 +72,7 @@ class Recipe extends Model
 
 
 
+
     /*
     * Returns total price of the recipe
     */

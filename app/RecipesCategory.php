@@ -35,8 +35,6 @@ class RecipesCategory extends Model
             return $this->belongsToMany('App\Recipe','recipe_categories_relation', 'category_id', 'recipe_id')->where('user_id', Auth::user()->id);
         } else {
             return $this->belongsToMany('App\Recipe','recipe_categories_relation', 'category_id', 'recipe_id')->where([['user_id', Auth::user()->id],['name','LIKE','%' . $request . '%']]);
-
-            
         }
         
     }   

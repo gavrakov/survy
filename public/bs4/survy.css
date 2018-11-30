@@ -222,6 +222,61 @@ ul ul a {
 }
 
 
+nav.navbar-item > ul {
+  background-color: #fff;
+  border: #dee2e6 solid 1px;
+  font-size: 1rem;
+}
+
+
+.center-block {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* ----------------------------
+  Recipe categories navitation 
+----------------------------- */
+
+.navbar-categories {
+  height: 100%;
+  background-color: #fff;
+  padding: 0px;
+  border: 1px solid #efefef;
+  border-bottom: 0px;
+  border-radius: 0.25rem;
+}
+
+.navbar-categories ul li a {
+    padding: 10px 20px;
+    font-size: 0.9em;
+    display: block;
+}
+
+.navbar-categories ul {
+  margin:0px;
+}
+
+.navbar-categories ul li
+{
+    border-bottom: 1px solid #dee2e6;
+}
+
+.navbar-categories ul li a:hover {
+    color: #3f6673;
+    background: #eff4f6;
+}
+
+.nav-item-active {
+    color: #3f6673;
+    background: #eff4f6;
+}
+
+
+
+
 /* ------------------------
   Circular buttons 
 ---------------------------*/
@@ -259,6 +314,60 @@ ul ul a {
 }
 
 
+/* -----------------------------------------------
+    INFINITE SCROLL
+-------------------------------------------------*/
+.ajax-load{
+        background: #e1e1e1;
+        padding: 10px 0px;
+        width: 100%;
+}
+
+
+/* -----------------------------
+    CARD COLUMNS RECIPES
+------------------------------*/
+
+
+/* Max size */
+@media (min-width: 34em) {
+
+  .card-columns-recipes {
+    -webkit-column-count: 5;
+    -moz-column-count: 5;
+    column-count: 5;
+    -webkit-column-gap: 1.25rem;
+    -moz-column-gap: 1.25rem;
+    column-gap: 1.25rem;
+  }
+  .card-columns-recipes .card {
+    display: inline-block;
+    width: 100%;
+  }
+
+}
+
+/* Min size */
+
+@media (max-width: 34em) {
+
+  .card-columns-recipes {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+    -webkit-column-gap: 1.25rem;
+    -moz-column-gap: 1.25rem;
+    column-gap: 1.25rem;
+  }
+  .card-columns-recipes .card {
+    display: inline-block;
+    width: 100%;
+  }
+
+}
+
+
+
 /* -----------------------------
     CARD COLUMNS PHOTOS
 ------------------------------*/
@@ -276,6 +385,7 @@ ul ul a {
     display: inline-block;
     width: 100%;
   }
+
 }
 
 .card-columns {
@@ -285,6 +395,7 @@ ul ul a {
   @include media-breakpoint-only(xl) {
     column-count: 5;
   }
+
 }
 
 

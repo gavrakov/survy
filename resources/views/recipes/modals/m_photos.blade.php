@@ -68,7 +68,7 @@
     $(document).ready(function(){
      
         // Load all photos
-        loadDivData('{{ route("recipes.modalphotosload",["id" => $recipe->id]) }}',"photos_list");
+        loadDivData('{{ route("recipes.photos.load",["id" => $recipe->id]) }}',"photos_list");
 
         // Close modal edit photos event
         $('#m_photos').on('hide.bs.modal', function(){
@@ -94,7 +94,7 @@
         $("#photo_upload").fileupload({
             headers: { 'X-CSRF-TOKEN' : '{{ csrf_token() }}' },
             type: 'post',
-            url: '{{ route('recipes.upload',['id' => $recipe->id]) }}',
+            url: '{{ route('recipes.photos.upload',['id' => $recipe->id]) }}',
             dropZone: "#drop_zone",
             dataType: 'json',
             autoUpload: false
@@ -124,7 +124,7 @@
                 $('#poruka .help-block').append(' - Only jpeg, jpg, png and gif images are allowed<br>');
 
             // Provera velicine    
-            } else if (fileSize > 800000) {
+            } else if (fileSize > 8000000) {
                 $('#poruka .help-block').append('File: ' + fileName);
                 console.log('Maximum allowed size for an image is 8MB');
                 $('#poruka .help-block').append(' - Maximum allowed size for an image is 2MB<br>');
@@ -142,10 +142,8 @@
                 if(data.result.success == true) {
 
                     // Ucitava fotke u modalu fotografija
-                    loadDivData('{{ route("recipes.modalphotosload",["id" => $recipe->id]) }}',"photos_list");
+                    loadDivData('{{ route("recipes.photos.load",["id" => $recipe->id]) }}',"photos_list");
 
-                    // Ucitava fotke na stranici recepta
-                    //loadDivData('{{ route("recipes.loadphotos",["id" => $recipe->id]) }}',"photos");
 
                 // Fail    
                 } else {

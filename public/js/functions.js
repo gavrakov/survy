@@ -71,7 +71,11 @@ function loadDivData(url,id) {
       
     }).done(function (data) {
         
-        $('#'+id).html(data);  
+        $('#'+id).html(data); 
+
+        // Fade in 
+        $("#"+id).fadeIn("fast");
+
     }).fail(function (data) {
         //console.log(data);
         $('#'+id).html('<i>The data could not be found</i>');
@@ -193,5 +197,17 @@ function showNotification(a_type, a_message) {
 	        }
  
     });
+
+
+    // Funckcija za setovanje stavke menija aktivnim    
+    /*function setActiveMenu(menu_id, li_id, class_rem, class_add){
+
+        $("#"+menu_id +  "> li").each(function( index ) {
+            $(this).addClass(class_rem);
+        });
+
+        $("#"+li_id).addClass(class_add);
+    }*/
+
 
 }

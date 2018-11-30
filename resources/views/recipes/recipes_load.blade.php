@@ -1,57 +1,59 @@
+@php 
+
+    $recipes = $data['recipes'];
+    $category = $data['category'];
+
+@endphp   
+
     @if (isset($recipes))
     	@foreach ($recipes as $recipe)
 
-    		<tr>
-                
-                <td class="align-middle" width="20%"> <a href="<?php echo route("recipes.show",['id' => $recipe->id]); ?>">
+            <!-- Recipe card -->
+            <div class="card text-center m-1" style="width:200px;">
+                <a href="{{route('recipes.show',['id' => $recipe->id])}}"><img class="card-img-top mb-2"  src="{{asset($recipe->cover_link_sm())}}"></a>
+                <div class="card-body p-2">
 
-                    <img style="position:relative; width:60px;  border-radius:100%; padding: 2px; border:1px #888888 solid"
+                    <h6 class="card-title mb-0">{{$recipe->name}}</h6>
+                    <p class="card-text m-0">
+                        <small><i>
 
-                    src="{{asset($recipe->cover_link_sm())}}"
+                            @php $i=0; @endphp
+
+                            @foreach($recipe->categories()->get() as $category)
+
+                                @if ($i == 0)
+                                    {{$category['name']}}
+                                @else
+                                ,&nbsp;{{$category['name']}}
+                                @endif
+
+                                @php $i++; @endphp
+
+                            @endforeach
+
+                            </i>
+                        </small>
+                    </p>
                     
-                    style="position:relative; border-radius:3%; border:1px"></a>
+                    <!-- Price -->
+                    @if (session()->has('location'))
+                        <p class="card-text m-0">
+                            {{number_format((float)$recipe->getTotalPrice(), 2, '.', '')}}
+                            <small class="text-danger">({{LocationManager::country()->currency}})</small>
+                        </p>
+                    @endif
 
-               
-                </td>
-                <td class="align-middle" width="20%"><h6>{{$recipe->name}}</h6></td>
-                <td class="align-middle" width="20%">
-           
-            
-                    @foreach($recipe->categories()->get() as $category)
+                    <button class="btn btn-light btn-sm m-2"  onClick="window.location.replace('{{route("recipes.show",["id" => $recipe->id])}}')">
+                        <i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>
 
-                        @if($category['name'] == 'Breakfast')
-                            <span class="badge badge-success p-1">
-                        @elseif($category['name'] == 'Lounch')
-                            <span class="badge badge-info p-1">
-                        @elseif($category['name'] == 'Dinner')
-                             <span class="badge badge-warning p-1">
-                        @elseif($category['name'] == 'Soup')
-                             <span class="badge badge-light p-1">
-                        @elseif($category['name'] == 'Salad')
-                             <span class="badge badge-default p-1">
-                        @elseif($category['name'] == 'Dessert')
-                             <span class="badge badge-danger p-1">
-                        @endif
-                        {{$category['name']}}
-                        </span>    
-                    @endforeach
-                  
-                </td>
+                    <button class="btn btn-light btn-sm" id="del_{{$recipe->id}}" onClick="deleteRecipe('{{ route('recipes.destroy',['id' => $recipe->id]) }}');" ><i class="fas fa-trash"></i>&nbsp;Delete</button>
+                    
+                </div> <!-- Card body - end -->  
 
-                <!-- Recipe price -->
-                @if (session()->has('location'))
-                    <td class="align-middle" width="20%">{{number_format((float)$recipe->getTotalPrice(), 2, '.', '')}}</td>
-                @endif
+            </div>
+            <!-- Recipe card - end -->
 
-                <!-- Ovo srediti -->
-                <td class="align-middle" width="10%">
-                    <button class="btn btn-light btn-sm"><i class="fa fa-edit fa-fw"  onClick="window.location.replace('{{route('recipes.show',['id' => $recipe->id])}}');"></i>&nbsp;Edit</button>
-                </td>
-                <td class="align-middle" width="10%">
-                    <span class="btn btn-default btn-sm" id="del_{{$recipe->id}}" onClick="deleteRecipe('{{ route('recipes.destroy',['id' => $recipe->id]) }}');" ><i class="fas fa-trash"></i>&nbsp;</span>
-                </td>
-                <!--td><i class="fa fa-edit fa-fw"></i></td-->
-            </tr>
     	@endforeach
-            <tr class="align-middle"><td colspan="100%" align="center">{{ $recipes->links() }}</td></tr>         
+            <!--tr class="align-middle"><td colspan="100%" align="center">{{ $recipes->links() }}</td></tr-->         
     @endif
+

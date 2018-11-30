@@ -19,7 +19,7 @@
                       
                         <div>
 
-                            <h5>{{$recipe->name}}</h5>
+                            <span id="recipe_name"><h5>{{$recipe->name}}</h5></span>
                        
                             <p id="recipe_categories" class="d-inline-block">
                                 <i>
@@ -146,13 +146,13 @@ $(document).ready(function(){
 
         // Open modal edit groceries
         $("#btn_groceries").on('click', function(){
-            showModal('{{ route('recipes.modalgroceries',['id' => $recipe->id]) }}','m_groceries');
+            showModal('{{ route("recipes.groceries",["id" => $recipe->id]) }}','m_groceries');
         });
 
 
         // Open modal edit photos
         $("#btn_edit_photos").on('click', function(){
-            showModal('{{ route('recipes.modalphotos',['id' => $recipe->id]) }}','m_photos');
+            showModal('{{ route('recipes.photos',['id' => $recipe->id]) }}','m_photos');
         });
     
 
@@ -160,7 +160,7 @@ $(document).ready(function(){
         loadDivData('{{ route("recipes.loadphotos",["id" => $recipe->id]) }}',"photos");
 
         // Load groceries - basket
-        loadTableData('{{ route("recipes.basketload",["id" => $recipe->id]) }}','groceries_basket');
+        loadTableData('{{ route("recipes.basket",["id" => $recipe->id]) }}','groceries_basket');
 
 });
 
@@ -201,7 +201,7 @@ $(document).ready(function(){
                 showNotification('success', 'The recipe succcessfully saved');
 
                 // Setovanje novih podataka
-                $("#recipe_name").html('<b>' + response.recipe.name + '</b>');
+                $("#recipe_name").html('<h5>' + response.recipe.name + '</h5>');
                 $("#recipe_categories").html('<i>' + response.categories + '</i>');
                 $("#recipe_persons").html('<b>' + response.recipe.persons + '</b>');
 

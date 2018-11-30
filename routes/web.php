@@ -18,17 +18,9 @@ Route::get('/', function () {
 });
 
 
-
-
-// OVDE PRIKAZUJE DA JE NEAKTIVAN  - NE ZNAM ZASTO?
-//dd(LocationManager::isActive());
-
-
-
-//dd(PlanManager::isActive());
-
 Auth::routes();
 
+// Home
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Users routes
@@ -36,31 +28,66 @@ Route::get('/user', 'UserController@profile')->name('user.profile');
 Route::post('/user/update', 'UserController@update')->name('user.update');
 
 
-// Recipes routes
-Route::get('/recipes', 'RecipeController@index')->name('recipes');
-Route::get('/recipes/create', 'RecipeController@create')->name('recipes.create');
-Route::post('/recipes/store', 'RecipeController@store')->name('recipes.store');
-Route::get('/recipes/search', 'RecipeController@search')->name('recipes.search');
-Route::get('/recipes/show/{id}', 'RecipeController@show')->name('recipes.show');
-Route::get('/recipes/edit/{id}', 'RecipeController@edit')->name('recipes.edit');
-Route::put('/recipes/update/{id}', 'RecipeController@update')->name('recipes.update');
-Route::post('/recipes/upload/{id}', 'RecipeController@upload')->name('recipes.upload');
-Route::get('/recipes/destroy/{id}', 'RecipeController@destroy')->name('recipes.destroy');
-Route::get('/recipes/load','RecipeController@load')->name('recipes.load');
-Route::get('/recipes/description/{id}','RecipeController@description')->name('recipes.description');
-Route::put('/recipes/upddescription/{id}', 'RecipeController@upddescription')->name('recipes.upddescription');
-Route::get('/recipes/modalphotos/{id}','RecipeController@modalphotos')->name('recipes.modalphotos');
-Route::get('/recipes/modalphotosload/{id}','RecipeController@modalphotosload')->name('recipes.modalphotosload');
-Route::put('/recipes/updcover/{id}', 'RecipeController@updcover')->name('recipes.updcover');
-Route::put('/recipes/destroyphoto/{id}', 'RecipeController@destroyphoto')->name('recipes.destroyphoto');
-Route::get('/recipes/loadphotos/{id}','RecipeController@loadphotos')->name('recipes.loadphotos');
-Route::get('/recipes/modalgroceries/{id}','RecipeController@modalgroceries')->name('recipes.modalgroceries');
-Route::get('/recipes/modalbasketload/{id}','RecipeController@modalbasketload')->name('recipes.modalbasketload');
-Route::get('/recipes/basketload/{id}','RecipeController@basketload')->name('recipes.basketload');
-Route::get('/recipes/modalgroceriesload/{id}','RecipeController@modalgroceriesload')->name('recipes.modalgroceriesload');
-Route::post('/recipes/addgrocery/{id}','RecipeController@addgrocery')->name('recipes.addgrocery');
-Route::post('/recipes/delgrocery/{id}','RecipeController@delgrocery')->name('recipes.delgrocery');
-Route::get('/recipes/{recipe_id}/groceriessearch', 'RecipeController@groceriessearch')->name('recipes.groceriessearch');
+// Recipe routes grouping test
+Route::namespace('Recipe')->group(function () {
+   
+	// Recipes
+    Route::get('/recipes/{category}/load', 'RecipeController@load')->name('recipes.load');
+    Route::get('/recipes/{category}/search', 'RecipeController@search')->name('recipes.search');
+    Route::get('/recipes/{id}/description','RecipeController@description')->name('recipes.description');
+    Route::put('/recipes/{id}/upddescription', 'RecipeController@upddescription')->name('recipes.upddescription');
+    Route::get('/recipes/{id}/basket','RecipeController@basket')->name('recipes.basket');
+    Route::get('/recipes/{id}/loadphotos','RecipeController@loadphotos')->name('recipes.loadphotos');
+	Route::resource('recipes', 'RecipeController', 
+		[
+			'names' => [
+				'index' 	=> 'recipes',
+				'create' 	=> 'recipes.create',
+				'store' 	=> 'recipes.store',
+				'show' 		=> 'recipes.show',
+				'edit'		=> 'recipes.edit',
+				'update'	=> 'recipes.update',
+				'destroy'	=> 'recipes.destroy',
+			]
+	]);
+
+
+	// Recipe photos
+	Route::post('/recipes/{id}/photos/upload', 'RecipePhotosController@upload')->name('recipes.photos.upload');
+	Route::get('/recipes/{id}/photos/load', 'RecipePhotosController@load')->name('recipes.photos.load');
+	Route::put('/recipes/{id}/photos/{photo_id}/updcover', 'RecipePhotosController@updcover')->name('recipes.photos.updcover');
+	Route::resource('recipes.photos', 'RecipePhotosController', 
+		[
+			'names' => [
+				'index' 	=> 'recipes.photos',
+				'destroy' 	=> 'recipes.photos.destroy',
+			]
+		],
+
+		['only' => ['index', 'destroy']
+
+	]);
+
+
+	// Recipe groceries
+	Route::get('/recipes/{id}/groceries/load', 'RecipeGroceriesController@load')->name('recipes.groceries.load');
+	Route::get('/recipes/{id}/groceries/basket', 'RecipeGroceriesController@basket')->name('recipes.groceries.basket');
+	Route::get('/recipes/{id}/groceries/search', 'RecipeGroceriesController@search')->name('recipes.groceries.search');
+	Route::resource('recipes.groceries', 'RecipeGroceriesController', 
+		[
+			'names' => [
+				'index' 	=> 'recipes.groceries',
+				'store' 	=> 'recipes.groceries.store',
+				'destroy'	=> 'recipes.groceries.destroy',
+			]
+
+		],
+
+		['only' => ['index', 'store', 'destroy']
+	]);
+
+
+});
 
 
 
@@ -100,7 +127,7 @@ Route::get('/locations/country', 'LocationController@country')->name('locations.
 
 
 
-// Plan routes test
+// Plan routes
 
 // Posebno se setuju rute koje ne kreiraju dinamicki sa resource
 Route::namespace('Plan')->group(function () {
@@ -124,6 +151,9 @@ Route::namespace('Plan')->group(function () {
 
 	// Plan items
 	//Route::get('/plans/{plan_id}/items/load', 'PlanItemController@load')->name('plans.items.load');
+	Route::get('/plans/{plan_id}/items/{item_id}/list', 'PlanItemController@list')->name('plans.items.list');
+	Route::get('/plans/{plan_id}/items/{item_id}/recipesreport', 'PlanItemController@recipesreport')->name('plans.items.recipesreport');
+	Route::get('/plans/{plan_id}/items/{item_id}/groceriesreport', 'PlanItemController@groceriesreport')->name('plans.items.groceriesreport');
 	Route::resource('plans.items', 'PlanItemController', 
 		[
 			'names' => [

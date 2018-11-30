@@ -71,7 +71,7 @@ class Grocery extends Model
     }
 
 
-     // Get the category name value for the grocery
+     // Get the category icon
     public function getCategoryIcon() {
         return $this->category()->first()->icon;
     }

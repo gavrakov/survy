@@ -1,42 +1,62 @@
 @extends('layouts.app')
 @section('content')
+
+@php 
+    $categories = $data['categories'];
+    $location   = $data['location'];
+@endphp
+
 <div class="row">
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-body p-0">
-               
-                    <div class="row p-4">
-                        <div class="col">
-                            <button id="create_recipe" class="btn btn-info btn-sm" data-toggle="modal" data-target="#m_create_plan"><i class="fas fa-plus"></i>&nbsp; Create new recipe</button>
-                        </div>
-                        <div class="col">
-                            <input type="text" style="width:50%;" id="plansearch" name="plansearch" class="form-control pull-right" placeholder="Search...">
-                        </div>
-                    </div>
-                    <table id="recipes" class="table">
-                        <!--thead>
-                            <tr>   
-                                <th width="30%" class="border-bottom-0">Photo</th>
-                                <th width="30%" class="border-bottom-0">Name</th>
-                                <th width="10%" class="border-bottom-0">Category</th>
 
-                                @if($location != null)
-                                    <th width="10%" class="border-bottom-0">Price <small class='text-danger'>({{$location->currency}})</small></th>
-                                @endif
+    <!-- Navbar - categories -->
+    <div class="col-md-2">
+        <nav role="categories"> 
 
-                                <th width="10%" class="border-bottom-0">&nbsp;</th>
-                                <th width="10%" class="border-bottom-0">&nbsp;</th>
-                               
-                            </tr>
-                        </thead-->
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-
+            <!-- Search -->
+            <div class="text-center p-0 mb-4">
+                <input type="text" style="width:100%;" id="search" name="search" class="form-control" placeholder="Search...">
+                <input type="hidden" style="width:100%;" id="url_holder" name="url" value="{{route('recipes.load', ['category' => '0'])}}" class="form-control">
+                <input type="hidden" style="width:100%;" id="category_holder" name="category" value="0" class="form-control">
             </div>
-        </div>
+
+             <!-- Create new -->
+            <div class="text-center mb-3">
+                <span id="create_recipe" class="btn btn-info btn-sm" style="width:100%" data-toggle="modal" data-target="#m_create_plan">
+                    <i class="fas fa-plus"></i>&nbsp; Create new recipe
+                </span>
+            </div>
+
+            <!-- Cateogry navigation -->
+            <div class="navbar-categories mb-3">   
+                <ul id="categories-menu" class="list-unstyled components sidebar">
+                    <li id="0" class="nav-item-active">
+                        <a class="nav-link" href="#" onClick="loadRecipes('{{route('recipes.load', ['category' => '0'])}}','0');">All recipes</a>
+                    </li>
+                    @foreach ($categories as $category)
+                      <li id="{{$category->id}}" class="nav-item">
+                        <a class="nav-link" href="#" onClick="loadRecipes('{{route('recipes.load', ['category' => $category->id])}}','{{$category->id}}');">{{$category->name}}</a>
+                      </li>
+                    @endforeach
+                </ul>
+            </div>
+        </nav>
     </div>
+
+    <div id="holder" class="col-md-10">
+        <div id="recipes" class="card-columns-recipes" >
+            <!-- Load recipes -->
+
+        
+        </div>
+        <div class="ajax-load text-center" style="display:none">
+            <p><img class="center-block" src="{{asset('storage/icons/loading.gif')}}"></img>Loading More post</p>
+        </div>
+
+    </div> <!-- col md-10 - end -->
+
+ 
+
+    
 </div>
 
 
@@ -46,7 +66,7 @@
 $(document).ready(function(){
 
     // Load all recipes
-    loadTableData('{{URL::to('recipes/load')}}');
+    loadDivData("{{ route('recipes.load',['category' => '0']) }}","recipes");
 
     // Modal Create/Edit
     $('#create_recipe').on('click',function(){
@@ -57,38 +77,13 @@ $(document).ready(function(){
 });
 
 
- // Create and Edit grocery
-
-/*function showEditModal(a_url,modal_id) {
-
-    $.ajax({
-
-        headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
-        type: 'get',
-        url: a_url,
-        dataType: 'html',
-
-        success: function(response) {
-            
-            $("#"+modal_id).remove();
-            $('#page_content').append(response);
-            $("#"+modal_id).modal('show');
-            
-        },
-
-        error: function(response) {
-            //console.log(response);
-        }
-    });
-}*/
-
-
- // Delete recipe
+// Delete recipe - Ne radi, ne prepoznaje destroy rutu
 function deleteRecipe(url) {
+
  
     $.ajax({
         headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
-        type: 'get',
+        type: 'delete',
         url: url,
         dataType: 'html',
 
@@ -97,8 +92,7 @@ function deleteRecipe(url) {
             // Prikaz notifikacije
             showNotification('success', 'The recipe was succcessfully deleted');
 
-            // Load all groceries.
-            loadTableData('{{URL::to('recipes/load')}}');
+            loadDivData("{{ route('recipes.load',['category' => '0']) }}","recipes");
 
             console.log(response);
         },
@@ -114,6 +108,75 @@ function deleteRecipe(url) {
     });
    
 }
+
+
+// Load recipe page depends of category
+function loadRecipes(url, category){
+
+    //$("#recipes").html('<img class="center-block" src="{{asset('storage/icons/loading.gif')}}"></img>');
+
+    // Add active class
+    $("#categories-menu > li").each(function(index,value) {
+        $(value).removeClass('nav-item-active');
+        $(value).addClass('nav-item');     
+    });
+
+    $("#"+category).toggleClass('nav-item-active');
+    
+
+
+    // Set category
+    $("#category_holder").val(category);
+
+    // Set url
+    $("#url_holder").val(url);
+
+    // Fade out
+    $("#recipes").fadeOut("fast");
+
+    $.ajax({
+        headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
+        type: 'get',
+        url: url,
+        dataType: 'html', 
+
+        success: function(response) {
+            $("#recipes").html(response);
+            $("#recipes").fadeIn("fast");
+        },
+
+        error: function(response) {
+            $("#recipes").html('<i>The data could not be found</i>');
+        }
+    });
+
+}
+
+
+// Live search 
+$('#search').on('keyup',function(){
+
+    //$("#recipes").html('<img class="center-block" src="{{asset('storage/icons/loading.gif')}}"></img>');
+
+    // Set url
+    var url = $("#url_holder").val();
+     
+    $.ajax({
+     
+        type : 'get',
+        url : url,
+        dataType: 'html',
+        data:{'search':this.value},
+
+        success:function(response){
+
+            console.log(response);
+            //$("#recipes").fadeOut("fast"); 
+            $('#recipes').html(response);  
+        }
+    });
+ 
+});
 
 
 
@@ -142,18 +205,17 @@ function deleteRecipe(url) {
             // Form reset
             form[0].reset();
 
-            //showNotification('success', 'The recipe succcessfully saved');
-
             $("#" + modal_id).modal('hide');
 
-            var url_redirect = '{{URL::to('recipes/show')}}'; 
+            var url_redirect = '{{URL::to('recipes')}}'; 
 
+            // Full url with recipe id
             window.location.replace(url_redirect + '/' + response[1]);
 
        },
 
         error: function(response) {
-            //console.log(response);
+
             // Show errores
             showValidationErrors(response);
         }  
@@ -166,7 +228,7 @@ function deleteRecipe(url) {
 
 // Pagination
 
-$(function() {
+/*$(function() {
     $('tbody').on('click', '.pagination a', function(e) {
         e.preventDefault();
         //$('tbody').append('<img style="position: width="15px" absolute; left: 50%; top: 50%; z-index: -100000;" src="<?php  echo asset('images/proccessing.gif'); ?>" />');
@@ -187,31 +249,51 @@ $(function() {
             alert('Recipes could not be loaded.');
         });
     }
-});
+});*/
 
 
 
-// Live search 
-$('#search').on('keyup',function(){
-  
-    $value=$(this).val();
-     
-    $.ajax({
-     
-        type : 'get',
-        url : '{{URL::to('recipes/search')}}',
-        dataType: 'html',
-        data:{'search':$value},
-        success:function(data){
+ // Infinite scroll - OVO NE RADI DOBRO, NEKADA BRKA STRANICE ZA KATEGORIJE
 
-            console.log(data);
-            $('tbody').html(data);  
-            
+   /* var page = 1;
+    $(window).scroll(function() {
+        if($(window).scrollTop() + $("#recipes").height() >= $(document).height()) {
+            page++;
+            var page_url = $("#url_holder").val();
+            loadMoreData(page,page_url);
         }
- 
     });
- 
-})
+
+
+function loadMoreData(page,page_url){
+    console.log(page_url);
+      $.ajax(
+            {
+                url: page_url + '?page=' + page,
+                type: "get",
+                beforeSend: function()
+                {   
+                    $('#holder > #recipes > .ajax-load').show();
+                }
+            })
+            .done(function(data)
+            {
+                console.log(data);
+                if(data == ""){
+                    $('.ajax-load').html("No more records found");
+                    return;
+                }
+                $('.ajax-load').hide();
+                $("#recipes").append(data);
+                $("#recipes").fadeIn("fast");
+            })
+            .fail(function(jqXHR, ajaxOptions, thrownError)
+            {
+                alert('server not responding...');
+            });
+}*/
+
+
  
 </script>
  
@@ -219,7 +301,11 @@ $('#search').on('keyup',function(){
 <script type="text/javascript">
  
 $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
- 
+
+
+// Add scroll to the page
+$("body").css('overflow-y','scroll');
+
 </script>
 
 @endsection

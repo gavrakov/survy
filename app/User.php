@@ -26,4 +26,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    /*
+    * Return all recipes that belongs to user - with search
+    */
+    public function recipes($request=NULL) {
+
+        if ($request <> NULL or $request <> '') {
+            return  $this->hasMany('App\Recipe')->where('name', 'LIKE' , '%' . $request . '%');
+        }
+
+        return $this->hasMany('App\Recipe');
+    }
+
 }

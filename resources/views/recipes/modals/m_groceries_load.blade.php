@@ -83,7 +83,7 @@
 
 
                 // Load all groceries.
-                loadTableData('{{ route("recipes.modalbasketload",["id" => $recipe->id]) }}','basket');
+                loadTableData('{{ route("recipes.groceries.basket",["id" => $recipe->id]) }}','basket');
 
                 console.log(response);
             },

@@ -12,7 +12,7 @@
                
                 <!-- Checking for errors -->
                 @if ($errors->any())
-                    <div class="alert alert-danger">
+                    <div class="help-block">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -106,6 +106,8 @@
             var fileName = data.originalFiles[0]['name'];
             var fileSize = data.originalFiles[0]['size'];
 
+            //console.log(fileSize);
+
              // Div za prikaz gresaka
             var poruka = $('#poruka');
             // Dodavanje klase za prikaz gresaka
@@ -114,7 +116,7 @@
             // Brisanje prethodnih gresaka
             poruka.empty();
 
-            poruka.append('<span class="help-block"><p class="small"></p></span>');
+            poruka.append('<span class="help-block" style="display:block;"><p class="small"></p></span>');
 
 
             // Provera ekstenzije
@@ -124,19 +126,22 @@
                 $('#poruka .help-block').append(' - Only jpeg, jpg, png and gif images are allowed<br>');
 
             // Provera velicine    
-            } else if (fileSize > 8000000) {
+            } else if (fileSize > 10000000) {
                 $('#poruka .help-block').append('File: ' + fileName);
-                console.log('Maximum allowed size for an image is 8MB');
-                $('#poruka .help-block').append(' - Maximum allowed size for an image is 2MB<br>');
+                console.log('Maximum allowed size for an image is 10MB');
+                $('#poruka .help-block').append(' - Maximum allowed size for an image is 8MB<br>');
 
             // Uploadovanje
             } else {
                 data.submit();
             }
 
+
+
   
         // Upload is done    
         }).on('fileuploaddone', function(e,data) {
+
 
                 // Success
                 if(data.result.success == true) {

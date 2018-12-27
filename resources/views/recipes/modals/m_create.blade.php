@@ -51,6 +51,12 @@
                             @endif
                         </div>
 
+                        <!--- Who can see and use this recipe -->
+                        <div id="f_public" class="form-check">
+                            <input type="checkbox" class="form-check-input" id="public" name="public" value="1">
+                            <label class="form-check-label" for="exampleCheck1">Allow everyone to see and use this recipe</label>
+                        </div>
+
                               
                     </form>
             </div>

@@ -183,7 +183,8 @@ return [
 
         // Location service provider
         App\Providers\LocationServiceProvider::class,
-        App\Providers\PlanServiceProvider::class
+        App\Providers\PlanServiceProvider::class,
+        App\Providers\PhotoServiceProvider::class
 
     ],
 
@@ -240,7 +241,9 @@ return [
         // Location service facade
         'LocationManager'  => App\Services\Facades\LocationManager::class,
         // Plan service facade
-        'PlanManager'  => App\Services\Facades\PlanManager::class
+        'PlanManager'  => App\Services\Facades\PlanManager::class,
+        // Photo service facade
+        'PhotoManager'  => App\Services\Facades\PhotoManager::class,
 
     ],
 

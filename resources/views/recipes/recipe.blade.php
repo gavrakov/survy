@@ -2,28 +2,34 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-4">
-        <div class="card mb-3">
-            <!--div class="panel-heading"><p class="glyphicon glyphicon-book">&nbsp;{{$recipe->name}}</p></div-->
+
+     
+        <div class="col-md-3">
+
+            <!-- Avatar -->
+            <div id="recipe_cover" class="card mb-3">
+                
+                    <div id="avatar" class="card-img">
+                        <div class="image-container p-2">
+                            <img style="" class="image" width="100%" src="{{asset($recipe->cover_link_md())}}">
+                            <div class="middle">
+                                <div id="edit_cover" class="btn btn-light"><i class="fas fa-crop"></i></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+            </div>
+           
+            <!-- Details -->
+            <div class="card mb-3">
                 <div class="card-body">
 
-                    <div class="d-flex">
+                    <div id="details">
 
-                        <div>
-                       
-                             <img class="mr-4" style="position:relative; width:60px;  border-radius:100%; padding: 2px; border:1px #888888 solid"
-                            src="{{asset($recipe->cover_link_sm())}}"
-                          
-                            style="position:relative; border-radius:3%; border:1px">
-                        </div>
-                      
-                        <div>
-
-                            <span id="recipe_name"><h5>{{$recipe->name}}</h5></span>
-                       
-                            <p id="recipe_categories" class="d-inline-block">
-                                <i>
-
+                        <span id="recipe_name"><h5>{{$recipe->name}}</h5></span>
+                   
+                        <p id="recipe_categories" class="d-inline-block">
+                            <i>
                                 <?php $counter = 0; ?>
                                 @foreach($recipe->categories()->get() as $category)
 
@@ -33,92 +39,101 @@
 
                                     <?php $counter ++; ?>
                                 @endforeach
+                            </i>
+                        </p>
+                   
+                        <p>
+                            <span class="d-inline-block">Number of persons:</span> 
+                            <span id="recipe_persons" class="d-inline-block"><b>{{$recipe->persons}}</b></span>
+                        </p>    
+
+                        <p>
+                            <span class="d-inline-block">This recipe cen see and use:&nbsp;</span>
+                                @if($recipe->public == 1)
+                                    <span id="recipe_public" class="d-inline-block"><b>everyone</b></span>
+                                @else
+                                    <span id="recipe_public" class="d-inline-block"><b>only me</b></span>
+                                @endif
+                            </span>                          
+                        </p>    
+
+                        <button id="btn_edit" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.edit',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit details</button>
+
+                        <button id="btn_del" class="btn btn-danger btn-sm" data-toggle="modal"  onClick="deleteRecipe('{{ route('recipes.destroy',['id' => $recipe->id]) }}');"><i class="fa fa-trash"></i>&nbsp;Delete recipe</button>
                             
+                    </div> <!-- Details -->
+                </div>  <!-- Card body -->
 
-                                </i>
-                            </p>
-                       
-                            <p>
-                                <span class="d-inline-block">Number of persons:</span> 
-                                <span id="recipe_persons" class="d-inline-block"><b>{{$recipe->persons}}</b></span>
-                            </p>     
-                                
-                        </div>
+            </div> <!-- Details Card ends -->
 
-                    </div>
 
-                    <button id="btn_edit" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.edit',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit details</button>
+
+        </div> <!-- col-md-3 -->
+                   
+
+        <div class="col-md-5">
+
+            <!-- Description -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h6 class="card-title">Description</h6>
+                    <p id="description_p" class="text-justify">
+                        @if ($recipe->description == '') 
+                            <i>Describe every step in making this recipe...</i>
+                        @else
+                            {{$recipe->description}}
+                        @endif
+                    </p>
+                    <button id="btn_description" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.description',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;
+                        @if ($recipe->description == '')  Add description
+                          @else
+                            Edit description
+                        @endif
+                    </button>
+
+                </div>
             </div>
 
-        </div>
+            <!-- Photos -->
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h6 class="card-title">Photos</h6>
+
+                   
+                    <div id="photos"></div>  
+                    <button id="btn_edit_photos" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit photos
+                    </button> 
+                  
+                </div>
                 
-
-        <!-- Groceries -->	
-        <div class="card mb-3">
-            <div class="card-body p-0">
-               <h6 class="card-title p-3">Groceries</h6>
-
-                <table id="groceries_basket" class="table">
-                    <tbody>
-                        <!-- Load basket - Ajax -->
-                    </tbody>
-                </table>
-               
-                <button id="btn_groceries" class="btn btn-light btn-sm m-3"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</button>
-
             </div>
-            
+
+           
         </div>
 
- 
-    </div> <!-- col-md-4 ends -->
 
+      
+        <div class="col-md-4">
 
-<!-- Description -->
-<div class="col-md-4">
-    <div class="card mb-3">
-        <div class="card-body">
-            <h6 class="card-title">Description</h6>
-            <p id="description_p" class="text-justify">
-                @if ($recipe->description == '') 
-                    <i>Describe every step in making this recipe...</i>
-                @else
-                    {{$recipe->description}}
-                @endif
-            </p>
-            <button id="btn_description" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal" data-path="{{route('recipes.description',['id'=>$recipe->id])}}"><i class="fa fa-edit fa-fw"></i>&nbsp;
-                @if ($recipe->description == '')  Add description
-                  @else
-                    Edit description
-                @endif
-            </button>
+            <!-- Groceries -->
+            <div class="card mb-3">
+                <div class="card-body p-0">
+                   <h6 class="card-title p-3">Groceries</h6>
+
+                    <table id="groceries_basket" class="table">
+                        <tbody>
+                            <!-- Load basket - Ajax -->
+                        </tbody>
+                    </table>
+                   
+                    <button id="btn_groceries" class="btn btn-light btn-sm m-3"><i class="fa fa-edit fa-fw"></i>&nbsp;Add groceries</button>
+
+                </div> 
+            </div> <!-- Groceries ends -->
 
         </div>
-    </div>
-</div>
-
- <!-- Photos -->
-<div class="col-md-4">
-
-    <div class="card mb-3">
-        <div class="card-body">
-            <h6 class="card-title">Photos</h6>
-
-            <!--div id="photos_row" name="photos_row" class="row"-->
-            <div id="photos"></div>  
-            <button id="btn_edit_photos" class="btn btn-light btn-sm" data-toggle="modal" data-target="#myModal"><i class="fa fa-edit fa-fw"></i>&nbsp;Edit photos
-            </button> 
-            <!--/div-->
-        </div>
-        
-    </div>
-    
-</div>
-                
-       
 
 </div>
-
 
 
 <script type="text/javascript">
@@ -154,7 +169,13 @@ $(document).ready(function(){
         $("#btn_edit_photos").on('click', function(){
             showModal('{{ route('recipes.photos',['id' => $recipe->id]) }}','m_photos');
         });
-    
+
+
+        // Open modal edit cover photo
+        $("#edit_cover").on('click',function(){
+            showModal('{{ route('recipes.cover',['id' => $recipe->id]) }}','m_cover');
+        });
+
 
         // Load photos
         loadDivData('{{ route("recipes.loadphotos",["id" => $recipe->id]) }}',"photos");
@@ -175,11 +196,14 @@ $(document).ready(function(){
     * Save recipe  
     */
      function save(modal_id) {
-  
+        //alert($("#public").val());
         var name = $("#name");
         var category = $("#category");
         var persons = $("#persons");
+        var public = $("#public:checked").val();
         var form = $("#edit_f");
+
+        //alert(public);
 
         $.ajax({
             headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
@@ -204,6 +228,11 @@ $(document).ready(function(){
                 $("#recipe_name").html('<h5>' + response.recipe.name + '</h5>');
                 $("#recipe_categories").html('<i>' + response.categories + '</i>');
                 $("#recipe_persons").html('<b>' + response.recipe.persons + '</b>');
+                if(response.recipe.public == 1) {
+                    $("#recipe_public").html('<b>everyone</b>');
+                } else {
+                    $("#recipe_public").html('<b>only me</b>');
+                }
 
            },
 
@@ -214,6 +243,36 @@ $(document).ready(function(){
 
         });
 
+    }
+
+
+
+    // Delete recipe
+    function deleteRecipe(url) {
+
+     
+        $.ajax({
+            headers: {'X-CSRF-TOKEN' : '{{ csrf_token() }}'},
+            type: 'delete',
+            url: url,
+            dataType: 'html',
+
+            success: function(response) {
+               
+                var url_redirect = '{{URL::to('recipes')}}'; 
+                window.location.replace(url_redirect);
+            },
+
+            error: function(response) {
+
+                // Prikaz notifikacije
+                showNotification('danger', 'The recipe could not be deleted');
+
+                console.log(response);
+            }
+
+        });
+       
     }
 
 </script>

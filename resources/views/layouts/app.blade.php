@@ -40,6 +40,10 @@
     <!-- Bootstrap datepicker -->
     <link href="{{ asset('css/bootstrap-datepicker.css') }}" rel="stylesheet" type="text/css">
 
+    <!-- Croppie - photograph manipulation and croping -->
+    <link href="{{ asset('css/croppie.css') }}" rel="stylesheet" type="text/css">
+
+
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
@@ -125,11 +129,25 @@
     <script src="{{ asset('js/file/jquery.iframe-transport.js') }}"></script>
     <script src="{{ asset('js/file/jquery.fileupload.js') }}"></script>
 
-       <!-- Bootstrap datepicker -->
+    <!-- Bootstrap datepicker -->
     <script src="{{ asset('js/bootstrap-datepicker.js') }}"></script>
+
+    <!-- Croppie - photograph manipulation and croping -->
+    <script src="{{ asset('js/croppie.js') }}"></script>
+
+    <!-- Infinite Scroll -->
+    <script src="{{ asset('js/infinite-scroll.js') }}"></script>
 
     <!-- Select2 js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+
+    <!-- ~~~~~~~~~~~~~~~ -->
+    <!-- Survy functions -->
+    <!-- ~~~~~~~~~~~~~~~ -->
+
+    <!-- Data loader -->
+       <script src="{{ asset('js/survy/loader.js') }}"></script>
 
    
 

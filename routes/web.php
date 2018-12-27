@@ -67,6 +67,22 @@ Route::namespace('Recipe')->group(function () {
 		['only' => ['index', 'destroy']
 
 	]);
+	
+
+	//Recipe cover crop
+	Route::post('/recipes/{id}/cover/crop', 'RecipeCoverController@crop')->name('recipes.cover.crop');
+	Route::resource('recipes.cover', 'RecipeCoverController', 
+		[
+			'names' => [
+				'index' 	=> 'recipes.cover',
+				'destroy' 	=> 'recipes.cover.destroy',
+			]
+		],
+
+		['only' => ['index', 'destroy']
+
+	]);
+
 
 
 	// Recipe groceries

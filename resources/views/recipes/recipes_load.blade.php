@@ -9,8 +9,8 @@
     	@foreach ($recipes as $recipe)
 
             <!-- Recipe card -->
-            <div class="card text-center m-1" style="width:200px;">
-                <a href="{{route('recipes.show',['id' => $recipe->id])}}"><img class="card-img-top mb-2"  src="{{asset($recipe->cover_link_sm())}}"></a>
+            <div class="card text-center mb-3" style="width:240px;">
+                <a href="{{route('recipes.show',['id' => $recipe->id])}}"><img class="card-img-top mb-2"  src="{{asset($recipe->cover_link_md())}}"></a>
                 <div class="card-body p-2">
 
                     <h6 class="card-title mb-0">{{$recipe->name}}</h6>
@@ -46,7 +46,7 @@
                     <button class="btn btn-light btn-sm m-2"  onClick="window.location.replace('{{route("recipes.show",["id" => $recipe->id])}}')">
                         <i class="fa fa-edit fa-fw"></i>&nbsp;Edit</button>
 
-                    <button class="btn btn-light btn-sm" id="del_{{$recipe->id}}" onClick="deleteRecipe('{{ route('recipes.destroy',['id' => $recipe->id]) }}');" ><i class="fas fa-trash"></i>&nbsp;Delete</button>
+                    <!--button class="btn btn-light btn-sm" id="del_{{$recipe->id}}" onClick="deleteRecipe('{{ route('recipes.destroy',['id' => $recipe->id]) }}');" ><i class="fas fa-trash"></i>&nbsp;Delete</button-->
                     
                 </div> <!-- Card body - end -->  
 
@@ -54,6 +54,7 @@
             <!-- Recipe card - end -->
 
     	@endforeach
-            <!--tr class="align-middle"><td colspan="100%" align="center">{{ $recipes->links() }}</td></tr-->         
+            <!--tr class="align-middle"><td colspan="100%" align="center">{{ $recipes->links("pagination::bootstrap-4") }}</td></tr-->   
+           <!-- {{ $recipes->links("pagination::bootstrap-4") }}       -->
     @endif
 

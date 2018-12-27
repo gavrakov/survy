@@ -12,18 +12,19 @@
             <!-- photos -->
             <div class="card m-1" style="width:150px;">
 
-                <img class="card-img-top" name="{{$photo->id}}" src="{{asset($photo->link_sm())}}">
+                <img class="card-img-top" name="{{$photo->id}}" src="{{asset($photo->link_md())}}">
 
                 <!--div class="card-body text-center p-1"-->
                 <div class="card-img-overlay p-0 text-center">
                     <div style="display:block; background-color: rgba(255,255,255,0.5); padding:3px;">
-                    <button name="cover_{{$photo->id}}" type="button" 
+                    <button name="cover_{{$photo->id}}" type="button" onClick="cover('{{ route('recipes.photos.updcover',['id' => $recipe->id, 'photo_id => $photo->id']) }}','{{$photo->id}}');"
                         @if ($photo->cover == 1) 
                             class="btn btn-primary btn-circle"
                         @else
                             class="btn btn-default btn-circle"
                         @endif 
-                        onClick="cover('{{ route('recipes.photos.updcover',['id' => $recipe->id, 'photo_id => $photo->id']) }}','{{$photo->id}}');"><i class="fa fa-check"></i></button>
+
+                        ><i class="fa fa-check"></i></button>
                     <button name="destroy_{{$photo->id}}" type="button" class="btn btn-danger btn-circle" onClick="destroy('{{ route('recipes.photos.destroy',['id' => $recipe->id, 'photo_id' => $photo->id]) }}');"><i class="fa fa-times"></i></button>   
                     </div> 
                 </div>
@@ -41,6 +42,7 @@
 
     // Update cover photo
     function cover(a_url,id) {
+
 
         var form = $('#upd_f');
 

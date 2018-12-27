@@ -20,6 +20,7 @@ use App\RecipeGroceriesRelation;
 use Validator;
 use Illuminate\Support\Facades\DB;
 use App\Country;
+use \PhotoManager; // Service for upload and manage photos
 
 
 
@@ -109,7 +110,7 @@ class RecipePhotosController extends Controller
         $recipe = Recipe::find($recipe_id);
 
 
-        $photo = RecipesPhotos::find($photo_id);
+        $photo = RecipesPhotos::find($photo_id);    // OVO SVE PREBACITI U PhotoManager
 
         // Ako je fotografija cover setujemo novi cover
         if ($photo->cover == 1) {
@@ -123,9 +124,9 @@ class RecipePhotosController extends Controller
             
         }
 
-        $photo_path = 'public/photos/recipes/' . $photo->dir . '/' . $photo->name;
-        $thumb_300 = 'public/photos/recipes/' . $photo->dir . '/thumbs/300_' . $photo->name;
-        $thumb_150 = 'public/photos/recipes/' . $photo->dir . '/thumbs/150_' . $photo->name;
+        $photo_path = config('photos.public.recipes') . $photo->dir . '/' . $photo->name;
+        $thumb_300 = config('photos.public.recipes') . $photo->dir . '/thumbs/md_' . $photo->name;
+        $thumb_150 = config('photos.public.recipes') . $photo->dir . '/thumbs/sm_' . $photo->name;
 
         // Brisanje fotografija ukljucujuci i thumbnail fotke
         Storage::delete([$photo_path,$thumb_300,$thumb_150]);
@@ -146,7 +147,8 @@ class RecipePhotosController extends Controller
      * @param  int  $id
      * @return Illuminate\Http\Response
      */
-    //UploadRecipesPhotosRequest 
+   
+
     public function upload(Request $request, $id) {
 
         // Ovde moram da iskoristim UploadRecipesPhotosRequest, sve uradjeno samo srediti klijent deo kada jquery treba da prepozna status 422
@@ -160,11 +162,11 @@ class RecipePhotosController extends Controller
         // Validation
         $validator = Validator::make(
             $input_data, [
-            'photos.*' => 'required|mimes:jpg,jpeg,png,gif|max:8192'
+            'photos.*' => 'required|mimes:jpg,jpeg,png,gif|max:10240'
             ]
             ,[
                 'photos.*.mimes' => 'Only jpeg, jpg, png and gif images are allowed',
-                'photos.*.max' => 'Maximum allowed size for an image is 8MB',
+                'photos.*.max' => 'Maximum allowed size for an image is 10MB',
             ]
         );
 
@@ -175,117 +177,23 @@ class RecipePhotosController extends Controller
         }
 
 
+        // Upload
         if (!empty($request->photos)) {
 
 
             foreach($request->photos as $photo){
 
-                // ONEMOGUCITI UPLOAD FOTOGRAFIJE U KOLIKO FAJL SA ISTIM IMENOM VEC POSTOJI
+                // Upload path
+                $path = config('photos.public.recipes');
+           
 
-                // Make filename to upload and store in database
-                $filename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME); //. '_' .time();
-                $extension = $photo->getClientOriginalExtension();
-                $filenameToStore = $filename . '.' . $extension;
-                $filenameToStore_300 = '300_' . $filename . '.' . $extension;
-                $filenameToStore_150 = '150_' . $filename . '.' . $extension;
-               
-
-                // Directory for storing photos
-                $photos_dir = 'public/photos/recipes/' .hash('sha256', $recipe->id). '/';
-
-                if (Storage::exists($photos_dir . $filenameToStore)) {
-                    $filename = $filename . rand(1,100);
-                    $filenameToStore = $filename . '.' . $extension;
-                    $filenameToStore_300 = '300_' . $filename . '.' . $extension;
-                    $filenameToStore_150 = '150_' . $filename . '.' . $extension;
-                }
-
-
-
-                // Directory for storing photos thumbs
-                $thumbs_dir = $photos_dir . 'thumbs/';
-
-                // Upload photo
-                $photo->storeAs($photos_dir,$filenameToStore);
-
-                // Upload thumb 300
-                $photo->storeAs($thumbs_dir,$filenameToStore_300);
-
-                 // Upload thumb 150
-                $photo->storeAs($thumbs_dir,$filenameToStore_150);
-
-                // Thumbs 300 fullpath
-                $thumbsPath_300 = $thumbs_dir . $filenameToStore_300;
-
-                // Thumbs 150 fullpath
-                $thumbsPath_150 = $thumbs_dir . $filenameToStore_150;
-
-                // Image width/height
-                $img_width = Image::make($photo->getRealPath())->width();
-                $img_height = Image::make($photo->getRealPath())->height();
-
-
-                // Ako je sirina veca od duzine
-                if ($img_width > $img_height) {
-
-                    /*$thumb_300 = Image::make(Storage::get($thumbsPath_300))->resize(null,320,function($constraint){
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    })->crop(300,300,3,3)->encode();*/
-
-                    $thumb_300 = Image::make(Storage::get($thumbsPath_300))->resize(null,320,function($constraint){
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    })->fit(300)->encode();
-
-
-
-                    /*$thumb_150 = Image::make(Storage::get($thumbsPath_150))->resize(null,120,function($constraint){
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    })->crop(100,100,1,1)->encode();*/
-
-                    $thumb_150 = Image::make(Storage::get($thumbsPath_150))->resize(null,120,function($constraint){
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    })->fit(100)->encode();
-
-                // Sirina manja od duzine    
-                } else {
-                   /* $thumb_300 = Image::make(Storage::get($thumbsPath_300))->resize(320,null,function($constraint){
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    })->crop(300,300,3,3)->encode();*/
-
-                    $thumb_300 = Image::make(Storage::get($thumbsPath_300))->resize(320,null,function($constraint){
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    })->fit(300)->encode();
-
-
-                    /*$thumb_150 = Image::make(Storage::get($thumbsPath_150))->resize(120,null,function($constraint){
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    })->crop(100,100,1,1)->encode();*/
-
-                    $thumb_150 = Image::make(Storage::get($thumbsPath_150))->resize(120,null,function($constraint){
-                        $constraint->aspectRatio();
-                        $constraint->upsize();
-                    })->fit(100)->encode();
-
-
-
-                }
-
-                // Save resized photo
-                Storage::put($thumbsPath_300, $thumb_300);
-                Storage::put($thumbsPath_150, $thumb_150);
-
+                // Upload photos and create thumbnails
+                PhotoManager::uploadWithThumbnails($photo, $path, $recipe->id);
                                 
                 // Insert uploaded photograph into the database
                 $recipePhoto = new RecipesPhotos;
 
-                $recipePhoto->name = $filenameToStore;
+                $recipePhoto->name = PhotoManager::filename();
                 $recipePhoto->recipe_id = $recipe->id;
 
                 // Setovanje covera
@@ -293,11 +201,9 @@ class RecipePhotosController extends Controller
                
                 $recipePhoto->dir = hash('sha256', $recipe->id);
 
-                // Save u bazi
                 $recipePhoto->save();
 
             }
-
 
         } 
 

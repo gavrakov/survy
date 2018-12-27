@@ -87,7 +87,14 @@ class RecipeController extends Controller
         
         $recipe->name = $request->input('name');
         $recipe->persons = $request->input('persons');
+        $recipe->public = $request->input('public');
+           
+        if($recipe->public != 1){
+            $recipe->public = 0;
+        }
+        
         $recipe->user_id = Auth::user()->id;
+
         $recipe->save();
 
         foreach($request->input('categories') as $category) {
@@ -207,6 +214,12 @@ class RecipeController extends Controller
 
             $recipe->name = $request->input('name');
             $recipe->persons = $request->input('persons');
+            $recipe->public = $request->input('public');
+           
+            if($recipe->public != 1){
+                $recipe->public = 0;
+            }
+
             $recipe->save();
 
             // Brisem sve kategorije koje pripadaju receptu i dodajem kategorije koje su oznacne na formi
@@ -296,14 +309,29 @@ class RecipeController extends Controller
         // All recipes
         if ($category == '0') {
 
-            $data['recipes'] = Auth::user()->recipes($request->search)->orderBy('id','desc')->paginate(12);
+            $data['recipes'] = Auth::user()->recipes($request->search)->orderBy('id','desc')->paginate(5);
         
         // Recipes by category    
         } else {
 
-            $data['recipes'] = RecipesCategory::find($category)->recipes($request->search)->orderBy('id','desc')->paginate(12);
+            $data['recipes'] = RecipesCategory::find($category)->recipes($request->search)->orderBy('id','desc')->paginate(5);
            
         }
+
+        // Ovo je pokusaj da se nesto uradi
+       /* $data['lp'] = false;
+
+        $lastPage = $data['recipes']->lastPage(); 
+        $currentPage = $data['recipes']->currentPage();
+
+        if ($lastPage == $currentPage) {
+            $data['lp'] = true;
+        }*/
+
+        if ($data['recipes']->count() == 0) {
+            return 'nomore';
+        }
+
 
         // Ajax
         if($request->ajax()) {

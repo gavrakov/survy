@@ -72,12 +72,18 @@
                             @endif
                         </div>
 
+                        <div id="f_public" class="form-check">
+                            <input type="checkbox" class="form-check-input" id="public" name="public" value="1"
+                            @if ($recipe->public == 1) checked @endif >
+                            <label class="form-check-label" for="exampleCheck1">Allow everyone to see and use this recipe</label>
+                        </div>
+
                               
                     </form>
             </div>
             <div class="modal-footer">
-                <button id="btn_close" data-dismiss="modal" type="button" name="btn_close" class="btn btn-md btn-secondary">Close</button>
                 <button id="btn_edit" onClick="save('edit');" type="button" name="btn_edit" class="btn btn-md btn-info">Save</button>
+                <button id="btn_close" data-dismiss="modal" type="button" name="btn_close" class="btn btn-md btn-secondary">Close</button>
             </div>
         </div>
   </div>  

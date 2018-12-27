@@ -18,7 +18,7 @@ class Recipe extends Model
      * @var array
      */
     protected $fillable = [
-        'name','description'
+        'name','description','public'
     ];
 
 
@@ -64,11 +64,26 @@ class Recipe extends Model
 
 
     /**
+     * Get the cover 320px size photo for the recipe with output link.
+     */
+    public function cover_link_md() {
+        
+        $photo = $this->hasMany('App\RecipesPhotos')->where('cover',1)->first();
+
+        // If photo does not exists, returns default cover
+        return $photo == '' ? RecipesPhotos::link_default_md() : $photo->link_md();
+    }
+
+
+
+
+    /**
      * Get all groceries for the recipe.
      */
     public function groceries() {
         return $this->hasMany('App\RecipeGroceriesRelation');
     }
+
 
 
 

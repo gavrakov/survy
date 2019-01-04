@@ -112,14 +112,21 @@ a[aria-expanded="true"] {
     background: #dee9ed;
 }
 
+
 a[data-toggle="collapse"] {
     position: relative;
 }
 
+.dropdown-toggle::after {
+    float: right;
+    margin-top: 6px;
+}
+
 ul ul a {
-    font-size: 0.9em !important;
+    font-size: 1em !important;
     padding-left: 30px !important;
-    background: #6d7fcc;
+    color: #3f6673;
+    background: #f8fafb
 }
 
 

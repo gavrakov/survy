@@ -27,9 +27,9 @@ class RecipesCategory extends Model
 
 
     /*
-    * Get all recipes that belogns to the category
+    * Get all user recipes that belogns to the category
     */
-    public function recipes($request='') {
+    public function myRecipes($request='') {
 
         if($request == '') {
             return $this->belongsToMany('App\Recipe','recipe_categories_relation', 'category_id', 'recipe_id')->where('user_id', Auth::user()->id);
@@ -38,6 +38,21 @@ class RecipesCategory extends Model
         }
         
     }   
+
+
+
+    /*
+    * Get all other users recipes that belogns to the category
+    */
+    public function otherUsersRecipes($request='') {
+
+        if($request == '') {
+            return $this->belongsToMany('App\Recipe','recipe_categories_relation', 'category_id', 'recipe_id')->where([['user_id', '!=', Auth::user()->id],['public', 1]]);
+        } else {
+            return $this->belongsToMany('App\Recipe','recipe_categories_relation', 'category_id', 'recipe_id')->where([['user_id', '!=', Auth::user()->id],['public', 1],['name','LIKE','%' . $request . '%']]);
+        }
+        
+    } 
 
 
 }

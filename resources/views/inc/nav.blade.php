@@ -23,13 +23,55 @@
             <a href="{{route('locations')}}"><i class="fa fa-globe"></i> <span>Locations</span></a>
         </li>
         <li>
-            <a href="{{ route('recipes') }}"><i class="fa fa-book"></i> <span>Recepies</span></a>
+            <a href="#recipesSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-book"></i> <span>Recipes</span></a>
+            <ul class="collapse list-unstyled" id="recipesSubmenu">
+                <li>
+                    <a href="{{route('recipes')}}">My Recipes</a>
+                </li>
+                <li>
+                    <a href="{{route('recipesall')}}">All recipes</a>
+                </li>
+                <li>
+                    <a href="#">Yum Yum</a>
+                </li>
+            </ul>
         </li>
         <li>
             <a href="{{ route('groceries') }}"><i class="fas fa-apple-alt"></i> <span>Groceries</span></a>
         </li>
 
-        <li><a><i class="fas fa-toggle-on"></i></a> </li>
+        <!--li><a><i class="fas fa-toggle-on"></i></a> </li>
+
+        <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Third Level <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                    </ul>
+                                    
+                                </li>
+                            </ul>
+                         
+        </li-->
       
     </ul>
 

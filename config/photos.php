@@ -42,7 +42,11 @@ return [
 
 
 		// Directory of app icons
-		'icons' => 'public/icons/'
+		'icons' => 'public/icons/',
+
+
+		// Directory of users photos
+		'users' => '/uploads/users/'
 	],
 
 

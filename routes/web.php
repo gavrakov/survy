@@ -28,7 +28,7 @@ Route::get('/user', 'UserController@profile')->name('user.profile');
 Route::post('/user/update', 'UserController@update')->name('user.update');
 
 
-// Recipe routes grouping test
+// Recipe routes grouping
 Route::namespace('Recipe')->group(function () {
    
 	// Recipes
@@ -84,7 +84,6 @@ Route::namespace('Recipe')->group(function () {
 	]);
 
 
-
 	// Recipe groceries
 	Route::get('/recipes/{id}/groceries/load', 'RecipeGroceriesController@load')->name('recipes.groceries.load');
 	Route::get('/recipes/{id}/groceries/basket', 'RecipeGroceriesController@basket')->name('recipes.groceries.basket');
@@ -104,6 +103,30 @@ Route::namespace('Recipe')->group(function () {
 
 
 });
+
+
+
+// All Recipe routes grouping
+Route::namespace('RecipeAll')->group(function () {
+
+		// Recipes
+    Route::get('/recipesall/{category}/load', 'RecipeAllController@load')->name('recipesall.load');
+    Route::get('/recipesall/{category}/search', 'RecipeAllController@search')->name('recipesall.search');
+	Route::resource('recipesall', 'RecipeAllController', 
+		[
+			'names' => [
+				'index' 	=> 'recipesall',
+				'create' 	=> 'recipesall.create',
+				'store' 	=> 'recipesall.store',
+				'show' 		=> 'recipesall.show',
+				'edit'		=> 'recipesall.edit',
+				'update'	=> 'recipesall.update',
+				'destroy'	=> 'recipesall.destroy',
+			]
+	]);
+
+});
+
 
 
 

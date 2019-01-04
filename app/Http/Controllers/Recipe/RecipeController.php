@@ -309,12 +309,12 @@ class RecipeController extends Controller
         // All recipes
         if ($category == '0') {
 
-            $data['recipes'] = Auth::user()->recipes($request->search)->orderBy('id','desc')->paginate(5);
+            $data['recipes'] = Auth::user()->myRecipes($request->search)->orderBy('id','desc')->paginate(20);
         
         // Recipes by category    
         } else {
 
-            $data['recipes'] = RecipesCategory::find($category)->recipes($request->search)->orderBy('id','desc')->paginate(5);
+            $data['recipes'] = RecipesCategory::find($category)->myRecipes($request->search)->orderBy('id','desc')->paginate(20);
            
         }
 

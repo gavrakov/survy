@@ -116,7 +116,9 @@ class PlanItemRecipeController extends Controller
     */
     public function load(int $plan_id, int $item_id, int $category) {
 
-        $data['recipes'] = RecipesCategory::find($category)->recipes()->paginate(3);
+        $req = '';
+
+        $data['recipes'] = RecipesCategory::find($category)->myRecipes($req)->orderBy('id','desc')->paginate(5);;
 
         if(session()->has('location') !== null) {
             $data['location'] = \App\Country::find(session('location'));
@@ -172,7 +174,7 @@ class PlanItemRecipeController extends Controller
     public function search(Request $request, int $plan_id, int $item_id, int $category) {
 
         if($request->ajax()) {
-            $data['recipes'] = RecipesCategory::find($category)->recipes($request->search)->paginate(3);     
+            $data['recipes'] = RecipesCategory::find($category)->myRecipes($request->search)->paginate(3);     
         }
 
         if(session()->has('location') !== null) {

@@ -51,6 +51,15 @@ class Recipe extends Model
 
 
     /**
+     * Get user.
+     */
+    public function user() {
+        return $this->belongsTo('App\User')->first();
+    }
+
+
+
+    /**
      * Get the cover 150px size photo for the recipe with output link.
      */
     public function cover_link_sm() {
@@ -82,6 +91,16 @@ class Recipe extends Model
      */
     public function groceries() {
         return $this->hasMany('App\RecipeGroceriesRelation');
+    }
+
+
+
+
+    /*
+    * Get all public recipes
+    */
+    public static function getPublicRecipes(){
+        return Recipe::where('public', '=' , 1);
     }
 
 
@@ -132,7 +151,6 @@ class Recipe extends Model
 
         return $total_price;
     }
-
 
 
 }

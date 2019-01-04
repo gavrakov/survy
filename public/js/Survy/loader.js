@@ -136,11 +136,16 @@
 
             success: function(response) {
 
+                console.log(response);
+
                 // Ako vrati nesto
-                if (response != 0) {
+                if (response != 'nomore') {
                     window.page = 1;
                    // $('#show_more').show();
                     $(holder).html(response);
+                    $(holder).fadeIn("fast");
+                } else {
+                    $(holder).html('<h6>No recipes to load.</h6>');
                     $(holder).fadeIn("fast");
                 }
             },
